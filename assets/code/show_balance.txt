@@ -1,0 +1,5 @@
+import { Tesseract } from '@tesseractjs/ethereum-web3'
+
+const web3: Web3 = await Tesseract.Ethereum.Web3('network_endpoint')
+const accounts: string[] = await web3.eth.getAccounts()
+const balance = await web3.eth.getBalance(accounts[0])

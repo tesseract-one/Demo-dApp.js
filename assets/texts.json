@@ -1,0 +1,138 @@
+{
+  "title": "Tesseract",
+  "links": {
+    "tesseract": "https://tesseract.one/",
+    "socials": [
+      {
+        "icon": "twitter",
+        "url": "https://twitter.com/tesseract_one"
+      },
+      {
+        "icon": "linkedin",
+        "url": "https://www.linkedin.com/company/tesseract-one/"
+      },
+      {
+        "icon": "github-circle",
+        "url": "https://github.com/tesseract-one"
+      } 
+    ],
+    "backToSite": {
+      "title": "Back to the website",
+      "icon": "keyboard-backspace",
+      "url": "https://tesseract.one/"
+    }
+  },
+  "example": {
+    "title": "Explore",
+    "copyIcon": "content-copy",
+    "examples": {
+      "showBalance": {
+        "title": "Show Balance",
+        "description": "Just scan the code and welcome aboard, bro! Sounds simple, yeah?",
+        "content": {
+          "title": "Your Balance",
+          "currency": {
+            "name": "Ethereum",
+            "shortcut": "ETH"
+          },
+          "cryptoRateUrl": "https://api.cryptonator.com/api/ticker/eth-usd",
+          "refreshIcon": "refresh"
+        },
+        "tag": "read data"
+      },
+      "sendEther": {
+        "title": "Send ETH",
+        "description": "Wanna the kitty and no time to explain? We get it, buddy, no extra clicks!",
+        "content": {
+          "recipient": {
+            "title": "Recipient Address",
+            "icon": "account"
+          },
+          "amount": {
+            "title": "Amount",
+            "ending": "ETH"
+          },
+          "btn": "Send ETH"
+        },
+        "tag": "transaction"
+      },
+      "getToken": {
+        "title": "Get free Token",
+        "description": "Just scan the code and welcome aboard, bro! Sounds simple, yeah?",
+        "content": {
+          "title": "Wanna some free token?",
+          "tokens": {
+            "weenus": {
+              "title": "Weenus Token",
+              "logo": "W",
+              "addresses": {
+                "main": "0x2823589Ae095D99bD64dEeA80B4690313e2fB519",
+                "ropsten": "0x101848D5C5bBca18E6b4431eEdF6B95E9ADF82FA",
+                "kovan": "0xaFF4481D10270F50f203E0763e2597776068CBc5",
+                "rinkeby": "0xaFF4481D10270F50f203E0763e2597776068CBc5"
+              }
+            },
+            "xeenus": {
+              "title": "Xeenus Token",
+              "logo": "X",
+              "addresses": {
+                "main": "0xeEf5E2d8255E973d587217f9509B416b41CA5870",
+                "ropsten": "0x7E0480Ca9fD50EB7A3855Cf53c347A1b4d6A2FF5",
+                "kovan": "0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c",
+                "rinkeby": "0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c"
+              }
+            },
+            "yeenus": {
+              "title": "Yeenus Token",
+              "logo": "Y",
+              "addresses": {
+                "main": "0x187E63F9eBA692A0ac98d3edE6fEb870AF0079e1",
+                "ropsten": "0xF6fF95D53E08c9660dC7820fD5A775484f77183A",
+                "kovan": "0xc6fDe3FD2Cc2b173aEC24cc3f267cb3Cd78a26B7",
+                "rinkeby": "0xc6fDe3FD2Cc2b173aEC24cc3f267cb3Cd78a26B7"
+              }
+            },
+            "zeenus": {
+              "title": "Zeenus Token",
+              "logo": "Z",
+              "addresses": {
+                "main": "0x0693c3a780A0a757E803a4BD76bCf43d438f8806",
+                "ropsten": "0xC84f8B669Ccb91C86AB2b38060362b9956f2De52",
+                "kovan": "0x1f9061B953bBa0E36BF50F21876132DcF276fC6e",
+                "rinkeby": "0x1f9061B953bBa0E36BF50F21876132DcF276fC6e"
+              }
+            }
+          }
+        },
+        "tag": "transaction"
+      },
+      "showKitties": {
+        "title": "Show Kitties",
+        "description": "Wanna the kitty and no time to explain? We get it, buddy, no extra clicks!",
+        "tag": "contract call"
+      }
+    }
+  },
+  "networks": {
+    "main": {
+      "name": "Ethereum Main Network",
+      "endpoint": "wss://mainnet.infura.io/ws/v3/f20390fe230e46608572ac4378b70668"
+    },
+    "ropsten": {
+      "name": "Ropsten Test Network",
+      "endpoint": "wss://ropsten.infura.io/ws/v3/f20390fe230e46608572ac4378b70668"
+    },
+    "kovan": {
+      "name": "Kovan Test Network",
+      "endpoint": "wss://kovan.infura.io/ws/v3/f20390fe230e46608572ac4378b70668"
+    },
+    "rinkeby": {
+      "name": "Rinkeby Test Network",
+      "endpoint": "wss://rinkeby.infura.io/ws/v3/f20390fe230e46608572ac4378b70668"
+    }
+  },
+  "copyright": {
+    "icon": "copyright",
+    "text": "Made by <span class='company'>Tesseract Systems, Inc.</span> <br />2019 All rights reserved."
+  }
+}

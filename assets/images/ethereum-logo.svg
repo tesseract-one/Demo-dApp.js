@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44" height="44" viewBox="0 0 44 44">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Ellipse_3" data-name="Ellipse 3" cx="22" cy="22" r="22" fill="#4a5ee8"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" clip-path="url(#clip-path)">
+    <g id="ethereum-1" transform="translate(13.447 8.071)">
+      <path id="Path_1" data-name="Path 1" d="M13.4,0,13.21.635v18.42l.187.186,8.55-5.054Z" transform="translate(-4.846)" fill="#bfccef"/>
+      <path id="Path_2" data-name="Path 2" d="M8.55,0,0,14.187l8.55,5.054V0Z" fill="#fefef4"/>
+      <path id="Path_3" data-name="Path 3" d="M13.444,30.021l-.105.128v6.562l.105.307L22,24.969Z" transform="translate(-4.894 -9.161)" fill="#c8c8fd"/>
+      <path id="Path_4" data-name="Path 4" d="M8.55,37.018v-7L0,24.969Z" transform="translate(0 -9.161)" fill="#fefef8"/>
+      <path id="Path_5" data-name="Path 5" d="M13.5,25.21l8.55-5.054L13.5,16.27Z" transform="translate(-4.955 -5.969)" fill="#7d96ea"/>
+      <path id="Path_6" data-name="Path 6" d="M0,20.156,8.55,25.21V16.27Z" transform="translate(0 -5.969)" fill="#c2caf6"/>
+    </g>
+  </g>
+</svg>

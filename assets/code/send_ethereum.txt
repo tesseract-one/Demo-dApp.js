@@ -1,0 +1,9 @@
+import { Tesseract } from '@tesseractjs/ethereum-web3'
+
+const web3: Web3 = await Tesseract.Ethereum.Web3('network_endpoint')
+const accounts: string[] = await web3.eth.getAccounts()
+const sendCallback = await web3.eth.sendTransaction({
+  from: accounts[0],
+  to: accounts[0],
+  value: web3.utils.toWei('0.0001', 'ether')
+})

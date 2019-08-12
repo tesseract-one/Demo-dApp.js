@@ -1,0 +1,65 @@
+.container {
+  position: relative;
+  .active-network {
+    display: flex;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    line-height: 19px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba($cLight, 0.75);
+    cursor: pointer;
+    .up-icon {
+      display: block;
+      margin-left: 4px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 16px;
+      transition: transform $trDefault;
+    }
+  }
+  .networks {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: -12px;
+    z-index: 10;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: $bPrimaryLight;
+    line-height: 19px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $tLightSecondary;
+    white-space: nowrap;
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      right: 13.5px;
+      width: 0;
+      height: 0;
+      border-bottom: 8px solid $bPrimaryLight;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+    }
+    .network {
+      margin-top: 16px;
+      &:first-child {
+        margin-top: 0px;
+      }
+      &.active {
+        color: $cPrimary;
+      }
+    }
+  }
+  &.closed {
+    .active-network .up-icon {
+      transform: rotateX(180deg);
+    }
+    .networks {
+      display: none;
+    }
+  }
+}

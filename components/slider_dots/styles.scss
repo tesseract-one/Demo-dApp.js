@@ -1,0 +1,21 @@
+.slider-dots {
+  position: absolute;
+  top: 50%;
+  right: 33px;
+  width: 8px;
+  transform: translateY(-50%);
+  .dot {
+    margin-top: 10px;
+    width: 8px;
+    height: 8px;
+    border: 1px solid $cLight;
+    border-radius: 100%;
+    background-color: transparent;
+    opacity: 0.75;
+    cursor: pointer;
+    &.choosen {
+      background-color: $cLight;
+      opacity: 1.0;
+    }
+  }
+}

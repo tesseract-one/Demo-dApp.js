@@ -1,0 +1,111 @@
+$bLogo: #627ee8;
+$bdLogo: #5a74d8;
+
+.container {
+  width: 100%;
+  height: 100%;
+  .input {
+    flex: 1 1 auto;
+    width: 0px;
+    height: calc(100% - 1px);
+    border: none;
+    border-radius: 0;
+    background: inherit;
+    line-height: 24px;
+    font-size: 20px;
+    font-weight: 500;
+    color: $tSecondaryDark;
+  }
+  .recipient-title {
+    display: inline-block;
+    line-height: $lhDefault;
+    font-size: 16px;
+    font-weight: bold;
+    color: $tLight;
+  }
+  .recipient-input {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    padding: 0 40px 0 32px;
+    width: 100%;
+    height: 70px;
+    border: 0.5px solid $bdSecondary;
+    border-radius: 8px;
+    background: $bSecondaryDark;
+    .logo {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      width: 44px;
+      height: 44px;
+      border: 0.5px solid $bdLogo;
+      border-radius: 100%;
+      background-color: $bLogo;
+      font-size: 27px;
+      color: $cLight;
+    }
+  }
+  .amount-title {
+    display: inline-block;
+    margin-top: 19px;
+    line-height: $lhDefault;
+    font-size: 16px;
+    font-weight: bold;
+    color: $tLight;
+  }
+  .send {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    margin-top: 12px;
+    .amount-input {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 40px 0 32px;
+      width: calc(100% - 248px);
+      height: 70px;
+      border: 0.5px solid $bdSecondary;
+      border-radius: 8px;
+      background: $bSecondaryDark;
+      .logo {
+        flex: 0 0 auto;
+        margin-right: 16px;
+        width: 44px;
+        height: 44px;
+        border: 0.5px solid $bdLogo;
+        border-radius: 100%;
+        background-color: $bLogo;
+      }
+      .ending {
+        flex: 0 0 auto;
+        margin-left: 16px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 500;
+        color: $tSecondaryDark;
+      }
+    }
+    .btn {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 32px;
+      width: 216px;
+      height: 70px;
+      border: none;
+      border-radius: 8px;
+      background-color: $cPrimary;
+      line-height: 24px;
+      font-size: 20px;
+      font-weight: 500;
+      color: $cLight;
+    }
+  }
+}

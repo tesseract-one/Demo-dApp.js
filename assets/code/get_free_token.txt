@@ -1,0 +1,14 @@
+import { Tesseract } from '@tesseractjs/ethereum-web3'
+
+const web3: Web3 = await Tesseract.Ethereum.Web3('network_endpoint')
+const accounts: string[] = await web3.eth.getAccounts()
+const tx = {
+  from: accounts[0],
+  to: '0xc6fDe3FD2Cc2b173aEC24cc3f267cb3Cd78a26B7',
+  value: web3.utils.toWei('0', 'ether')
+}
+const estimatedGas = await web3.eth.estimateGas(tx)
+const sendCallback = await web3.eth.sendTransaction({
+  ...tx,
+  gas: (estimatedGas * 1.3).toFixed(0).toString()
+})

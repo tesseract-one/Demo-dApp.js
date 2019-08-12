@@ -1,0 +1,75 @@
+.examples {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  transform: scale(1.0);
+  .example {
+    position: relative;
+    z-index: 10;
+    margin-bottom: calc(32px - 20px);
+    width: 100%;
+    transform: scale(0.9);
+    transform-origin: right top;
+    transition: transform $trDefault, margin $trDefault;
+    cursor: pointer;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+    &.choosen, &:hover, &:active, &:focus {
+      margin-bottom: 32px;
+      transform: none;
+      .example-content {
+        border: 1px solid $bdPrimary;
+      }
+    }
+    &-content {
+      position: relative;
+      padding: 28.5px 32px 32px;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background-color: $bPrimaryLight;
+      &:after {
+        content: "";
+        position: absolute;
+        left: 16px;
+        top: 16px;
+        z-index: -1;
+        display: block;
+        width: calc(100% - 32px);
+        height: calc(100% - 32px);
+        border-radius: 8px;
+        background-color: $bPrimaryLight;
+        box-shadow: -16px 16px 32px 0 $bsPrimary;
+        transform: scale(1.0);
+      }
+      .tag {
+        display: inline-block;
+        padding: 5px 16px 4px;
+        border-radius: 4px;
+        background-color: rgba($bDark, 0.08);
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        color: $bDark;
+        letter-spacing: 1.92px;
+      }
+      .title {
+        display: block;
+        margin-top: 25.5px;
+        opacity: 0.8;
+        line-height: 28px;
+        font-size: 24px;
+        font-weight: 500;
+        color: $tPrimary;
+      }
+      .description {
+        margin-top: 16px;
+        line-height: $lhDefault;
+        font-size: 16px;
+        color: $tSecondary;
+      }
+    }
+  }
+}

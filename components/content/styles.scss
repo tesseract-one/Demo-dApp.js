@@ -1,0 +1,29 @@
+.container {
+  padding: 32px 40px 56px 55px;
+  width: 100%;
+  height: 100%;
+  background-color: $bPrimary;
+  .back-link {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    color: $tLight;
+    cursor: pointer;
+    &-icon {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+  }
+  .title {
+    margin-top: 68px;
+    line-height: 75px;
+    font-size: 64px;
+    font-weight: bold;
+    color: $tPrimary;
+  }
+  .example {
+    margin-top: 48px;
+  }
+}
