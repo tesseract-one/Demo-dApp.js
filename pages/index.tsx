@@ -1,31 +1,18 @@
 import * as React from 'react'
-import { Tesseract, Network, Web3 } from '@tesseractjs/ethereum-web3'
+import { Tesseract } from '@tesseractjs/ethereum-web3'
+import * as T from '../types'
 import * as C from '../components'
-
 import texts from '../assets/texts.json'
 import showBalanceTxt from '../assets/code/show_balance.txt'
 import sendEtherTxt from '../assets/code/send_ethereum.txt'
 import showKittiesTxt from '../assets/code/show_kitties.txt'
 import getTokenTxt from '../assets/code/get_free_token.txt'
-
 import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss?raw'
 import '@mdi/font/scss/materialdesignicons.scss?raw'
 import '../assets/styles/global.scss?raw'
 import scss from './styles.scss'
 
-// Tesseract.Ethereum.Web3.rpcUrls = {
-//   [Network.Main]: texts.rpcUrls.main,
-//   [Network.Ropsten]: texts.rpcUrls.ropsten,
-//   [Network.Rinkeby]: texts.rpcUrls.rinkeby,
-//   [Network.Kovan]: texts.rpcUrls.kovan
-// }
-
-
-interface Example {
-  [key: string]: { component: JSX.Element, code: string }
-}
-
-const example: Example = {
+const examples: T.IExamples = {
   showBalance: {
     component: <C.ShowBalance {...texts.example.examples.showBalance.content} />,
     code: showBalanceTxt
@@ -44,43 +31,79 @@ const example: Example = {
   }
 }
 
-export type Web3Context = {
-  web3: Web3 | null,
-  accounts: string[]
-}
-type State = Web3Context & {
-  choosenExampleKey: string
+interface IState extends T.IWeb3Context {
+  choosenExampleKey: T.KExample
 }
 
 export const { 
   Provider: Web3CtxProvider,
   Consumer: Web3CtxConsumer 
-} = React.createContext<Web3Context | null>(null)
+} = React.createContext<T.IWeb3Context | null>(null)
 
-class Index extends React.Component<never, State> {
+class Index extends React.Component<never, IState> {
   readonly state = {
     web3: null,
     accounts: [],
-    choosenExampleKey: "showBalance"
+    web3s: null,
+    activeNetwork: null,
+    choosenExampleKey: 'showBalance' as T.KExample
   }
 
-  chooseExample(choosenExampleKey: string) {
+  chooseExample(choosenExampleKey: T.KExample) {
     this.setState({ choosenExampleKey })
   }
 
-  async changeNetwork(networkEndpoint: string) {
-    const web3 = await Tesseract.Ethereum.Web3(networkEndpoint)
-    // web3.hasClientWallet
-    const accounts: string[] = await web3.eth.getAccounts()
-    this.setState({ web3, accounts })
+  async changeNetwork(network: T.KNetwork) {
+    this.setState(state => ({
+      web3: state.web3s[network].web3,
+      accounts: state.web3s[network].accounts,
+      activeNetwork: network
+    }))
+  }
+
+  async chooseDefaultNetwork() {
+    const network = Object.entries<T.IWeb3s, T.KNetwork>(this.state.web3s)
+      .find(([_, web3]) => web3 !== null)
+
+    if (!network) throw Error('No web3 at all')
+  
+    this.setState({
+      web3: network[1].web3,
+      accounts: network[1].accounts,
+      activeNetwork: network[0]
+    })
+  }
+
+  async loadNetworks() {
+    const web3sArray = await Promise.all(
+      Object.entries<T.INetworks, T.KNetwork>(texts.networks)
+        .map(async (network): Promise<Partial<T.IWeb3s>> => 
+          {
+            try {
+              const web3 = await Tesseract.Ethereum.Web3(network[1].endpoint)
+              if (!web3.hasClientWallet) return { [network[0]]: null }
+              const accounts: string[] = await web3.eth.getAccounts()
+              return { [network[0]]: { web3, accounts } }
+            } catch (error) {
+              console.error(error)
+              return { [network[0]]: null }
+            }
+          }
+        )
+    )
+    const web3s = web3sArray
+      .reduce<Partial<T.IWeb3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.IWeb3s
+
+    this.setState({ web3s })
   }
 
   async componentDidMount() {
-    await this.changeNetwork(texts.networks.main.endpoint)
+    await this.loadNetworks()
+    await this.chooseDefaultNetwork()
   }
 
   render() {
-    if (!this.state.web3) return (
+    if (!this.state || !this.state.web3) return (
       <h1>Waiting for web3 initialization ...</h1>
     )
 
@@ -88,15 +111,22 @@ class Index extends React.Component<never, State> {
       <Web3CtxProvider value={this.state}>
         <div className={scss.container}>
           <div className={scss['left-side']}>
-            <C.MarketingBar />
+            <C.MarketingBar
+              tesseractLink={texts.links.tesseract}
+              socials={texts.links.socials}
+              copyright={texts.copyright}
+            />
           </div>
           <div className={scss.center}>
-            <C.Content>
+            <C.Content
+              title={texts.title}
+              backToSite={texts.links.backToSite}
+            >
               <C.Example
-                code={example[this.state.choosenExampleKey].code}
+                code={examples[this.state.choosenExampleKey].code}
                 copyIcon={texts.example.copyIcon}
               >
-                {example[this.state.choosenExampleKey].component}
+                {examples[this.state.choosenExampleKey].component}
               </C.Example>
             </C.Content>
           </div>
@@ -106,20 +136,22 @@ class Index extends React.Component<never, State> {
               slider={
                 <C.Slider
                   choosenExampleKey={this.state.choosenExampleKey}
-                  examplesEntries={Object.entries(texts.example.examples)}
+                  examples={Object.entries<T.IExamplesText, T.KExample>(texts.example.examples)}
                   chooseExample={this.chooseExample.bind(this)}
                 />
               }
               sliderDots={
                 <C.SliderDots
                   choosenExampleKey={this.state.choosenExampleKey}
-                  examplesKeys={Object.keys(texts.example.examples)}
+                  examplesKeys={Object.keys<T.IExamplesText, T.KExample>(texts.example.examples)}
                   chooseExample={this.chooseExample.bind(this)}
                 />
               }
               networks={
                 <C.Networks
-                  networks={Object.values(texts.networks)}
+                  web3s={this.state.web3s}
+                  networks={texts.networks}
+                  activeNetwork={this.state.activeNetwork}
                   changeNetwork={this.changeNetwork.bind(this)}
                 />
               }

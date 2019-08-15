@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { IExample } from '../../types'
 import scss from './styles.scss'
+import { KExample } from '../../types'
 
-interface Props {
+interface IProps {
   choosenExampleKey: string
-  examplesKeys: string[]
+  examplesKeys: KExample[]
   chooseExample: (exampleKey: string) => void
 }
 
-export const SliderDots = (props: Props) => (
+export const SliderDots = (props: IProps) => (
   <ul className={scss['slider-dots']}>
     {
       props.examplesKeys.map(exampleKey => (

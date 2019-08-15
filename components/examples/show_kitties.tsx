@@ -1,11 +1,16 @@
 import abi from '../../assets/crypto_kitties_abi.json'
 import { AbiItem } from 'web3-utils'
-import { withWeb3Context, Web3ContextedComponentClass } from '../../hocs'
+import { 
+  withWeb3Context,
+  Web3ContextedComponentClass
+} from '../../hocs'
 
-type State = { kitties: string }
+type IState = {
+  kitties: string
+}
 
 export const ShowKitties = withWeb3Context<{}>(
-  class Component extends Web3ContextedComponentClass<{}, State> {
+  class Component extends Web3ContextedComponentClass<{}, IState> {
     readonly kittiesApi = new URL('https://public.api.cryptokitties.co/v1/kitties')
     public state = {
       kitties: 'Few'

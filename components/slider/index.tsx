@@ -1,17 +1,20 @@
 import * as React from 'react'
-import { IExample } from '../../types'
+import {
+  KExample,
+  IExampleText
+} from '../../types'
 import scss from './styles.scss'
 
-interface Props {
+interface IProps {
   choosenExampleKey: string
-  examplesEntries: [string, IExample][]
+  examples: [KExample, IExampleText][]
   chooseExample: (exampleKry: string) => void
 }
 
-export const Slider = (props: Props) => (
+export const Slider = (props: IProps) => (
   <ul className={scss.examples}>
     {
-      props.examplesEntries.map(exampleEntry => (
+      props.examples.map(exampleEntry => (
         <li
           className={`${scss.example} ${exampleEntry[0] === props.choosenExampleKey ? scss.choosen : ''}`}
           onClick={() => props.chooseExample(exampleEntry[0])}

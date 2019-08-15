@@ -1,14 +1,14 @@
 import * as React from 'react'
 import scss from './styles.scss'
 
-interface Props {
+interface IProps {
   title: string
-  slider?: React.ReactNode
-  sliderDots?: React.ReactNode
-  networks?: React.ReactNode
+  slider: React.ReactNode
+  sliderDots: React.ReactNode
+  networks: React.ReactNode
 }
 
-export const Navigation = (props: Props) => (
+export const Navigation = (props: IProps) => (
   <div className={scss.container}>
     <div className={scss.networks}>
       {props.networks}

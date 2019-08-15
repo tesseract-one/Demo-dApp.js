@@ -1,24 +1,25 @@
-import { withWeb3Context, Web3ContextedComponentClass } from '../../../hocs/with_web3_context'
+import {
+  withWeb3Context,
+  Web3ContextedComponentClass
+} from '../../../hocs/with_web3_context'
+import {
+  KFreeToken,
+  KNetwork,
+  IFreeTokens
+} from '../../../types'
 import scss from './styles.scss'
 
-interface Props {
+interface IProps {
   title: string
-  tokens: {
-    [key: string]: {
-      title: string
-      logo: string
-      addresses: {
-        [key: string]: string
-      }
-    }
-  }
+  tokens: IFreeTokens
 }
-type State = {
+
+interface IState {
   sendCallback: string
 }
 
 export const GetFreeToken = withWeb3Context(
-  class Component extends Web3ContextedComponentClass<Props, State> {
+  class Component extends Web3ContextedComponentClass<IProps, IState> {
     readonly state = {
       sendCallback: ''
     }
@@ -50,18 +51,19 @@ export const GetFreeToken = withWeb3Context(
           </span>
           <ul className={scss.tokens}>
             {
-              Object.entries(this.props.tokens).map(token => (
-                <li
-                  className={`${scss.token} ${scss[token[0]]}`}
-                  key={token[1].title}
-                  onClick={this.getToken.bind(this, token[1].addresses.rinkeby)}
-                >
-                  <div className={scss.logo}>
-                    {token[1].logo}
-                  </div>
-                  {token[1].title}
-                </li>
-              ))
+              Object.entries<IFreeTokens, KFreeToken>(this.props.tokens)
+                .map(token => (
+                  <li
+                    className={`${scss.token} ${scss[token[0]]}`}
+                    key={token[1].title}
+                    onClick={this.getToken.bind(this, token[1].addresses.rinkeby)}
+                  >
+                    <div className={scss.logo}>
+                      {token[1].logo}
+                    </div>
+                    {token[1].title}
+                  </li>
+                ))
             }
           </ul>
         </div>

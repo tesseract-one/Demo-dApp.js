@@ -1,3 +1,6 @@
+$bLogo: #627ee8;
+$bdLogo: #5a74d8;
+
 .container {
   position: relative;
   display: flex;
@@ -29,20 +32,11 @@
     font-weight: 500;
     color: $tSecondaryDark;
     .logo {
-      position: relative;
       width: 44px;
       height: 44px;
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: block;
-        width: 44px;
-        height: 44px;
-        border-radius: 100%;
-        background-color: #4a5ee8;
-      }
+      border: 0.5px solid $bdLogo;
+      border-radius: 100%;
+      background-color: $bLogo;
     }
     .name {
       margin-left: 16px;

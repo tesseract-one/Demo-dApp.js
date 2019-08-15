@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Web3Context, Web3CtxConsumer } from "../pages"
+import { Web3CtxConsumer } from "../pages"
+import { IWeb3Context } from '../types'
 
-type Context = { web3Ctx?: Web3Context | null }
+type Context = { web3Ctx: IWeb3Context | null }
 
 export class Web3ContextedComponentClass<P, S> extends React.Component<P & Context, S> {}
 

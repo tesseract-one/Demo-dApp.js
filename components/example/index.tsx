@@ -1,24 +1,17 @@
 import * as React from 'react'
 import HL from 'react-highlight/lib/optimized'
+import { HighlightComponent } from '../../types'
 import 'highlight.js/scss/vs.scss?raw'
 import scss from './styles.scss'
 
-interface HighlightProps {
-  languages?: string[]
-  children?: React.ReactNode  
-  className?: string
-  innerHTML?: boolean
-}
+const Highlight = HL as HighlightComponent
 
-const Highlight = HL as any
-// React.Component<HighlightProps, {}>
-
-type Props = {
+interface IProps  {
   code: string
   copyIcon: string
 }
 
-export const Example = (props: React.PropsWithChildren<Props>) => {
+export const Example = (props: React.PropsWithChildren<IProps>) => {
   function copyCode() {
     navigator.clipboard.writeText(props.code)
       .then(() => {

@@ -92,6 +92,7 @@ $bdLogo: #5a74d8;
       }
     }
     .btn {
+      position: relative;
       flex: 0 0 auto;
       display: flex;
       align-items: center;
@@ -106,6 +107,18 @@ $bdLogo: #5a74d8;
       font-size: 20px;
       font-weight: 500;
       color: $cLight;
+      &:before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        display: block;
+        width: calc(100% - 16px);
+        top: calc(100% - 16px);
+        border-radius: 8px;
+        background-color: $cPrimary;
+        box-shadow: 0 8px 16px 0 $bsSecondary;
+      }
     }
   }
 }

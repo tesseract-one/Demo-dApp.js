@@ -1,26 +1,31 @@
 import * as React from 'react'
-import { INetwork } from '../../types'
+import {
+  INetworks,
+  KNetwork,
+  IWeb3s
+} from '../../types'
 import scss from './styles.scss'
 
-interface Props {
-  networks: INetwork[]
-  changeNetwork: (networkEndpoint: string) => void
+interface IProps {
+  web3s: IWeb3s
+  networks: INetworks
+  activeNetwork: KNetwork,
+  changeNetwork: (network: KNetwork) => void
 }
 
-interface State {
+interface IState {
   isOpen: boolean
-  activeNetwork: string
 }
 
-export class Networks extends React.Component<Props, State> {
+export class Networks extends React.Component<IProps, IState> {
   readonly state = {
-    isOpen: false,
-    activeNetwork: this.props.networks[0].name
+    isOpen: false
   }
 
-  changeNetwork(network: INetwork) {
-    this.props.changeNetwork(network.endpoint)
-    this.setState({ activeNetwork: network.name }, this.toggleNetworks)
+  changeNetwork(network: KNetwork) {
+    if (this.props.web3s[network] === null) return
+    this.props.changeNetwork(network)
+    this.toggleNetworks
   }
   
   toggleNetworks() {
@@ -31,20 +36,23 @@ export class Networks extends React.Component<Props, State> {
     return (
       <div className={`${scss.container} ${this.state.isOpen ? '' : scss.closed}`}>
         <button className={scss['active-network']} onClick={this.toggleNetworks.bind(this)}>
-          {this.state.activeNetwork}
+          {this.props.networks[this.props.activeNetwork].name}
           <span className={`${scss['up-icon']} mdi mdi-chevron-up`} />
         </button>
         <ul className={scss.networks}>
           {
-            this.props.networks.map(network =>
-              <li
-                className={`${scss.network} ${this.state.activeNetwork === network.name ? scss.active : ''}`}
-                onClick={this.changeNetwork.bind(this, network)}
-                key={network.name}
-              >
-                {network.name}
-              </li>
-            )
+            Object.entries<INetworks, KNetwork>(this.props.networks)
+             .map(network =>
+                <li
+                  className={`${scss.network}
+                    ${this.props.activeNetwork === network[0] ? scss.active : ''}
+                    ${this.props.web3s[network[0]] === null ? scss.off : scss.on}`}
+                  onClick={this.changeNetwork.bind(this, network[0])}
+                  key={network[0]}
+                >
+                  {network[1].name}
+                </li>
+              )
           }
         </ul>
       </div>

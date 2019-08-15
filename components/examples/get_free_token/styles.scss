@@ -28,10 +28,13 @@ $bZLogo: #a779ff;
     color: $tLightTokens;
   }
   .tokens {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-wrap: wrap;
     margin-top: 24px;
     .token {
+      position: relative;
       display: flex;
       align-items: center;
       width: calc(50% - 12px);
@@ -39,9 +42,23 @@ $bZLogo: #a779ff;
       border-radius: 8px;
       line-height: 24px;
       font-size: 20px;
-      font-weight: 500px;
+      font-weight: 500;
       color: $cLight;
       cursor: pointer;
+      &:before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        z-index: -1;
+        display: block;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+        border-radius: 8px;
+        background-color: $cLight;
+        opacity: 0.5;
+        box-shadow: 0 16px 32px 0 $bsPrimary;
+      }
       &:nth-child(n + 3) {
         margin-top: 24px;
       }

@@ -1,6 +1,10 @@
+$cOn: #43b781;
+$cOff: #FF4B58;
+
 .container {
   position: relative;
   .active-network {
+    position: relative;
     display: flex;
     border: none;
     border-radius: 0;
@@ -10,6 +14,17 @@
     font-weight: 500;
     color: rgba($cLight, 0.75);
     cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      right: calc(100% + 12px);
+      top: calc(50% - 4px);
+      width: 6px;
+      height: 6px;
+      border: 1px solid rgba($cOn, 0.3);
+      border-radius: 100%;
+      background-color: $cOn;
+    }
     .up-icon {
       display: block;
       margin-left: 4px;
@@ -25,7 +40,7 @@
     top: calc(100% + 16px);
     right: -12px;
     z-index: 10;
-    padding: 16px 24px;
+    padding: 16px 32px 16px 36px;
     border-radius: 8px;
     background-color: $bPrimaryLight;
     line-height: 19px;
@@ -45,12 +60,30 @@
       border-right: 8px solid transparent;
     }
     .network {
+      position: relative;
       margin-top: 16px;
+      &:before {
+        content: "";
+        position: absolute;
+        right: calc(100% + 12px);
+        top: calc(50% - 4px);
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+      }
       &:first-child {
         margin-top: 0px;
       }
       &.active {
         color: $cPrimary;
+      }
+      &.on:before {
+        border: 1px solid rgba($cOn, 0.3);
+        background-color: $cOn;
+      }
+      &.off:before {
+        border: 1px solid rgba($cOff, 0.3);
+        background-color: $cOff;
       }
     }
   }

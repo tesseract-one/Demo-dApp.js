@@ -1,9 +1,13 @@
-import { withWeb3Context, Web3ContextedComponentClass } from '../../../hocs'
+import {
+  withWeb3Context,
+  Web3ContextedComponentClass
+} from '../../../hocs'
+import { Nullable } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import SVG from 'react-inlinesvg'
 import scss from './styles.scss'
 
-interface Props {
+interface IProps {
   title: string
   currency: {
     name: string
@@ -12,14 +16,15 @@ interface Props {
   cryptoRateUrl: string
   refreshIcon: string
 }
-interface State {
-  ethRate: number | null
-  balanceEth: number | null
-  balanceUsd: number | null
+
+interface IState {
+  ethRate: number
+  balanceEth: number
+  balanceUsd: number
 }
 
 export const ShowBalance = withWeb3Context(
-  class Component extends Web3ContextedComponentClass<Props, State> {
+  class Component extends Web3ContextedComponentClass<IProps, Nullable<IState>> {
     readonly state = {
       ethRate: null,
       balanceEth: null,
@@ -42,7 +47,6 @@ export const ShowBalance = withWeb3Context(
 
     async updateBalance() {
       const { web3, accounts } = this.props.web3Ctx
-      console.log(web3, accounts)
       const balanceWei = await web3.eth.getBalance(accounts[0])
       const balanceEthAsNumber = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
       const balanceEth = Math.round(balanceEthAsNumber * 1000000) / 1000000

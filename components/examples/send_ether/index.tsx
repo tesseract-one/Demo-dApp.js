@@ -1,11 +1,14 @@
 import * as React from 'react'
-import { withWeb3Context, Web3ContextedComponentClass } from '../../../hocs'
+import {
+  withWeb3Context,
+  Web3ContextedComponentClass
+} from '../../../hocs'
 import { Nullable } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import SVG from 'react-inlinesvg'
 import scss from './styles.scss'
 
-interface Props {
+interface IProps {
   recipient: {
     title: string
     icon: string
@@ -16,14 +19,15 @@ interface Props {
   }
   btn: string
 }
-interface State {
+
+interface IState {
   address: string
   amount: string
   sendCallback: string
 }
 
 export const SendEther = withWeb3Context(
-  class Component extends Web3ContextedComponentClass<Props, Nullable<State>> {
+  class Component extends Web3ContextedComponentClass<IProps, Nullable<IState>> {
     readonly state = {
       address: null,
       amount: null,

@@ -1,7 +1,7 @@
 // next.config.js
 const withSass = require('@zeit/next-sass')
 const webpack = require('webpack')
-const path = require('path')
+
 module.exports = withSass({
   cssModules: true,
   cssLoaderOptions: {
@@ -17,28 +17,24 @@ module.exports = withSass({
     config.module.rules.forEach(rule => {
       if (rule.test.toString().includes('.scss')) {
         rule.rules = rule.use.map(useRule => {
-          if (typeof useRule === 'string') {
-            return { loader: useRule }
-          }
+          if (typeof useRule === 'string') return { loader: useRule }
 
-          if (useRule.loader.startsWith('css-loader')) {
-            return {
-              oneOf: [
-                {
-                  test: new RegExp('.scss$'),
-                  resourceQuery: /^\?raw$/,
-                  loader: useRule.loader,
-                  options: { ...useRule.options, modules: false },
-                },
-                {
-                  loader: useRule.loader,
-                  options: useRule.options,
-                },
-              ],
-            }
-          }
-
-          return useRule
+          return useRule.loader.startsWith('css-loader')
+            ? {
+                oneOf: [
+                  {
+                    test: new RegExp('.scss$'),
+                    resourceQuery: /^\?raw$/,
+                    loader: useRule.loader,
+                    options: { ...useRule.options, modules: false }
+                  },
+                  {
+                    loader: useRule.loader,
+                    options: useRule.options
+                  }
+                ]
+              }
+            : useRule
         })
 
         delete rule.use
@@ -49,7 +45,7 @@ module.exports = withSass({
       use: 'raw-loader'
     })
     config.module.rules.push({
-      test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
+      test: /\.(png|jpe?g|gif|eot|ttf|woff|woff2)$/,
       use: {
         loader: 'url-loader',
         options: {
