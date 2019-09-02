@@ -53,7 +53,7 @@ class Index extends React.Component<never, IState> {
     this.setState({ choosenExampleKey })
   }
 
-  async changeNetwork(network: T.KNetwork) {
+  changeNetwork(network: T.KNetwork) {
     this.setState(state => ({
       web3: state.web3s[network].web3,
       accounts: state.web3s[network].accounts,
@@ -61,7 +61,7 @@ class Index extends React.Component<never, IState> {
     }))
   }
 
-  async chooseDefaultNetwork() {
+  chooseDefaultNetwork() {
     const network = Object.entries<T.IWeb3s, T.KNetwork>(this.state.web3s)
       .find(([_, web3]) => web3 !== null)
 
@@ -94,12 +94,11 @@ class Index extends React.Component<never, IState> {
     const web3s = web3sArray
       .reduce<Partial<T.IWeb3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.IWeb3s
 
-    this.setState({ web3s })
+    this.setState({ web3s }, this.chooseDefaultNetwork)
   }
 
   async componentDidMount() {
     await this.loadNetworks()
-    await this.chooseDefaultNetwork()
   }
 
   render() {
