@@ -5,7 +5,6 @@ import {
 } from '../../../hocs'
 import { Nullable } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
-import SVG from 'react-inlinesvg'
 import scss from './styles.scss'
 
 interface IProps {
@@ -77,7 +76,7 @@ export const SendEther = withWeb3Context(
           </label>
           <div className={scss.send}>
             <div className={scss['amount-input']}>
-              <SVG className={scss.logo} src={EthereumLogo} />
+              <EthereumLogo className={scss.logo} />
               <input
                 id='amount'
                 className={scss.input}

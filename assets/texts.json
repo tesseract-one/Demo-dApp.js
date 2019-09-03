@@ -106,9 +106,21 @@
         },
         "tag": "transaction"
       },
-      "showKitties": {
-        "title": "Show Kitties",
-        "description": "Wanna the kitty and no time to explain? We get it, buddy, no extra clicks!",
+      "showCuties": {
+        "title": "Show Cuties",
+        "description": "Wanna the cutie and no time to explain? We get it, buddy, no extra clicks!",
+        "content": {
+          "address": "0xD73bE539d6B2076BaB83CA6Ba62DfE189aBC6Bbe",
+          "balance": {
+            "label": "You Have",
+            "title": "Fabulous Cuties"
+          },
+          "token": {
+            "name": "BlockchainCuties",
+            "shortcut": "BC"
+          },
+          "refreshIcon": "refresh"
+        },
         "tag": "contract call"
       }
     }

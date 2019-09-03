@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "^3.9.95",
+    "@svgr/webpack": "^4.3.2",
     "@tesseractjs/ethereum-web3": "^0.0.15",
     "@zeit/next-sass": "^1.0.1",
     "file-loader": "^4.2.0",
@@ -19,9 +20,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-highlight": "^0.12.0",
-    "react-inlinesvg": "^1.1.5",
     "roboto-fontface": "^0.10.0",
-    "svg-inline-loader": "^0.8.0",
     "url-loader": "^2.1.0",
     "web3": "^1.2.0"
   },

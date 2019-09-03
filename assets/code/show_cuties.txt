@@ -1,0 +1,10 @@
+import { Tesseract } from '@tesseractjs/ethereum-web3'
+import abi from '../assets/blockchain-cuties-abi.json'
+import { AbiItem } from 'web3-utils'
+
+const web3: Web3 = await Tesseract.Ethereum.Web3('network_endpoint')
+const accounts: string[] = await web3.eth.getAccounts()
+const blockchainCutiesAddress = '0xD73bE539d6B2076BaB83CA6Ba62DfE189aBC6Bbe'
+const blockchainCutiesABI = abi as AbiItem[]
+const contract = new web3.eth.Contract(blockchainCutiesABI, blockchainCutiesAddress)
+const cuties = await contract.methods.balanceOf(accounts[0]).call()

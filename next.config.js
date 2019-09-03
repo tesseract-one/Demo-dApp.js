@@ -56,7 +56,7 @@ module.exports = withSass({
     })
     config.module.rules.push({
       test: /\.svg$/,
-      use: 'svg-inline-loader'
+      use: '@svgr/webpack'
     })
     config.plugins.push(
       new webpack.ContextReplacementPlugin(

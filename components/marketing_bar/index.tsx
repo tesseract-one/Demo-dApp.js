@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Logo from "../../assets/images/logo.svg"
-import SVG from 'react-inlinesvg'
 import scss from './styles.scss'
 
 interface IProps {
@@ -18,7 +17,7 @@ interface IProps {
 export const MarketingBar = (props: IProps) => (
   <div className={scss.container}>
     <a className={scss.logo} href={props.tesseractLink}>
-      <SVG className={scss['logo-image']} src={Logo} /> 
+      <Logo className={scss['logo-image']} /> 
     </a>
     <ul className={scss.socials}>
       {

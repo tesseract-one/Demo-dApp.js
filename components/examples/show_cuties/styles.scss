@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  .label {
+    line-height: $lhDefault;
+    font-size: 16px;
+    font-weight: bold;
+    color: $tLight;
+  }
+  .title {
+    margin-top: 16px;
+    opacity: 0.75;
+    line-height: $lhDefault;
+    font-size: 56px;
+    font-weight: 500;
+    color: $tPrimary;
+  }
+  .token {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 32px;
+    height: 70px;
+    border: 0.5px solid $bdSecondary;
+    border-radius: 8px;
+    background-color: $bSecondaryDark;
+    font-size: 20px;
+    font-weight: 500;
+    color: $tSecondaryDark;
+    .logo {
+      display: block;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+    }
+    .name {
+      margin-left: 16px;
+    }
+    .value {
+      margin-left: auto;
+    }
+  }
+  .refresh {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: rgba($bDark, 0.08);
+    font-size: 20px;
+    color: rgba($bDark, 0.75)
+  }
+}

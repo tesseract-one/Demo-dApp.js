@@ -5,7 +5,7 @@ import * as C from '../components'
 import texts from '../assets/texts.json'
 import showBalanceTxt from '../assets/code/show_balance.txt'
 import sendEtherTxt from '../assets/code/send_ethereum.txt'
-import showKittiesTxt from '../assets/code/show_kitties.txt'
+import showCutiesTxt from '../assets/code/show_cuties.txt'
 import getTokenTxt from '../assets/code/get_free_token.txt'
 import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss?raw'
 import '@mdi/font/scss/materialdesignicons.scss?raw'
@@ -21,9 +21,9 @@ const examples: T.IExamples = {
     component: <C.SendEther {...texts.example.examples.sendEther.content} />,
     code: sendEtherTxt
   },
-  showKitties: {
-    component: <C.ShowKitties />,
-    code: showKittiesTxt
+  showCuties: {
+    component: <C.ShowCuties { ...texts.example.examples.showCuties.content} />,
+    code: showCutiesTxt
   },
   getToken: {
     component: <C.GetFreeToken {...texts.example.examples.getToken.content} />,

@@ -3,7 +3,7 @@ import { Web3 } from '@tesseractjs/ethereum-web3'
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null }
 
-export type KExample = 'showBalance' | 'sendEther' | 'showKitties' | 'getToken'
+export type KExample = 'showBalance' | 'sendEther' | 'showCuties' | 'getToken'
 
 export interface IExample {
   component: JSX.Element

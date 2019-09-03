@@ -4,7 +4,6 @@ import {
 } from '../../../hocs'
 import { Nullable } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
-import SVG from 'react-inlinesvg'
 import scss from './styles.scss'
 
 interface IProps {
@@ -71,7 +70,7 @@ export const ShowBalance = withWeb3Context(
             {`$${this.state.balanceUsd || 'unknown'}`}
           </span>
           <div className={scss['balance-eth']}>
-            <SVG className={scss.logo} src={EthereumLogo} />
+            <EthereumLogo className={scss.logo} width={44} height={44} viewBox='0 0 44 44' />
             <span className={scss.name}>
               {this.props.currency.name}
             </span>
