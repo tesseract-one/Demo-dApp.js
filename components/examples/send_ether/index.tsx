@@ -1,9 +1,5 @@
-import * as React from 'react'
-import {
-  withWeb3Context,
-  Web3ContextedComponentClass
-} from '../../../hocs'
-import { Nullable } from '../../../types'
+import React, { SFC, useState, useContext } from 'react'
+import { Web3Context } from '../../../pages/index'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
 
@@ -19,85 +15,67 @@ interface IProps {
   btn: string
 }
 
-interface IState {
-  address: string
-  amount: string
-  sendCallback: string
-}
+export const SendEther: SFC<IProps> =
+    ({ recipient, amount, btn }) => {
+    const [address, setAddress] = useState<string | null>(null)
+    const [value, setValue] = useState<string | null>(null)
+    const [callback, setCallback] = useState<string | null>(null)
 
-export const SendEther = withWeb3Context(
-  class Component extends Web3ContextedComponentClass<IProps, Nullable<IState>> {
-    readonly state = {
-      address: null,
-      amount: null,
-      sendCallback: null
-    }
+    const { web3, accounts } = useContext(Web3Context)
 
-    updateAddress(e: React.ChangeEvent<HTMLInputElement>) {
-      this.setState({ address: e.target.value })
-    }
-    
-    updateAmount(e: React.ChangeEvent<HTMLInputElement>) {
-      this.setState({ amount: e.target.value })
-    } 
-
-    async sendEth() {
-      const { web3, accounts } = this.props.web3Ctx
+    async function sendEth() {
       try {
         const sendCallback = await web3.eth.sendTransaction({
           from: accounts[0],
-          to: this.state.address,
-          value: web3.utils.toWei(this.state.amount, 'ether')
+          to: address,
+          value: web3.utils.toWei(value, 'ether')
         })
-        this.setState({ sendCallback: `Transaction was sent successfully: ${sendCallback}`})
+        setCallback(`Transaction was sent successfully: ${sendCallback}`)
       } catch (err) {
-        this.setState({ sendCallback: `Transaction Error: ${err}` })
+        setCallback(`Transaction Error: ${err}`)
       }
     }
 
-    render() {
-      return (
-        <div className={scss.container}>
-          <label htmlFor='recipient' className={scss['recipient-title']}>
-            {this.props.recipient.title}
-          </label>
-          <div className={scss['recipient-input']}>
-            <span className={`${scss.logo} mdi mdi-${this.props.recipient.icon}`} />
-            <input
-              id='recipient'
-              className={scss.input}
-              type='string'
-              value={this.state.address || ''}
-              onChange={this.updateAddress.bind(this)}
-            />
-          </div>
-          <label htmlFor='amount' className={scss['amount-title']}>
-            {this.props.amount.title}
-          </label>
-          <div className={scss.send}>
-            <div className={scss['amount-input']}>
-              <EthereumLogo className={scss.logo} />
-              <input
-                id='amount'
-                className={scss.input}
-                type='number'
-                value={this.state.amount || ''}
-                onChange={this.updateAmount.bind(this)}
-              />
-              <span className={scss.ending}>
-                {this.props.amount.ending}
-              </span>
-            </div>
-            <button
-              className={scss.btn}
-              onClick={this.sendEth.bind(this)}
-              disabled={!this.state.address || !this.state.amount}
-            >
-              {this.props.btn}
-            </button>
-          </div>
+    return (
+      <div className={scss.container}>
+        <label htmlFor='recipient' className={scss['recipient-title']}>
+          {recipient.title}
+        </label>
+        <div className={scss['recipient-input']}>
+          <span className={`${scss.logo} mdi mdi-${recipient.icon}`} />
+          <input
+            id='recipient'
+            className={scss.input}
+            type='string'
+            value={address || ''}
+            onChange={e => setAddress(e.target.value)}
+          />
         </div>
-      )
-    }
+        <label htmlFor='amount' className={scss['amount-title']}>
+          {amount.title}
+        </label>
+        <div className={scss.send}>
+          <div className={scss['amount-input']}>
+            <EthereumLogo className={scss.logo} />
+            <input
+              id='amount'
+              className={scss.input}
+              type='number'
+              value={value || ''}
+              onChange={e => setValue(e.target.value)}
+            />
+            <span className={scss.ending}>
+              {amount.ending}
+            </span>
+          </div>
+          <button
+            className={scss.btn}
+            onClick={sendEth}
+            disabled={!address || !value}
+          >
+            {btn}
+          </button>
+        </div>
+      </div>
+    )
   }
-)

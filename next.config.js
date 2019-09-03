@@ -1,4 +1,3 @@
-// next.config.js
 const withSass = require('@zeit/next-sass')
 const webpack = require('webpack')
 

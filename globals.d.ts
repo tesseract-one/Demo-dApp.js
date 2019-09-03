@@ -3,14 +3,14 @@ declare module '*.txt' {
   export default content
 }
 
-declare module '*.svg' {
-  const content: React.StatelessComponent<React.SVGAttributes<SVGAElement>>
-  export default content
-}
-
 declare module '*.png' {
   const content: string
   export default string
+}
+
+declare module '*.svg' {
+  const content: React.StatelessComponent<React.SVGAttributes<SVGAElement>>
+  export default content
 }
 
 declare module '*.scss' {

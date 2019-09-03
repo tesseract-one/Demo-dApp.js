@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { SFC, useState, useEffect } from 'react'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
 import * as T from '../types'
 import * as C from '../components'
@@ -31,50 +31,51 @@ const examples: T.IExamples = {
   }
 }
 
-interface IState extends T.IWeb3Context {
-  choosenExampleKey: T.KExample
-}
+export const Web3Context = React.createContext<T.IWeb3Context | null>(null)
 
-export const { 
-  Provider: Web3CtxProvider,
-  Consumer: Web3CtxConsumer 
-} = React.createContext<T.IWeb3Context | null>(null)
-
-class Index extends React.Component<never, IState> {
-  readonly state = {
+const Index: SFC<never> = () => {
+  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s'>>({
     web3: null,
     accounts: [],
-    web3s: null,
-    activeNetwork: null,
-    choosenExampleKey: 'showBalance' as T.KExample
-  }
+    activeNetwork: null
+  })
+  const [web3s, setWeb3s] = useState<T.IWeb3s | null>(null)
+  const [choosenExampleKey, setChoosenExampleKey] = useState<T.KExample>('showBalance')
 
-  chooseExample(choosenExampleKey: T.KExample) {
-    this.setState({ choosenExampleKey })
-  }
+  useEffect(() => {
+    async function updateData() {
+      await loadNetworks()
+    }
+    updateData()
+  }, [texts.networks])
 
-  changeNetwork(network: T.KNetwork) {
-    this.setState(state => ({
-      web3: state.web3s[network].web3,
-      accounts: state.web3s[network].accounts,
+  useEffect(() => {
+    if (web3s === null) return
+    chooseDefaultNetwork()
+  }, [web3s])
+
+  function changeNetwork(network: T.KNetwork) {
+    setWeb3Data({
+      web3: web3s[network].web3,
+      accounts: web3s[network].accounts,
       activeNetwork: network
-    }))
+    })
   }
 
-  chooseDefaultNetwork() {
-    const network = Object.entries<T.IWeb3s, T.KNetwork>(this.state.web3s)
+  function chooseDefaultNetwork() {
+    const network = Object.entries<T.IWeb3s, T.KNetwork>(web3s)
       .find(([_, web3]) => web3 !== null)
 
     if (!network) throw Error('No web3 at all')
   
-    this.setState({
+    setWeb3Data({
       web3: network[1].web3,
       accounts: network[1].accounts,
       activeNetwork: network[0]
     })
   }
 
-  async loadNetworks() {
+  async function loadNetworks() {
     const web3sArray = await Promise.all(
       Object.entries<T.INetworks, T.KNetwork>(texts.networks)
         .map(async (network): Promise<Partial<T.IWeb3s>> => 
@@ -82,7 +83,7 @@ class Index extends React.Component<never, IState> {
             try {
               const web3 = await Tesseract.Ethereum.Web3(network[1].endpoint)
               if (!web3.hasClientWallet) return { [network[0]]: null }
-              const accounts: string[] = await web3.eth.getAccounts()
+              const accounts = await web3.eth.getAccounts()
               return { [network[0]]: { web3, accounts } }
             } catch (error) {
               console.error(error)
@@ -94,72 +95,66 @@ class Index extends React.Component<never, IState> {
     const web3s = web3sArray
       .reduce<Partial<T.IWeb3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.IWeb3s
 
-    this.setState({ web3s }, this.chooseDefaultNetwork)
+    setWeb3s(web3s)
   }
 
-  async componentDidMount() {
-    await this.loadNetworks()
-  }
+  if (!web3Data.web3) return (
+    <h1>Waiting for web3 initialization ...</h1>
+  )
 
-  render() {
-    if (!this.state || !this.state.web3) return (
-      <h1>Waiting for web3 initialization ...</h1>
-    )
-
-    return (
-      <Web3CtxProvider value={this.state}>
-        <div className={scss.container}>
-          <div className={scss['left-side']}>
-            <C.MarketingBar
-              tesseractLink={texts.links.tesseract}
-              socials={texts.links.socials}
-              copyright={texts.copyright}
-            />
-          </div>
-          <div className={scss.center}>
-            <C.Content
-              title={texts.title}
-              backToSite={texts.links.backToSite}
-            >
-              <C.Example
-                code={examples[this.state.choosenExampleKey].code}
-                copyIcon={texts.example.copyIcon}
-              >
-                {examples[this.state.choosenExampleKey].component}
-              </C.Example>
-            </C.Content>
-          </div>
-          <div className={scss['right-side']}>
-            <C.Navigation
-              title={texts.example.title}
-              slider={
-                <C.Slider
-                  choosenExampleKey={this.state.choosenExampleKey}
-                  examples={Object.entries<T.IExamplesText, T.KExample>(texts.example.examples)}
-                  chooseExample={this.chooseExample.bind(this)}
-                />
-              }
-              sliderDots={
-                <C.SliderDots
-                  choosenExampleKey={this.state.choosenExampleKey}
-                  examplesKeys={Object.keys<T.IExamplesText, T.KExample>(texts.example.examples)}
-                  chooseExample={this.chooseExample.bind(this)}
-                />
-              }
-              networks={
-                <C.Networks
-                  web3s={this.state.web3s}
-                  networks={texts.networks}
-                  activeNetwork={this.state.activeNetwork}
-                  changeNetwork={this.changeNetwork.bind(this)}
-                />
-              }
-            />
-          </div>
+  return (
+    <Web3Context.Provider value={{...web3Data, web3s}}>
+      <div className={scss.container}>
+        <div className={scss['left-side']}>
+          <C.MarketingBar
+            tesseractLink={texts.links.tesseract}
+            socials={texts.links.socials}
+            copyright={texts.copyright}
+          />
         </div>
-      </Web3CtxProvider>
-    )
-  }
+        <div className={scss.center}>
+          <C.Content
+            title={texts.title}
+            backToSite={texts.links.backToSite}
+          >
+            <C.Example
+              code={examples[choosenExampleKey].code}
+              copyIcon={texts.example.copyIcon}
+            >
+              {examples[choosenExampleKey].component}
+            </C.Example>
+          </C.Content>
+        </div>
+        <div className={scss['right-side']}>
+          <C.Navigation
+            title={texts.example.title}
+            slider={
+              <C.Slider
+                choosenExampleKey={choosenExampleKey}
+                examples={Object.entries<T.IExamplesText, T.KExample>(texts.example.examples)}
+                chooseExample={setChoosenExampleKey}
+              />
+            }
+            sliderDots={
+              <C.SliderDots
+                choosenExampleKey={choosenExampleKey}
+                examplesKeys={Object.keys<T.IExamplesText, T.KExample>(texts.example.examples)}
+                chooseExample={setChoosenExampleKey}
+              />
+            }
+            networks={
+              <C.Networks
+                web3s={web3s}
+                networks={texts.networks}
+                activeNetwork={web3Data.activeNetwork}
+                changeNetwork={changeNetwork}
+              />
+            }
+          />
+        </div>
+      </div>
+    </Web3Context.Provider>
+  )
 }
 
 export default Index

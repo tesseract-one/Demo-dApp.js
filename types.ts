@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { ReactNode, ElementType } from 'react'
 import { Web3 } from '@tesseractjs/ethereum-web3'
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null }
@@ -40,17 +40,17 @@ export interface IWeb3Context {
   web3: Web3 | null
   web3s: IWeb3s
   accounts: string[]
-  activeNetwork: KNetwork
+  activeNetwork: KNetwork | null
 }
 
 export interface IHighlightProps {
   languages?: string[]
-  children?: React.ReactNode  
+  children?: ReactNode  
   className?: string
   innerHTML?: boolean
 }
 
-export type HighlightComponent = React.ElementType<IHighlightProps>
+export type HighlightComponent = ElementType<IHighlightProps>
 
 export type KFreeToken = 'weenus' | 'xeenus' | 'yeenus' | 'zeenus'
 

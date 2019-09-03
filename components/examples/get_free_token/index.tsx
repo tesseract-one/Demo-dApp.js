@@ -1,12 +1,6 @@
-import {
-  withWeb3Context,
-  Web3ContextedComponentClass
-} from '../../../hocs/with_web3_context'
-import {
-  KFreeToken,
-  KNetwork,
-  IFreeTokens
-} from '../../../types'
+import React, { SFC, useState, useContext } from 'react'
+import { Web3Context } from '../../../pages' 
+import { KFreeToken, IFreeTokens } from '../../../types'
 import scss from './styles.scss'
 
 interface IProps {
@@ -14,18 +8,13 @@ interface IProps {
   tokens: IFreeTokens
 }
 
-interface IState {
-  sendCallback: string
-}
+export const GetFreeToken: SFC<IProps> =
+    ({ title, tokens }) => {
+    const [sendCallback, setSendCallback] = useState<string | null>(null)
 
-export const GetFreeToken = withWeb3Context(
-  class Component extends Web3ContextedComponentClass<IProps, IState> {
-    readonly state = {
-      sendCallback: ''
-    }
+    const { web3, accounts } = useContext(Web3Context)
 
-    async getToken(address: string) {
-      const { web3, accounts } = this.props.web3Ctx
+    async function getToken(address: string) {
       const tx = {
         from: accounts[0],
         to: address,
@@ -37,37 +26,34 @@ export const GetFreeToken = withWeb3Context(
           ...tx,
           gas: (estimatedGas * 1.3).toFixed(0).toString()
         })
-        this.setState({ sendCallback: `Transaction was sent successfully: ${sendCallback}`})
+        setSendCallback(`Transaction was sent successfully: ${sendCallback}`)
       } catch (err) {
-        this.setState({ sendCallback: `Transaction Error: ${err}` })
+        setSendCallback(`Transaction Error: ${err}`)
       }
     }
 
-    render() {
-      return (
-        <div className={scss.container}>
-          <span className={scss.title}>
-            {this.props.title}
-          </span>
-          <ul className={scss.tokens}>
-            {
-              Object.entries<IFreeTokens, KFreeToken>(this.props.tokens)
-                .map(token => (
-                  <li
-                    className={`${scss.token} ${scss[token[0]]}`}
-                    key={token[1].title}
-                    onClick={this.getToken.bind(this, token[1].addresses.rinkeby)}
-                  >
-                    <div className={scss.logo}>
-                      {token[1].logo}
-                    </div>
-                    {token[1].title}
-                  </li>
-                ))
-            }
-          </ul>
-        </div>
-      )
-    }
+    return (
+      <div className={scss.container}>
+        <span className={scss.title}>
+          {title}
+        </span>
+        <ul className={scss.tokens}>
+          {
+            Object.entries<IFreeTokens, KFreeToken>(tokens)
+              .map(token => (
+                <li
+                  className={`${scss.token} ${scss[token[0]]}`}
+                  key={token[1].title}
+                  onClick={getToken.bind(null, token[1].addresses.rinkeby)}
+                >
+                  <div className={scss.logo}>
+                    {token[1].logo}
+                  </div>
+                  {token[1].title}
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    )
   }
-)

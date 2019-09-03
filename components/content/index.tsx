@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { SFC, PropsWithChildren } from 'react'
 import scss from './styles.scss'
 
 interface IProps {
@@ -10,17 +10,18 @@ interface IProps {
   }
 }
 
-export const Content = (props: React.PropsWithChildren<IProps>) => (
-  <div className={scss.container}>
-    <a className={scss['back-link']} href={props.backToSite.url}>
-      <span className={`${scss['back-link-icon']} mdi mdi-${props.backToSite.icon}`} />
-      {props.backToSite.title}
-    </a>
-    <h1 className={scss.title}>
-      {props.title}
-    </h1>
-    <div className={scss.example}>
-      {props.children}
+export const Content: SFC<PropsWithChildren<IProps>> = 
+  ({ title, backToSite, children}) => (
+    <div className={scss.container}>
+      <a className={scss['back-link']} href={backToSite.url}>
+        <span className={`${scss['back-link-icon']} mdi mdi-${backToSite.icon}`} />
+        {backToSite.title}
+      </a>
+      <h1 className={scss.title}>
+        {title}
+      </h1>
+      <div className={scss.example}>
+        {children}
+      </div>
     </div>
-  </div>
-)
+  )

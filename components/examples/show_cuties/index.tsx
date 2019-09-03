@@ -1,11 +1,8 @@
+import React, { SFC, useState, useContext, useEffect } from 'react'
+import { Web3Context } from '../../../pages/index'
 import abi from '../../../assets/blockchain_cuties_abi.json'
 import { AbiItem } from 'web3-utils'
-import { 
-  withWeb3Context,
-  Web3ContextedComponentClass
-} from '../../../hocs'
 import BlockchainCutiesLogo from '../../../assets/images/blockchain-cuties-logo.png'
-import { Nullable } from '../../../types'
 import scss from './styles.scss'
 
 interface IProps {
@@ -21,51 +18,44 @@ interface IProps {
   refreshIcon: string
 }
 
-interface IState {
-  cuties: number
-}
+export const ShowCuties: SFC<IProps> =
+  ({ address, balance, token, refreshIcon }) => {
+    const [cuties, setCuties] = useState<string | null>(null)
 
-export const ShowCuties = withWeb3Context<IProps>(
-  class Component extends Web3ContextedComponentClass<IProps, Nullable<IState>> {
-    readonly state: Nullable<IState> = {
-      cuties: null
-    }
+    const { web3, accounts } = useContext(Web3Context)
 
-    async updateCuties() {
-      const { web3, accounts } = this.props.web3Ctx
+    useEffect(() => {
+      async function updateData() {
+        await updateCuties()
+      }
+      updateData()
+    }, [web3, accounts])
+
+    async function updateCuties() {
       const blockchainCutiesABI = abi as AbiItem[]
-      const contract = new web3.eth.Contract(blockchainCutiesABI, this.props.address)
+      const contract = new web3.eth.Contract(blockchainCutiesABI, address)
       const cuties = await contract.methods.balanceOf(accounts[0]).call()
-      this.setState({ cuties })
+      setCuties(cuties)
     }
 
-    async componentDidMount() {
-      await this.updateCuties()
-    }
-
-    render() {
-      const { balance, token, refreshIcon } = this.props
-
-      return (
-        <div className={scss.container}>
-          <span className={scss.label}>
-            {balance.label}
+    return (
+      <div className={scss.container}>
+        <span className={scss.label}>
+          {balance.label}
+        </span>
+        <span className={scss.title}>
+          {`${cuties} ${balance.title}`}
+        </span>
+        <div className={scss.token}>
+          <img className={scss.logo} src={BlockchainCutiesLogo} />
+          <span className={scss.name}>{token.name}</span>
+          <span className={scss.value}>
+            {`${cuties || 0} ${token.shortcut}`}
           </span>
-          <span className={scss.title}>
-            {`${this.state.cuties} ${balance.title}`}
-          </span>
-          <div className={scss.token}>
-            <img className={scss.logo} src={BlockchainCutiesLogo} />
-            <span className={scss.name}>{token.name}</span>
-            <span className={scss.value}>
-              {`${this.state.cuties || 0} ${token.shortcut}`}
-            </span>
-          </div>
-          <button className={scss.refresh} onClick={this.updateCuties.bind(this)}>
-            <span className={`mdi mdi-${refreshIcon}`} />
-          </button>
         </div>
-      )
-    }
+        <button className={scss.refresh} onClick={updateCuties}>
+          <span className={`mdi mdi-${refreshIcon}`} />
+        </button>
+      </div>
+    )
   }
-)

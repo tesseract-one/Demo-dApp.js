@@ -1,147 +1,130 @@
-import * as React from 'react'
+import React, { SFC, useState, useRef } from 'react'
 import { Example } from './example'
-import {
-  KExample,
-  IExampleText,
-  Nullable
-} from '../../types'
+import { KExample, IExampleText, Nullable } from '../../types'
 import scss from './styles.scss'
 
 interface IProps {
   choosenExampleKey: string
   examples: [KExample, IExampleText][]
-  chooseExample: (exampleKey: string) => void
+  chooseExample: (exampleKey: KExample) => void
 }
 
-interface IState {
-  startTime: number
-  requestId: number
-  scrollPos: {
-    start: number
-    end: number
-  }
+interface IScrollPos {
+  start: number
+  end: number
 }
 
-export class Slider extends React.Component<IProps, Nullable<IState>> {
-  readonly state: Nullable<IState> = {
-    startTime: null,
-    requestId: null,
-    scrollPos: {
+export const Slider: SFC<IProps> =
+  ({ choosenExampleKey, examples, chooseExample }) => {
+    const [startTime, setStartTime] = useState<number | null>(null)
+    const [requestId, setRequestId] = useState<number | null>(null)
+    const [scrollPos, setScrollPos] = useState<Nullable<IScrollPos>>({
       start: null,
       end: null
-    }
-  }
-
-  private TIME_DIFF = 200
-  private PASSIVE_SCALE = 0.9
-  private container = React.createRef<HTMLUListElement>()
-
-  endTime(): number | null {
-    return this.state.startTime ? this.state.startTime + this.TIME_DIFF : null
-  }
-
-  newStartPos(now: number, startPos: number, endPos: number): number {
-    return now < this.endTime() ? this.currentPos(startPos, endPos) : endPos
-  }
-
-  currentPos(startPos: number, endPos: number): number {
-    const now = Date.now()
-    const posDiff = endPos - startPos
-    return now < this.endTime()
-      ? startPos + posDiff * (now - this.state.startTime) / this.TIME_DIFF
-      : endPos
-  }
-
-  updateAnimationData(scrollTop: number) {
-    const now = Date.now()
-    this.setState(prevState => ({
-      startTime: now,
-      scrollPos: {
-        start: this.newStartPos(now, prevState.scrollPos.end, scrollTop),
-        end: scrollTop
-      }
-    }))
-  }
-
-  scrollSlides(e: React.UIEvent<HTMLUListElement>) {
-    this.updateAnimationData(e.currentTarget.scrollTop)
-    if (!this.state.requestId) {
-      this.setState({
-        requestId: window.requestAnimationFrame(this.runAnimation.bind(this))
-      })
-    }
-  }
-
-  runAnimation() {
-    this.animate()
-
-    if (Date.now() >= this.endTime()) {
-      window.cancelAnimationFrame(this.state.requestId)
-      this.setState({ requestId: null })
-      return
-    }
-  
-    this.setState({
-      requestId: window.requestAnimationFrame(this.runAnimation.bind(this))
     })
-  }
 
-  getRotatedElement(elements: Element[], containerTop: number): [Element, number] | null {
-    const elIndex: number = elements.findIndex(el =>
-      el.getBoundingClientRect().top - containerTop < 0 
-      && el.getBoundingClientRect().top + el.clientHeight > containerTop
-    )
-    return elIndex !== -1 ? [elements[elIndex], elIndex] : null 
-  }
+    const container = useRef<HTMLUListElement | null>(null)
 
-  updatedBottomElements(elements: Element[]) {
-    elements.forEach(el => el.removeAttribute('style'))
-  }
+    const TIME_DIFF = 200
+    const PASSIVE_SCALE = 0.9
 
-  getScale(elTop: number, elHeight: number, containerTop: number, currentDelta: number, isChoosen: boolean): number {
-    const elBottom = elTop + elHeight
-    const coef = isChoosen ? 1 : this.PASSIVE_SCALE
-    return ((elBottom - containerTop + currentDelta) / elHeight) * coef
-  }
+    function endTime(): number | null {
+      return startTime ? startTime + TIME_DIFF : null
+    }
 
-  isChoosen(elIndex): boolean {
-    return this.props.examples[elIndex][0] === this.props.choosenExampleKey
-  }
+    function getCurrentPos(startPos: number, endPos: number): number {
+      const now = Date.now()
+      const posDiff = endPos - startPos
+      return now < endTime()
+        ? startPos + posDiff * (now - startTime) / TIME_DIFF
+        : endPos
+    }
 
-  animate() {
-    const container = this.container.current
-    if (!container) return
-  
-    const containerTop = container.getBoundingClientRect().top
-    const containerChildren = Array.from(container.children)
+    function newStartPos(now: number, startPos: number, endPos: number): number {
+      return now < endTime() ? getCurrentPos(startPos, endPos) : endPos
+    }
 
-    const currentPos = this.currentPos(this.state.scrollPos.start, this.state.scrollPos.start)
-    const currentDelta = this.state.scrollPos.end - currentPos
+    function updateAnimationData(scrollTop: number) {
+      const now = Date.now()
+      setStartTime(now)
+      setScrollPos(({ end }) => ({
+        start: newStartPos(now, end, scrollTop),
+        end: scrollTop
+      }))
+    }
 
-    const re = this.getRotatedElement(containerChildren, containerTop + currentDelta)
-    if (!re) return
-    const [rotatedElement, rotatedElementIndex] = re
+    function scrollSlides(e: React.UIEvent<HTMLUListElement>) {
+      updateAnimationData(e.currentTarget.scrollTop)
+      if (!requestId) {
+        setRequestId(window.requestAnimationFrame(runAnimation))
+      }
+    }
 
-    const scaleVal = this.getScale(
-      rotatedElement.getBoundingClientRect().top,
-      rotatedElement.clientHeight,
-      containerTop,
-      currentDelta,
-      this.isChoosen(rotatedElementIndex)
-    )
-    rotatedElement.setAttribute('style', `transform: scale(${scaleVal > 0.01 ? scaleVal : 0.01})`)
+    function runAnimation() {
+      animate()
 
-    this.updatedBottomElements(containerChildren.slice(rotatedElementIndex + 1))
-  }
+      if (Date.now() >= endTime()) {
+        window.cancelAnimationFrame(requestId)
+        setRequestId(null)
+        return
+      }
+    
+      setRequestId(window.requestAnimationFrame(runAnimation))
+    }
 
-  render() {
-    const { examples, chooseExample, choosenExampleKey } = this.props
+    function getRotatedElement(elements: Element[], containerTop: number): [Element, number] | null {
+      const elIndex: number = elements.findIndex(el =>
+        el.getBoundingClientRect().top - containerTop < 0 
+        && el.getBoundingClientRect().top + el.clientHeight > containerTop
+      )
+      return elIndex !== -1 ? [elements[elIndex], elIndex] : null 
+    }
+
+    function updatedBottomElements(elements: Element[]) {
+      elements.forEach(el => el.removeAttribute('style'))
+    }
+
+    function getScale(elTop: number, elHeight: number, containerTop: number, currentDelta: number, isChoosen: boolean): number {
+      const elBottom = elTop + elHeight
+      const coef = isChoosen ? 1 : PASSIVE_SCALE
+      return ((elBottom - containerTop + currentDelta) / elHeight) * coef
+    }
+
+    function isChoosen(elIndex): boolean {
+      return examples[elIndex][0] === choosenExampleKey
+    }
+
+    function animate() {
+      const currentContainer = container.current
+      if (!currentContainer) return
+    
+      const containerTop = currentContainer.getBoundingClientRect().top
+      const containerChildren = Array.from(currentContainer.children)
+
+      const currentPos = getCurrentPos(scrollPos.start, scrollPos.start)
+      const currentDelta = scrollPos.end - currentPos
+
+      const re = getRotatedElement(containerChildren, containerTop + currentDelta)
+      if (!re) return
+      const [rotatedElement, rotatedElementIndex] = re
+
+      const scaleVal = getScale(
+        rotatedElement.getBoundingClientRect().top,
+        rotatedElement.clientHeight,
+        containerTop,
+        currentDelta,
+        isChoosen(rotatedElementIndex)
+      )
+      rotatedElement.setAttribute('style', `transform: scale(${scaleVal > 0.01 ? scaleVal : 0.01})`)
+
+      updatedBottomElements(containerChildren.slice(rotatedElementIndex + 1))
+    }
 
     return (
       <ul
         className={scss.examples}
-        onScroll={e => this.scrollSlides(e)}
-        ref={this.container}
+        onScroll={e => scrollSlides(e)}
+        ref={container}
       >
         {
           examples.map(example => (
@@ -156,4 +139,3 @@ export class Slider extends React.Component<IProps, Nullable<IState>> {
       </ul>
     )
   }
-}
