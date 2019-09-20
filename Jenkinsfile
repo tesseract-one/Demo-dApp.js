@@ -96,7 +96,7 @@ actions << [/^develop$/, CONFIG["BUILD_MACHINE"], { script, context ->
     ]) {
         builder.build()
     }
-    builder.lint()
+    //builder.lint()
     builder.saveVersion(context["VERSION"], context["BRANCH"])
     script.stage("Deployment") {
         builder.rsyncUpload(
