@@ -64,6 +64,7 @@ typings/
 
 # next.js build output
 .next
+dist
 
 # mac files
 **/.DS_Store
@@ -72,3 +73,4 @@ typings/
 # vs code
 **/.vs
 **/.vscode
+
