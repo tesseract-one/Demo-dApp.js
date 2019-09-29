@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect } from 'react'
+import React, { SFC, ReactElement, useState, useEffect } from 'react'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
 import * as T from '../types'
 import * as C from '../components'
@@ -34,13 +34,19 @@ const examples: T.IExamples = {
 export const Web3Context = React.createContext<T.IWeb3Context | null>(null)
 
 const Index: SFC<never> = () => {
-  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s'>>({
+  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s' | 'isMobile' | 'setPopup'>>({
     web3: null,
     accounts: [],
     activeNetwork: null
   })
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
   const [web3s, setWeb3s] = useState<T.IWeb3s | null>(null)
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.KExample>('showBalance')
+  const [notificationPopup, setNotificationPopup] = useState<ReactElement<T.INotificationPopup> | null>(null)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
 
   useEffect(() => {
     async function updateData() {
@@ -66,7 +72,7 @@ const Index: SFC<never> = () => {
     const network = Object.entries<T.IWeb3s, T.KNetwork>(web3s)
       .find(([_, web3]) => web3 !== null)
 
-    if (!network) throw Error('No web3 at all')
+    if (!network) return
   
     setWeb3Data({
       web3: network[1].web3,
@@ -98,12 +104,20 @@ const Index: SFC<never> = () => {
     setWeb3s(web3s)
   }
 
-  if (!web3Data.web3) return (
-    <h1>Waiting for web3 initialization ...</h1>
-  )
+  function setPopup(data: T.INotificationPopup) {
+    setNotificationPopup(<C.NotificationPopup { ...data } />)
+    setTimeout(() => {
+      setNotificationPopup(null)
+    }, 3000)
+  }
+
+  // if (!web3Data.web3) return (
+  //   <h1>Waiting for web3 initialization ...</h1>
+  // )
+  if(isMobile === null) return null
 
   return (
-    <Web3Context.Provider value={{...web3Data, web3s}}>
+    <Web3Context.Provider value={{...web3Data, web3s, isMobile, setPopup}}>
       <div className={scss.container}>
         <div className={scss['left-side']}>
           <C.MarketingBar
@@ -119,7 +133,13 @@ const Index: SFC<never> = () => {
           >
             <C.Example
               code={examples[choosenExampleKey].code}
+              goGithub={texts.example.goGithub}
+              codeLabel={texts.example.codeLabel}
+              choosenExampleKey={choosenExampleKey}
+              examplesKeys={Object.keys<T.IExamplesText, T.KExample>(texts.example.examples)}
+              chooseExample={setChoosenExampleKey}
               copyIcon={texts.example.copyIcon}
+              texts={isMobile ? texts.example.examples[choosenExampleKey].mobile : undefined }
             >
               {examples[choosenExampleKey].component}
             </C.Example>
@@ -152,6 +172,7 @@ const Index: SFC<never> = () => {
             }
           />
         </div>
+        {notificationPopup}
       </div>
     </Web3Context.Provider>
   )

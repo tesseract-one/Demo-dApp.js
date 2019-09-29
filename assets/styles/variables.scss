@@ -8,6 +8,8 @@ $bSecondary: #fcfcfc;
 $bSecondaryDark: #fafafa;
 $bDark: #3e74db;
 
+$mbLight: rgba(#ebf1fc, 0.32);
+
 // Text
 $tPrimary: #17205e;
 $tSecondary: #5c5c5c;
@@ -16,14 +18,34 @@ $tLight: #c8cbe3;
 $tLightPrimary: #e0e1ea;
 $tLightSecondary: #a1a5c6;
 
+$mtPrimary: #2e384d;
+$mtSecondary: #8798ad;
+$mtSecondaryLight: #b0bac9;
+
 // Box shadow
 $bsPrimary: #0c0f2714;
 $bsSecondary: #17205f29;
+
+$mbsPrimary: #0c102f29;
 
 // Border
 $bdPrimary: #5f6ed6;
 $bdSecondary: #e2e4ed;
 
+$mbdPrimary: #d8e6fd;
+
 // Other values
 $trDefault: .3s ease;
 $lhDefault: 150%;
+
+// Media params
+// ====================================== //
+$ndScreenMin: 1400px;
+
+$sdScreenMin: 1024px;
+$sdScreenMax: 1399px;
+
+$tScreenMin: 768px;
+$tScreenMax: 1023px;
+
+$mScreenMax: 767px;

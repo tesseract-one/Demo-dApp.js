@@ -8,6 +8,16 @@ declare module '*.png' {
   export default string
 }
 
+declare module '*.jpg' {
+  const content: string
+  export default string
+}
+
+declare module '*.jpeg' {
+  const content: string
+  export default string
+}
+
 declare module '*.svg' {
   const content: React.StatelessComponent<React.SVGAttributes<SVGAElement>>
   export default content

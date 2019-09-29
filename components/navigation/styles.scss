@@ -38,3 +38,21 @@
     overflow: hidden;
   }
 }
+
+@media (max-width: $mScreenMax) {
+  .networks {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+  }
+  .slider-dots {
+    position: absolute;
+    top: 532px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+  }
+}

@@ -41,6 +41,8 @@ export interface IWeb3Context {
   web3s: IWeb3s
   accounts: string[]
   activeNetwork: KNetwork | null
+  isMobile: boolean
+  setPopup: (data: INotificationPopup) => void
 }
 
 export interface IHighlightProps {
@@ -56,8 +58,15 @@ export type KFreeToken = 'weenus' | 'xeenus' | 'yeenus' | 'zeenus'
 
 export interface IFreeToken {
   title: string
+  mobileTitle: string
   logo: string
   addresses: Record<KNetwork, string>
 }
 
 export interface IFreeTokens extends Record<KFreeToken, IFreeToken>{}
+
+export interface INotificationPopup {
+  emoji: string
+  title: string
+  description: string
+}

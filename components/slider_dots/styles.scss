@@ -1,3 +1,5 @@
+$mbDot: #dee3ed;
+
 .slider-dots {
   position: absolute;
   top: 50%;
@@ -16,6 +18,31 @@
     &.choosen {
       background-color: $cLight;
       opacity: 1.0;
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .slider-dots {
+    position: static;
+    display: flex;
+    width: auto;
+    transform: none;
+    .dot {
+      margin-top: 0;
+      margin-right: 8px;
+      border: none;
+      border-radius: 4px;
+      background-color: $mbDot;
+      opacity: 1;
+      transition: width $trDefault;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.choosen {
+        width: 16px;
+        background-color: $cPrimary;
+      }
     }
   }
 }
