@@ -1,20 +1,36 @@
-import React, { SFC, useState, useContext } from 'react'
+import React, { SFC, ReactElement, SVGAttributes, useContext } from 'react'
 import { Web3Context } from '../../../pages' 
-import { KFreeToken, IFreeTokens } from '../../../types'
+import { KFreeToken, FreeTokens } from '../../../types'
+import WeenusIcon from '../../../assets/images/weenus-icon.svg'
+import XeenusIcon from '../../../assets/images/xeenus-icon.svg'
+import YeenusIcon from '../../../assets/images/yeenus-icon.svg'
+import ZeenusIcon from '../../../assets/images/zeenus-icon.svg'
 import scss from './styles.scss'
 
 interface IProps {
   title: string
-  tokens: IFreeTokens
+  tokens: FreeTokens
+}
+
+const iconsProps = {
+  className: scss.image,
+  width: 44,
+  height: 36,
+  viewBox: '0 0 44 36'
+}
+
+const icons: Record<KFreeToken, ReactElement<SVGAttributes<SVGAElement>>> = {
+  weenus: <WeenusIcon { ...iconsProps } />,
+  xeenus: <XeenusIcon { ...iconsProps } />,
+  yeenus: <YeenusIcon { ...iconsProps } />,
+  zeenus: <ZeenusIcon { ...iconsProps } />
 }
 
 export const GetFreeToken: SFC<IProps> =
     ({ title, tokens }) => {
-    const [sendCallback, setSendCallback] = useState<string | null>(null)
+    const { web3, accounts, isMobile } = useContext(Web3Context)
 
-    const { web3, accounts } = useContext(Web3Context)
-
-    async function getToken(address: string) {
+    async function getToken(address: string): Promise<void> {
       const tx = {
         from: accounts[0],
         to: address,
@@ -22,38 +38,62 @@ export const GetFreeToken: SFC<IProps> =
       }
       try {
         const estimatedGas = await web3.eth.estimateGas(tx)
-        const sendCallback = await web3.eth.sendTransaction({
+        await web3.eth.sendTransaction({
           ...tx,
           gas: (estimatedGas * 1.3).toFixed(0).toString()
         })
-        setSendCallback(`Transaction was sent successfully: ${sendCallback}`)
+        console.log(`Transaction was sent successfully.`)
       } catch (err) {
-        setSendCallback(`Transaction Error: ${err}`)
+        console.log(`Transaction Error: ${err}`)
       }
     }
 
+    if (!isMobile) {
+      return (
+        <div className={scss.container}>
+          <span className={scss.title}>
+            {title}
+          </span>
+          <ul className={scss.tokens}>
+            {
+              Object.entries<FreeTokens, KFreeToken>(tokens)
+                .map(([key, value]) => (
+                  <li
+                    className={`${scss.token} ${scss[key]}`}
+                    key={value.title}
+                    onClick={getToken.bind(null, value.addresses.rinkeby)}
+                  >
+                    <div className={scss.logo}>
+                      {value.logo}
+                    </div>
+                    {value.title}
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+      )
+    }
+
     return (
-      <div className={scss.container}>
-        <span className={scss.title}>
-          {title}
-        </span>
-        <ul className={scss.tokens}>
-          {
-            Object.entries<IFreeTokens, KFreeToken>(tokens)
-              .map(token => (
-                <li
-                  className={`${scss.token} ${scss[token[0]]}`}
-                  key={token[1].title}
-                  onClick={getToken.bind(null, token[1].addresses.rinkeby)}
-                >
-                  <div className={scss.logo}>
-                    {token[1].logo}
-                  </div>
-                  {token[1].title}
-                </li>
-              ))
-          }
-        </ul>
-      </div>
+      <ul className={scss.tokens}>
+        {
+          Object.entries<FreeTokens, KFreeToken>(tokens)
+            .map(([key, val]) => (
+              <li
+                className={`${scss.token} ${scss[key]}`}
+                key={val.title}
+                onClick={getToken.bind(null, val.addresses.rinkeby)}
+              >
+                <div className={scss.content}>
+                  {icons[key]}
+                  <span className={scss.title}>
+                    {val.mobileTitle}
+                  </span>
+                </div>
+              </li>
+            ))
+        }
+      </ul>
     )
   }

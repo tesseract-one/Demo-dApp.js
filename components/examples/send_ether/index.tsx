@@ -1,39 +1,55 @@
-import React, { SFC, useState, useContext } from 'react'
+import React, { SFC, ChangeEvent, useState, useContext } from 'react'
 import { Web3Context } from '../../../pages/index'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
+import { INotificationPopup } from '../../../types'
 
 interface IProps {
   recipient: {
     title: string
+    placeholder: string
     icon: string
   }
   amount: {
     title: string
+    placeholder: string
     ending: string
   }
   btn: string
+  resultPopup: {
+    sucessful: INotificationPopup
+  }
 }
 
 export const SendEther: SFC<IProps> =
-    ({ recipient, amount, btn }) => {
+    ({ recipient, amount, btn, resultPopup }) => {
+    const { web3, accounts, setPopup, isMobile } = useContext(Web3Context)
+
     const [address, setAddress] = useState<string | null>(null)
     const [value, setValue] = useState<string | null>(null)
-    const [callback, setCallback] = useState<string | null>(null)
 
-    const { web3, accounts } = useContext(Web3Context)
-
-    async function sendEth() {
+    async function sendEth(): Promise<void> {
       try {
-        const sendCallback = await web3.eth.sendTransaction({
+        await web3.eth.sendTransaction({
           from: accounts[0],
           to: address,
           value: web3.utils.toWei(value, 'ether')
         })
-        setCallback(`Transaction was sent successfully: ${sendCallback}`)
+
+        if (isMobile) {
+          setPopup(resultPopup.sucessful)
+        }
       } catch (err) {
-        setCallback(`Transaction Error: ${err}`)
+        console.log(`Transaction Error: ${err}`)
       }
+    }
+    
+    function updateAddress(e: ChangeEvent<HTMLInputElement>): void {
+      setAddress(e.target.value)
+    }
+
+    function updateAmount(e: ChangeEvent<HTMLInputElement>): void {
+      setValue(e.target.value)
     }
 
     return (
@@ -47,8 +63,9 @@ export const SendEther: SFC<IProps> =
             id='recipient'
             className={scss.input}
             type='string'
+            placeholder={recipient.placeholder}
             value={address || ''}
-            onChange={e => setAddress(e.target.value)}
+            onChange={updateAddress}
           />
         </div>
         <label htmlFor='amount' className={scss['amount-title']}>
@@ -61,8 +78,9 @@ export const SendEther: SFC<IProps> =
               id='amount'
               className={scss.input}
               type='number'
+              placeholder={amount.placeholder}
               value={value || ''}
-              onChange={e => setValue(e.target.value)}
+              onChange={updateAmount}
             />
             <span className={scss.ending}>
               {amount.ending}

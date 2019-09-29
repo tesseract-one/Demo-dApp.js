@@ -1,5 +1,7 @@
 $cOn: #43b781;
 $cOff: #FF4B58;
+$mbOn: #e3ecfe;
+$mbOff: rgba(#D98880, 0.5);
 
 .container {
   position: relative;
@@ -21,9 +23,15 @@ $cOff: #FF4B58;
       top: calc(50% - 4px);
       width: 6px;
       height: 6px;
-      border: 1px solid rgba($cOn, 0.3);
       border-radius: 100%;
+    }
+    &.on:before {
+      border: 1px solid rgba($cOn, 0.3);
       background-color: $cOn;
+    }
+    &.off:before {
+      border: 1px solid rgba($cOff, 0.3);
+      background-color: $cOff;
     }
     .up-icon {
       display: block;
@@ -93,6 +101,27 @@ $cOff: #FF4B58;
     }
     .networks {
       display: none;
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    &.good {
+      background-color: $mbOn;
+    }
+    &.error {
+      background-color: $mbOff;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
     }
   }
 }

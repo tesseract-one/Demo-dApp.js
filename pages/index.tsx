@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect } from 'react'
+import React, { SFC, ReactElement, useState, useEffect } from 'react'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
 import * as T from '../types'
 import * as C from '../components'
@@ -12,7 +12,7 @@ import '@mdi/font/scss/materialdesignicons.scss?raw'
 import '../assets/styles/global.scss?raw'
 import scss from './styles.scss'
 
-const examples: T.IExamples = {
+const examples: T.Examples = {
   showBalance: {
     component: <C.ShowBalance {...texts.example.examples.showBalance.content} />,
     code: showBalanceTxt
@@ -34,16 +34,22 @@ const examples: T.IExamples = {
 export const Web3Context = React.createContext<T.IWeb3Context | null>(null)
 
 const Index: SFC<never> = () => {
-  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s'>>({
+  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s' | 'isMobile' | 'setPopup'>>({
     web3: null,
     accounts: [],
     activeNetwork: null
   })
-  const [web3s, setWeb3s] = useState<T.IWeb3s | null>(null)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+  const [web3s, setWeb3s] = useState<T.Web3s | null>(null)
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.KExample>('showBalance')
+  const [notificationPopup, setNotificationPopup] = useState<ReactElement<T.INotificationPopup> | null>(null)
 
   useEffect(() => {
-    async function updateData() {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
+  useEffect(() => {
+    async function updateData(): Promise<void> {
       await loadNetworks()
     }
     updateData()
@@ -54,7 +60,7 @@ const Index: SFC<never> = () => {
     chooseDefaultNetwork()
   }, [web3s])
 
-  function changeNetwork(network: T.KNetwork) {
+  function changeNetwork(network: T.KNetwork): void {
     setWeb3Data({
       web3: web3s[network].web3,
       accounts: web3s[network].accounts,
@@ -62,11 +68,11 @@ const Index: SFC<never> = () => {
     })
   }
 
-  function chooseDefaultNetwork() {
-    const network = Object.entries<T.IWeb3s, T.KNetwork>(web3s)
-      .find(([_, web3]) => web3 !== null)
+  function chooseDefaultNetwork(): void {
+    const network = Object.entries<T.Web3s, T.KNetwork>(web3s)
+      .find(([, web3]) => web3 !== null)
 
-    if (!network) throw Error('No web3 at all')
+    if (!network) return
   
     setWeb3Data({
       web3: network[1].web3,
@@ -75,10 +81,10 @@ const Index: SFC<never> = () => {
     })
   }
 
-  async function loadNetworks() {
+  async function loadNetworks(): Promise<void> {
     const web3sArray = await Promise.all(
-      Object.entries<T.INetworks, T.KNetwork>(texts.networks)
-        .map(async (network): Promise<Partial<T.IWeb3s>> => 
+      Object.entries<T.Networks, T.KNetwork>(texts.networks)
+        .map(async (network): Promise<Partial<T.Web3s>> => 
           {
             try {
               const web3 = await Tesseract.Ethereum.Web3(network[1].endpoint)
@@ -93,17 +99,25 @@ const Index: SFC<never> = () => {
         )
     )
     const web3s = web3sArray
-      .reduce<Partial<T.IWeb3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.IWeb3s
+      .reduce<Partial<T.Web3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.Web3s
 
     setWeb3s(web3s)
   }
 
-  if (!web3Data.web3) return (
-    <h1>Waiting for web3 initialization ...</h1>
-  )
+  function setPopup(data: T.INotificationPopup): void {
+    setNotificationPopup(<C.NotificationPopup { ...data } />)
+    setTimeout(() => {
+      setNotificationPopup(null)
+    }, 3000)
+  }
+
+  // if (!web3Data.web3) return (
+  //   <h1>Waiting for web3 initialization ...</h1>
+  // )
+  if(isMobile === null) return null
 
   return (
-    <Web3Context.Provider value={{...web3Data, web3s}}>
+    <Web3Context.Provider value={{...web3Data, web3s, isMobile, setPopup}}>
       <div className={scss.container}>
         <div className={scss['left-side']}>
           <C.MarketingBar
@@ -119,7 +133,13 @@ const Index: SFC<never> = () => {
           >
             <C.Example
               code={examples[choosenExampleKey].code}
+              goGithub={texts.example.goGithub}
+              codeLabel={texts.example.codeLabel}
+              choosenExampleKey={choosenExampleKey}
+              examplesKeys={Object.keys<T.ExamplesText, T.KExample>(texts.example.examples)}
+              chooseExample={setChoosenExampleKey}
               copyIcon={texts.example.copyIcon}
+              texts={isMobile ? texts.example.examples[choosenExampleKey].mobile : undefined }
             >
               {examples[choosenExampleKey].component}
             </C.Example>
@@ -131,14 +151,14 @@ const Index: SFC<never> = () => {
             slider={
               <C.Slider
                 choosenExampleKey={choosenExampleKey}
-                examples={Object.entries<T.IExamplesText, T.KExample>(texts.example.examples)}
+                examples={Object.entries<T.ExamplesText, T.KExample>(texts.example.examples)}
                 chooseExample={setChoosenExampleKey}
               />
             }
             sliderDots={
               <C.SliderDots
                 choosenExampleKey={choosenExampleKey}
-                examplesKeys={Object.keys<T.IExamplesText, T.KExample>(texts.example.examples)}
+                examplesKeys={Object.keys<T.ExamplesText, T.KExample>(texts.example.examples)}
                 chooseExample={setChoosenExampleKey}
               />
             }
@@ -152,6 +172,7 @@ const Index: SFC<never> = () => {
             }
           />
         </div>
+        {notificationPopup}
       </div>
     </Web3Context.Provider>
   )

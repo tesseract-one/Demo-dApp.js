@@ -27,3 +27,26 @@
     margin-top: 48px;
   }
 }
+
+@media (max-width: $mScreenMax) {
+  .container {
+    padding: 28px 0 0 0;
+    .back-link {
+      justify-content: center;
+      margin-left: 28px;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: $cPrimary;
+      font-size: 24px;
+      color: $cLight;
+      &-icon {
+        margin-right: 0;
+        font-size: 24px;
+      }
+    }
+    .example {
+      margin-top: 28px;
+    }
+  }
+}

@@ -24,7 +24,7 @@ export const MarketingBar: SFC<IProps> =
         {
           socials.map(social => (
             <li className={scss.social} key={social.url}>
-              <a className={scss['social-link']} href={social.url} target="_blank">
+              <a className={scss['social-link']} href={social.url} target="_blank" rel="noopener noreferrer">
                 <span className={`mdi mdi-${social.icon}`} />
               </a>
             </li>
