@@ -44,7 +44,7 @@ export const Slider: SFC<IProps> =
       return now < endTime() ? getCurrentPos(startPos, endPos) : endPos
     }
 
-    function updateAnimationData(scrollTop: number) {
+    function updateAnimationData(scrollTop: number): void {
       const now = Date.now()
       setStartTime(now)
       setScrollPos(({ end }) => ({
@@ -53,14 +53,14 @@ export const Slider: SFC<IProps> =
       }))
     }
 
-    function scrollSlides(e: React.UIEvent<HTMLUListElement>) {
+    function scrollSlides(e: React.UIEvent<HTMLUListElement>): void {
       updateAnimationData(e.currentTarget.scrollTop)
       if (!requestId) {
         setRequestId(window.requestAnimationFrame(runAnimation))
       }
     }
 
-    function runAnimation() {
+    function runAnimation(): void {
       animate()
 
       if (Date.now() >= endTime()) {
@@ -80,7 +80,7 @@ export const Slider: SFC<IProps> =
       return elIndex !== -1 ? [elements[elIndex], elIndex] : null 
     }
 
-    function updatedBottomElements(elements: Element[]) {
+    function updatedBottomElements(elements: Element[]): void {
       elements.forEach(el => el.removeAttribute('style'))
     }
 
@@ -94,7 +94,7 @@ export const Slider: SFC<IProps> =
       return examples[elIndex][0] === choosenExampleKey
     }
 
-    function animate() {
+    function animate(): void {
       const currentContainer = container.current
       if (!currentContainer) return
     
@@ -123,7 +123,7 @@ export const Slider: SFC<IProps> =
     return (
       <ul
         className={scss.examples}
-        onScroll={e => scrollSlides(e)}
+        onScroll={scrollSlides}
         ref={container}
       >
         {

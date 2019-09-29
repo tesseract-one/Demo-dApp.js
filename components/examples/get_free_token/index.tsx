@@ -1,6 +1,6 @@
-import React, { SFC, ReactElement, SVGAttributes, useState, useContext } from 'react'
+import React, { SFC, ReactElement, SVGAttributes, useContext } from 'react'
 import { Web3Context } from '../../../pages' 
-import { KFreeToken, IFreeTokens } from '../../../types'
+import { KFreeToken, FreeTokens } from '../../../types'
 import WeenusIcon from '../../../assets/images/weenus-icon.svg'
 import XeenusIcon from '../../../assets/images/xeenus-icon.svg'
 import YeenusIcon from '../../../assets/images/yeenus-icon.svg'
@@ -9,7 +9,7 @@ import scss from './styles.scss'
 
 interface IProps {
   title: string
-  tokens: IFreeTokens
+  tokens: FreeTokens
 }
 
 const iconsProps = {
@@ -28,11 +28,9 @@ const icons: Record<KFreeToken, ReactElement<SVGAttributes<SVGAElement>>> = {
 
 export const GetFreeToken: SFC<IProps> =
     ({ title, tokens }) => {
-    const [sendCallback, setSendCallback] = useState<string | null>(null)
-
     const { web3, accounts, isMobile } = useContext(Web3Context)
 
-    async function getToken(address: string) {
+    async function getToken(address: string): Promise<void> {
       const tx = {
         from: accounts[0],
         to: address,
@@ -40,13 +38,13 @@ export const GetFreeToken: SFC<IProps> =
       }
       try {
         const estimatedGas = await web3.eth.estimateGas(tx)
-        const sendCallback = await web3.eth.sendTransaction({
+        await web3.eth.sendTransaction({
           ...tx,
           gas: (estimatedGas * 1.3).toFixed(0).toString()
         })
-        setSendCallback(`Transaction was sent successfully: ${sendCallback}`)
+        console.log(`Transaction was sent successfully.`)
       } catch (err) {
-        setSendCallback(`Transaction Error: ${err}`)
+        console.log(`Transaction Error: ${err}`)
       }
     }
 
@@ -58,7 +56,7 @@ export const GetFreeToken: SFC<IProps> =
           </span>
           <ul className={scss.tokens}>
             {
-              Object.entries<IFreeTokens, KFreeToken>(tokens)
+              Object.entries<FreeTokens, KFreeToken>(tokens)
                 .map(([key, value]) => (
                   <li
                     className={`${scss.token} ${scss[key]}`}
@@ -80,7 +78,7 @@ export const GetFreeToken: SFC<IProps> =
     return (
       <ul className={scss.tokens}>
         {
-          Object.entries<IFreeTokens, KFreeToken>(tokens)
+          Object.entries<FreeTokens, KFreeToken>(tokens)
             .map(([key, val]) => (
               <li
                 className={`${scss.token} ${scss[key]}`}

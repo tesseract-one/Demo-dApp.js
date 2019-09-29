@@ -1,4 +1,4 @@
-import React, { SFC, useState, useContext } from 'react'
+import React, { SFC, ChangeEvent, useState, useContext } from 'react'
 import { Web3Context } from '../../../pages/index'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
@@ -28,7 +28,7 @@ export const SendEther: SFC<IProps> =
     const [address, setAddress] = useState<string | null>(null)
     const [value, setValue] = useState<string | null>(null)
 
-    async function sendEth() {
+    async function sendEth(): Promise<void> {
       try {
         await web3.eth.sendTransaction({
           from: accounts[0],
@@ -42,6 +42,14 @@ export const SendEther: SFC<IProps> =
       } catch (err) {
         console.log(`Transaction Error: ${err}`)
       }
+    }
+    
+    function updateAddress(e: ChangeEvent<HTMLInputElement>): void {
+      setAddress(e.target.value)
+    }
+
+    function updateAmount(e: ChangeEvent<HTMLInputElement>): void {
+      setValue(e.target.value)
     }
 
     return (
@@ -57,7 +65,7 @@ export const SendEther: SFC<IProps> =
             type='string'
             placeholder={recipient.placeholder}
             value={address || ''}
-            onChange={e => setAddress(e.target.value)}
+            onChange={updateAddress}
           />
         </div>
         <label htmlFor='amount' className={scss['amount-title']}>
@@ -72,7 +80,7 @@ export const SendEther: SFC<IProps> =
               type='number'
               placeholder={amount.placeholder}
               value={value || ''}
-              onChange={e => setValue(e.target.value)}
+              onChange={updateAmount}
             />
             <span className={scss.ending}>
               {amount.ending}

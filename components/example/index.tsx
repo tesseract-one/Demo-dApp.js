@@ -34,7 +34,7 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     const { isMobile } = useContext(Web3Context)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
-    function copyCode() {
+    function copyCode(): void {
       navigator.clipboard.writeText(code)
         .then(() => {
           console.log('Copied!')
@@ -43,22 +43,22 @@ export const Example: SFC<PropsWithChildren<IProps>> =
         })
     }
 
-    function showCode() {
+    function showCode(): void {
       setIsOpen(true)
     }
 
-    function hideCode() {
+    function hideCode(): void {
       setIsOpen(false)
     }
 
-    function nextExample() {
+    function nextExample(): void {
       const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
       exampleKeyPos + 1 === examplesKeys.length
       ? chooseExample(examplesKeys[0])
       : chooseExample(examplesKeys[exampleKeyPos + 1])
     }
 
-    function prevExample() {
+    function prevExample(): void {
       const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
       exampleKeyPos === 0
       ? chooseExample(examplesKeys[examplesKeys.length - 1])

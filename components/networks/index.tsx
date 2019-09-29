@@ -1,26 +1,30 @@
 import React, { SFC, useState, useContext } from 'react'
-import { INetworks, KNetwork, IWeb3s } from '../../types'
+import { Networks as NetworksType, KNetwork, Web3s } from '../../types'
 import scss from './styles.scss'
 import { Web3Context } from '../../pages'
 import NetworkIcon from '../../assets/images/network-icon.svg'
 import NetworkIconError from '../../assets/images/network-icon-error.svg'
 
 interface IProps {
-  web3s: IWeb3s
-  networks: INetworks
-  activeNetwork: KNetwork,
+  web3s: Web3s
+  networks: NetworksType
+  activeNetwork: KNetwork
   changeNetwork: (network: KNetwork) => void
 }
 
 export const Networks: SFC<IProps> =
   ({ web3s, networks, activeNetwork, changeNetwork }) => {
     const { isMobile } = useContext(Web3Context)
-    const [isOpen, toggleNetworks] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
-    function chooseNetwork(network: KNetwork) {
+    function toggleNetworks(): void {
+      setIsOpen(isOpen => !isOpen)
+    }
+
+    function chooseNetwork(network: KNetwork): void {
       if (web3s[network] === null) return
       changeNetwork(network)
-      toggleNetworks(isOpen => !isOpen)
+      toggleNetworks()
     }
 
     if (!isMobile) {
@@ -28,7 +32,7 @@ export const Networks: SFC<IProps> =
         <div className={`${scss.container} ${isOpen ? '' : scss.closed}`}>
           <button
             className={`${scss['active-network']} ${networks[activeNetwork] ? scss.on : scss.off}`}
-            onClick={() => toggleNetworks(isOpen => !isOpen)}
+            onClick={toggleNetworks}
           >
             {networks[activeNetwork] 
               ? networks[activeNetwork].name
@@ -38,7 +42,7 @@ export const Networks: SFC<IProps> =
           </button>
           <ul className={scss.networks}>
             {
-              Object.entries<INetworks, KNetwork>(networks)
+              Object.entries<NetworksType, KNetwork>(networks)
                 .map(network =>
                   <li
                     className={`${scss.network}

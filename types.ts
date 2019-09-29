@@ -5,12 +5,12 @@ export type Nullable<T> = { [P in keyof T]: T[P] | null }
 
 export type KExample = 'showBalance' | 'sendEther' | 'showCuties' | 'getToken'
 
-export interface IExample {
+export interface IExample extends Object {
   component: JSX.Element
   code: string 
 }
 
-export interface IExamples extends Record<KExample, IExample>{}
+export type Examples = Record<KExample, IExample>
 
 export interface IExampleText {
   title: string
@@ -18,7 +18,7 @@ export interface IExampleText {
   tag: string
 }
 
-export interface IExamplesText extends Record<KExample, IExampleText>{}
+export type ExamplesText = Record<KExample, IExampleText>
 
 export type KNetwork = 'main' | 'ropsten' | 'kovan' | 'rinkeby'
 
@@ -27,18 +27,18 @@ export interface INetwork {
   endpoint: string
 }
 
-export interface INetworks extends Record<KNetwork, INetwork>{}
+export type Networks = Record<KNetwork, INetwork>
 
 export interface IWeb3WithAccounts {
   web3: Web3
   accounts: string[]
 }
 
-export interface IWeb3s extends Record<KNetwork, IWeb3WithAccounts | null>{}
+export type Web3s = Record<KNetwork, IWeb3WithAccounts | null>
 
 export interface IWeb3Context {
   web3: Web3 | null
-  web3s: IWeb3s
+  web3s: Web3s
   accounts: string[]
   activeNetwork: KNetwork | null
   isMobile: boolean
@@ -63,7 +63,7 @@ export interface IFreeToken {
   addresses: Record<KNetwork, string>
 }
 
-export interface IFreeTokens extends Record<KFreeToken, IFreeToken>{}
+export type FreeTokens = Record<KFreeToken, IFreeToken>
 
 export interface INotificationPopup {
   emoji: string

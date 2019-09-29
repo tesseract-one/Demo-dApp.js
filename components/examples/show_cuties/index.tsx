@@ -27,7 +27,7 @@ export const ShowCuties: SFC<IProps> =
     const { web3, accounts, activeNetwork, isMobile } = useContext(Web3Context)
 
     useEffect(() => {
-      async function updateData() {
+      async function updateData(): Promise<void> {
         activeNetwork === 'main'
         ? await updateCuties()
         : setCuties('NA')
@@ -35,7 +35,7 @@ export const ShowCuties: SFC<IProps> =
       updateData()
     }, [web3, activeNetwork, accounts])
 
-    async function updateCuties() {
+    async function updateCuties(): Promise<void> {
       const blockchainCutiesABI = abi as AbiItem[]
       const contract = new web3.eth.Contract(blockchainCutiesABI, address)
       const cuties = await contract.methods.balanceOf(accounts[0]).call()
