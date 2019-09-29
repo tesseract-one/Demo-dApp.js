@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --ext .js,.tsx,.ts --ignore-path .gitignore ."
   },
   "dependencies": {
     "@mdi/font": "^3.9.95",
@@ -31,6 +32,10 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "@types/web3": "^1.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "eslint-plugin-react": "^7.14.3",
     "typescript": "^3.5.3"
   }
 }
