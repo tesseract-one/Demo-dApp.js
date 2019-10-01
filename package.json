@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
-    "build": "next export -o ./dist",
-    "start": "next start",
+    "build": "next build && next export -o ./dist",
+    "start": "next build && next start",
     "lint": "eslint --ext .js,.tsx,.ts --ignore-path .gitignore ."
   },
   "dependencies": {
