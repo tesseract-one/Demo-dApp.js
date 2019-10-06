@@ -16,8 +16,22 @@
     height: 100%;
   }
 }
+ 
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .container {
+    .left-side {
+      display: none;
+    }
+    .center {
+      width: 64.5%;
+    }
+    .right-side {
+      width: 35.4%;
+    }
+  }
+}
 
-@media (max-width: $mScreenMax) {
+@media (max-width: $tScreenMax) {
   .container {
     position: relative;
     height: 100%;

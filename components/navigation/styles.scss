@@ -39,20 +39,57 @@
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .container {
+    padding: 32px 50px 32px 0;
+    &:before {
+      content: "";
+      position: absolute;
+      right: calc(100% - 275px);
+      top: calc(50% - 716px);
+      display: block;
+      width: 1432px;
+      height: 1432px;
+      border-radius: 0 100% 100% 0;
+      background-color: $bPrimary;
+    }
+    .title {
+      margin-top: 39px;
+      line-height: 66px;
+      font-size: 56px;
+      font-weight: bold;
+    }
+    .slider {
+      margin-top: -19px;
+      width: 313px;
+    }
+  }
+}
+
+@media (max-width: $tScreenMax) {
   .networks {
     position: absolute;
-    top: 28px;
-    right: 28px;
+    top: 32px;
+    right: 56px;
   }
   .slider-dots {
     position: absolute;
-    top: 532px;
+    top: 768px;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
     width: auto;
     height: auto;
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .networks {
+    top: 28px;
+    right: 28px;
+  }
+  .slider-dots {
+    top: 532px;
   }
 }

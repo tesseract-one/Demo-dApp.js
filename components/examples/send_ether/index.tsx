@@ -23,7 +23,7 @@ interface IProps {
 
 export const SendEther: SFC<IProps> =
     ({ recipient, amount, btn, resultPopup }) => {
-    const { web3, accounts, setPopup, isMobile } = useContext(Web3Context)
+    const { web3, accounts, setPopup, isTablet } = useContext(Web3Context)
 
     const [address, setAddress] = useState<string | null>(null)
     const [value, setValue] = useState<string | null>(null)
@@ -36,7 +36,7 @@ export const SendEther: SFC<IProps> =
           value: web3.utils.toWei(value, 'ether')
         })
 
-        if (isMobile) {
+        if (isTablet) {
           setPopup(resultPopup.sucessful)
         }
       } catch (err) {

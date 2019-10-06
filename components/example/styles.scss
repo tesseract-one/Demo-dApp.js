@@ -72,32 +72,53 @@ $mbsExample: #0c102f14;
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .container {
+    .block {
+      height: calc(50vh - 101px);
+    }
+    .example {
+      padding: 32px;
+    }
+    .code {
+      .hl {
+        padding: 0 28px;
+        height: calc(50vh - 165px);
+      }
+    }
+    .copy {
+      right: 28px;
+      bottom: 32px;
+    }
+  }
+}
+
+@media (max-width: $tScreenMax) {
   .container {
     position: static;
-    height: calc(100vh - 96px);
+    height: calc(100vh - 127px);
     overflow: hidden;
     .example {
       position: relative;
       z-index: 10;
-      margin: auto 28px;
+      margin: auto 56px;
       padding: 0;
       background-color: inherit;
       .title {
-        line-height: 38px;
-        font-size: 32px;
+        line-height: 57px;
+        font-size: 48px;
         font-weight: bold;
         color: $cPrimary;
       }
       .description {
-        margin-top: 12px;
-        line-height: 19px;
-        font-size: 16px;
+        margin-top: 16px;
+        line-height: 28px;
+        font-size: 24px;
         color: $mtSecondary;
       }
       .children-container {
         position: relative;
-        margin-top: 28px;
+        margin-top: 40px;
         border-radius: 24px;
         background-color: $bPrimaryLight;
         &:after {
@@ -123,14 +144,14 @@ $mbsExample: #0c102f14;
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height: 126px;
+      height: 158px;
       border-top-left-radius: 24px;
       border-top-right-radius: 24px;
       background-color: $cPrimary;
       transition: all $trDefault;
       &.opened {
         position: absolute;
-        bottom: calc(100% - 68px);
+        bottom: calc(100% - 88px);
         left: 0;
         right: 0;
         z-index: 20;
@@ -141,20 +162,20 @@ $mbsExample: #0c102f14;
         }
       }
       .icon {
-        margin-top: 10px;
-        font-size: 20px;
+        margin-top: 16px;
+        font-size: 30px;
         color: $cLight;
       }
       .label {
         display: block;
         text-transform: uppercase;
-        line-height: 16px;
-        font-size: 14px;
+        line-height: 24px;
+        font-size: 20px;
         font-weight: 500;
         color: $cLight;
       }
       .bottom-line {
-        margin-top: 36px;
+        margin-top: 38px;
         width: 134px;
         height: 5px;
         border-radius: 100px;
@@ -167,8 +188,8 @@ $mbsExample: #0c102f14;
         display: flex;
         flex-direction: column;
         margin: 0;
-        padding: 32px 28px 9px;
-        height: calc(100vh - 45px);
+        padding: 64px 56px 72px;
+        height: calc(100vh - 50px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
         background-color: $bPrimaryLight;
@@ -177,34 +198,34 @@ $mbsExample: #0c102f14;
         }
         .category {
           text-transform: uppercase;
-          line-height: 14px;
-          font-size: 12px;
+          line-height: 21px;
+          font-size: 18px;
           font-weight: bold;
           color: $bDark;
-          letter-spacing: 0.77;
+          letter-spacing: 1.15;
         }
         .title {
-          margin-top: 4px;
-          line-height: 29px;
-          font-size: 24px;
+          margin-top: 8px;
+          line-height: 43px;
+          font-size: 26px;
           font-weight: 500;
           color: $mtPrimary;
         }
         .signature {
-          margin-top: 4px;
-          line-height: 19px;
-          font-size: 16px;
+          margin-top: 8px;
+          line-height: 29px;
+          font-size: 24px;
           font-weight: 500;
           color: $mtSecondary;
         }
         .hl {
-          margin-top: 32px;
+          margin-top: 64px;
           padding: 0;
-          height: calc(100vh - 301px);
+          height: calc(100vh - 493px);
           border-radius: 0;
           background-color: $bPrimaryLight;
-          line-height: 28px;
-          font-size: 16px;
+          line-height: 40px;
+          font-size: 24px;
           color: $tPrimary;
           white-space: pre-line;
           word-break: break-word;
@@ -212,17 +233,19 @@ $mbsExample: #0c102f14;
         }
         .go-github {
           position: absolute;
-          left: 24px;
-          bottom: 40px;
+          left: 0;
+          right: 0;
+          bottom: 72px;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: calc(100% - 48px);
-          height: 50px;
+          margin: 0 auto;
+          width: 323px;
+          height: 56px;
           border-radius: 12px;
           background-color: $cPrimary;
-          line-height: 19px;
-          font-size: 16px;
+          line-height: 24px;
+          font-size: 20px;
           font-weight: 500;
           color: $cLight;
           &:before {
@@ -239,6 +262,90 @@ $mbsExample: #0c102f14;
           }
         }
         .bottom-line {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .container {
+    height: calc(100vh - 96px);
+    .example {
+      margin: auto 28px;
+      .title {
+        line-height: 38px;
+        font-size: 32px;
+      }
+      .description {
+        margin-top: 12px;
+        line-height: 19px;
+        font-size: 16px;
+      }
+      .children-container {
+        margin-top: 28px;
+      }
+    }
+    .code-container {
+      bottom: -56px;
+      height: 126px;
+      &.opened {
+        bottom: calc(100% - 68px);
+        .bottom-line {
+          width: 49px;
+        }
+      }
+      .icon {
+        margin-top: 10px;
+        font-size: 20px;
+      }
+      .label {
+        line-height: 16px;
+        font-size: 14px;
+      }
+      .bottom-line {
+        margin-top: 36px;
+      }
+      .code {
+        top: calc(100% - 24px);
+        left: 0;
+        padding: 32px 28px 9px;
+        height: calc(100vh - 45px);
+        &:after {
+          display: none;
+        }
+        .category {
+          line-height: 14px;
+          font-size: 12px;
+          letter-spacing: 0.77;
+        }
+        .title {
+          margin-top: 4px;
+          line-height: 29px;
+          font-size: 24px;
+        }
+        .signature {
+          margin-top: 4px;
+          line-height: 19px;
+          font-size: 16px;
+        }
+        .hl {
+          margin-top: 32px;
+          height: calc(100vh - 301px);
+          line-height: 28px;
+          font-size: 16px;
+        }
+        .go-github {
+          left: 24px;
+          right: initial;
+          bottom: 40px;
+          width: calc(100% - 48px);
+          height: 50px;
+          line-height: 19px;
+          font-size: 16px;
+        }
+        .bottom-line {
           position: absolute;
           bottom: 9px;
           left: calc(50% - 67px);
@@ -252,7 +359,7 @@ $mbsExample: #0c102f14;
   }
 }
 
-@media (min-height: 668px) {
+@media (max-width: $mScreenMax) and (min-height: 668px) {
   .container .code-container {
     bottom: -24px;
   }

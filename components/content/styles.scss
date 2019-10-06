@@ -28,20 +28,54 @@
   }
 }
 
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .container {
+    padding: 32px 50px;
+    .back-link {
+      text-transform: none;
+    }
+    .title {
+      margin-top: 25px;
+      line-height: 94px;
+      font-size: 80px;
+      color: $tLightPrimary;
+    }
+    .example {
+      margin-top: -37px;
+    }
+  }
+}
+
+@media (max-width: $tScreenMax) {
+  .container {
+    padding: 32px 0 0 0;
+    .back-link {
+      justify-content: center;
+      margin-left: 56px;
+      width: 55px;
+      height: 55px;
+      border-radius: 8px;
+      background-color: $cPrimary;
+      color: $cLight;
+      &-icon {
+        margin-right: 0;
+        font-size: 30px;
+      }
+    }
+    .example {
+      margin-top: 40px;
+    }
+  }
+}
+
 @media (max-width: $mScreenMax) {
   .container {
     padding: 28px 0 0 0;
     .back-link {
-      justify-content: center;
       margin-left: 28px;
       width: 40px;
       height: 40px;
-      border-radius: 8px;
-      background-color: $cPrimary;
-      font-size: 24px;
-      color: $cLight;
       &-icon {
-        margin-right: 0;
         font-size: 24px;
       }
     }

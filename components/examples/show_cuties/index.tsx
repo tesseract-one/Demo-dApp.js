@@ -24,7 +24,7 @@ export const ShowCuties: SFC<IProps> =
   ({ address, mobileLabel, balance, token, refreshIcon }) => {
     const [cuties, setCuties] = useState<string | null>(null)
 
-    const { web3, accounts, activeNetwork, isMobile } = useContext(Web3Context)
+    const { web3, accounts, activeNetwork, isTablet } = useContext(Web3Context)
 
     useEffect(() => {
       async function updateData(): Promise<void> {
@@ -42,7 +42,7 @@ export const ShowCuties: SFC<IProps> =
       setCuties(cuties)
     }
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={scss.container}>
           <span className={scss.label}>

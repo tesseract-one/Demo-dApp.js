@@ -41,7 +41,7 @@ export interface IWeb3Context {
   web3s: Web3s
   accounts: string[]
   activeNetwork: KNetwork | null
-  isMobile: boolean
+  isTablet: boolean
   setPopup: (data: INotificationPopup) => void
 }
 

@@ -123,14 +123,14 @@ $bdLogo: #5a74d8;
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (max-width: $tScreenMax) {
   .container {
     align-items: center;
-    padding: 32px 24px 25px;
+    padding: 40px 32px 32px;
     .input {
       height: calc(100% - 2px);
-      line-height: 19px;
-      font-size: 16px;
+      line-height: 24px;
+      font-size: 20px;
       font-weight: 500;
       color: $mtPrimary;
       background-color: transparent;
@@ -138,15 +138,15 @@ $bdLogo: #5a74d8;
     .recipient-title {
       display: block;
       text-transform: uppercase;
-      line-height: 14px;
-      font-size: 12px;
+      line-height: 19px;
+      font-size: 16px;
       color: $mtSecondaryLight;
-      letter-spacing: 0.77;
+      letter-spacing: 1.02;
     }
     .recipient-input {
-      margin-top: 12px;
-      padding: 0 20px;
-      height: 50px;
+      margin-top: 16px;
+      padding: 0 24px;
+      height: 56px;
       border: 1px solid $mbdPrimary;
       border-radius: 12px;
       background: $mbLight;
@@ -156,20 +156,20 @@ $bdLogo: #5a74d8;
     }
     .amount-title {
       display: block;
-      margin-top: 20px;
+      margin-top: 32px;
       text-transform: uppercase;
-      line-height: 14px;
-      font-size: 12px;
+      line-height: 19px;
+      font-size: 16px;
       color: $mtSecondaryLight;
-      letter-spacing: 0.77;
+      letter-spacing: 1.02;
     }
     .send {
       flex-direction: column;
-      margin-top: 12px;
+      margin-top: 16px;
       .amount-input {
-        padding: 0 20px;
+        padding: 0 24px;
         width: 100%;
-        height: 50px;
+        height: 56px;
         border: 1px solid $mbdPrimary;
         border-radius: 12px;
         background: $mbLight;
@@ -178,22 +178,22 @@ $bdLogo: #5a74d8;
         }
         .ending {
           flex: 0 0 auto;
-          margin-left: 16px;
+          margin-left: 24px;
           display: flex;
           align-items: center;
           height: 100%;
-          font-size: 20px;
+          font-size: 24px;
           font-weight: 500;
           color: $tSecondaryDark;
         }
       }
       .btn {
-        margin: 40px 0 0;
-        width: 100%;
-        height: 50px;
+        margin: 118px auto 0;
+        width: 323px;
+        height: 56px;
         border-radius: 12px;
-        line-height: 19px;
-        font-size: 16px;
+        line-height: 24px;
+        font-size: 20px;
         &:before {
           left: 4px;
           top: 4px;
@@ -202,6 +202,53 @@ $bdLogo: #5a74d8;
           border-radius: 12px;
           box-shadow: 0 4px 16px 0 $mbsPrimary;
         }
+      }
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .container {
+    padding: 32px 24px 25px;
+    .input {
+      height: calc(100% - 2px);
+      line-height: 19px;
+      font-size: 16px;
+    }
+    .recipient-title {
+      line-height: 14px;
+      font-size: 12px;
+      letter-spacing: 0.77;
+    }
+    .recipient-input {
+      margin-top: 12px;
+      padding: 0 20px;
+      height: 50px;
+    }
+    .amount-title {
+      margin-top: 20px;
+      line-height: 14px;
+      font-size: 12px;
+      letter-spacing: 0.77;
+    }
+    .send {
+      margin-top: 12px;
+      .amount-input {
+        padding: 0 20px;
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
+        .ending {
+          margin-left: 16px;
+          font-size: 20px;
+        }
+      }
+      .btn {
+        margin: 40px 0 0;
+        width: 100%;
+        height: 50px;
+        line-height: 19px;
+        font-size: 16px;
       }
     }
   }

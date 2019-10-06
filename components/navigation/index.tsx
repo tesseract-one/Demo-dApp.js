@@ -11,9 +11,9 @@ interface IProps {
 
 export const Navigation: SFC<IProps> =
   ({ title, slider, sliderDots, networks }) => {
-    const { isMobile } = useContext(Web3Context)
+    const { isTablet } = useContext(Web3Context)
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={scss.container}>
           <div className={scss.networks}>

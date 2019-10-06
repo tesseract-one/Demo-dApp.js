@@ -14,7 +14,7 @@ interface IProps {
 
 export const Networks: SFC<IProps> =
   ({ web3s, networks, activeNetwork, changeNetwork }) => {
-    const { isMobile } = useContext(Web3Context)
+    const { isTablet } = useContext(Web3Context)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     function toggleNetworks(): void {
@@ -27,7 +27,7 @@ export const Networks: SFC<IProps> =
       toggleNetworks()
     }
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={`${scss.container} ${isOpen ? '' : scss.closed}`}>
           <button

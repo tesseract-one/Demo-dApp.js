@@ -63,7 +63,7 @@ $mbBalance: rgba(#f4f6fc, 0.32);
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (min-width: $tScreenMin) and (max-width: $tScreenMax) {
   .container {
     align-items: center;
     padding: 10px 0 25px;
@@ -122,6 +122,110 @@ $mbBalance: rgba(#f4f6fc, 0.32);
         }
         .value {
           margin-left: auto;
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $tScreenMax) {
+  .container {
+    align-items: center;
+    padding: 49.5px 0 32px;
+    .image {
+      display: block;
+      width: 227px;
+      height: 196px;
+    }
+    .balance-container {
+      margin-top: 60px;
+      padding: 32px 32px 0;
+      width: 100%;
+      background-color: $mbBalance;
+      .label {
+        display: block;
+        margin-right: auto;
+        text-transform: uppercase;
+        line-height: 19px;
+        font-size: 16px;
+        font-weight: bold;
+        color: $mtSecondaryLight;
+        letter-spacing: 1.02px;
+      }
+      .balance-eth {
+        display: flex;
+        align-items: center;
+        margin-top: 16px;
+        padding: 0;
+        width: 100%;
+        height: 56px;
+        border: none;
+        border-radius: 12px;
+        background-color: $mbLight;
+        line-height: 24px;
+        font-size: 20px;
+        font-weight: 500;
+        color: $mtPrimary;
+        overflow: hidden;
+        .logo-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 56px;
+          height: 100%;
+          background-color: $cPrimary;
+          .logo {
+            width: 17px;
+            height: 28.5px;
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+          }
+        }
+        .name {
+          margin-left: 24px;
+        }
+        .value {
+          margin-left: auto;
+          margin-right: 24px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .container {
+    padding: 10px 0 25px;
+    .image {
+      width: 199px;
+      height: 170px;
+    }
+    .balance-container {
+      margin-top: 13px;
+      padding: 25px 24px 0;
+      .label {
+        line-height: 14px;
+        font-size: 12px;
+        letter-spacing: 0.77px;
+      }
+      .balance-eth {
+        margin-top: 12px;
+        height: 50px;
+        line-height: 19px;
+        font-size: 16px;
+        .logo-container {
+          width: 50px;
+          .logo {
+            width: 15px;
+            height: 25px;
+          }
+        }
+        .name {
+          margin-left: 16px;
+        }
+        .value {
           margin-right: 20px;
         }
       }

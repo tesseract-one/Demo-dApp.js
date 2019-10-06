@@ -5,7 +5,7 @@
   width: 100%;
   transform: scale(0.9);
   transform-origin: right top;
-  transition: margin $trDefault;
+  transition: all $trDefault;
   will-change: margin, transform;
   cursor: pointer;
   &:last-child {
@@ -66,4 +66,27 @@
       color: $tSecondary;
     }
   }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .example {
+    margin-bottom: calc(24px - 20px);
+    &.choosen, &:hover {
+      margin-bottom: 24px;
+    }
+    &-content {
+      padding: 24px;
+      .title {
+        margin-top: 32px;
+      }
+      .description {
+        line-height: 24px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (min-width: $tScreenMin) and (max-width: $tScreenMax) {
+
 }

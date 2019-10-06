@@ -28,7 +28,7 @@ const icons: Record<KFreeToken, ReactElement<SVGAttributes<SVGAElement>>> = {
 
 export const GetFreeToken: SFC<IProps> =
     ({ title, tokens }) => {
-    const { web3, accounts, isMobile } = useContext(Web3Context)
+    const { web3, accounts, isTablet } = useContext(Web3Context)
 
     async function getToken(address: string): Promise<void> {
       const tx = {
@@ -48,7 +48,7 @@ export const GetFreeToken: SFC<IProps> =
       }
     }
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={scss.container}>
           <span className={scss.title}>

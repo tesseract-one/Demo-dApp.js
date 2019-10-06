@@ -105,13 +105,13 @@ $mbOff: rgba(#D98880, 0.5);
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (max-width: $tScreenMax) {
   .container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     border-radius: 8px;
     &.good {
       background-color: $mbOn;
@@ -119,6 +119,17 @@ $mbOff: rgba(#D98880, 0.5);
     &.error {
       background-color: $mbOff;
     }
+    .icon {
+      width: 27.5px;
+      height: 27.5px;
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .container {
+    width: 40px;
+    height: 40px;
     .icon {
       width: 24px;
       height: 24px;

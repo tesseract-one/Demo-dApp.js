@@ -34,18 +34,18 @@ const examples: T.Examples = {
 export const Web3Context = React.createContext<T.IWeb3Context | null>(null)
 
 const Index: SFC<never> = () => {
-  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s' | 'isMobile' | 'setPopup'>>({
+  const [web3Data, setWeb3Data] = useState<Omit<T.IWeb3Context, 'web3s' | 'isTablet' | 'setPopup'>>({
     web3: null,
     accounts: [],
     activeNetwork: null
   })
-  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+  const [isTablet, setIsTablet] = useState<boolean | null>(null)
   const [web3s, setWeb3s] = useState<T.Web3s | null>(null)
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.KExample>('showBalance')
   const [notificationPopup, setNotificationPopup] = useState<ReactElement<T.INotificationPopup> | null>(null)
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
+    setIsTablet(window.innerWidth < 1024)
   }, [])
 
   useEffect(() => {
@@ -114,10 +114,10 @@ const Index: SFC<never> = () => {
   // if (!web3Data.web3) return (
   //   <h1>Waiting for web3 initialization ...</h1>
   // )
-  if(isMobile === null) return null
+  if(isTablet === null) return null
 
   return (
-    <Web3Context.Provider value={{...web3Data, web3s, isMobile, setPopup}}>
+    <Web3Context.Provider value={{...web3Data, web3s, isTablet, setPopup}}>
       <div className={scss.container}>
         <div className={scss['left-side']}>
           <C.MarketingBar
@@ -139,7 +139,7 @@ const Index: SFC<never> = () => {
               examplesKeys={Object.keys<T.ExamplesText, T.KExample>(texts.example.examples)}
               chooseExample={setChoosenExampleKey}
               copyIcon={texts.example.copyIcon}
-              texts={isMobile ? texts.example.examples[choosenExampleKey].mobile : undefined }
+              texts={isTablet ? texts.example.examples[choosenExampleKey].mobile : undefined }
             >
               {examples[choosenExampleKey].component}
             </C.Example>

@@ -29,7 +29,7 @@ export const ShowBalance: SFC<IProps> =
       eth: null,
       usd: null
     })
-    const { web3, accounts, isMobile } = useContext(Web3Context)
+    const { web3, accounts, isTablet } = useContext(Web3Context)
 
     useEffect(() => {
       async function updateData(): Promise<void> {
@@ -60,7 +60,7 @@ export const ShowBalance: SFC<IProps> =
     }
 
     async function updateBalance(): Promise<void> {
-      const round = isMobile ? 10 : 1000000
+      const round = isTablet ? 10 : 1000000
       const balanceWei = await web3.eth.getBalance(accounts[0])
       const balanceEthAsNumber = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
       const balanceEth = Math.round(balanceEthAsNumber * round) / round
@@ -70,7 +70,7 @@ export const ShowBalance: SFC<IProps> =
       setBalance({ eth: balanceEth, usd: balanceUsd })
     }
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={scss.container}>
           <span className={scss.title}>

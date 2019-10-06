@@ -16,19 +16,19 @@ interface IProps {
 
 export const Content: SFC<PropsWithChildren<IProps>> = 
   ({ title, backToSite, children}) => {
-    const { isMobile } = useContext(Web3Context)
+    const { isTablet } = useContext(Web3Context)
 
     return (
       <div className={scss.container}>
         <a className={scss['back-link']} href={backToSite.url}>
           <span 
             className={`${scss['back-link-icon']} mdi mdi-${
-              !isMobile ? backToSite.icon.desktop : backToSite.icon.mobile}`
+              !isTablet ? backToSite.icon.desktop : backToSite.icon.mobile}`
             }
           />
-          {!isMobile && backToSite.title}
+          {!isTablet && backToSite.title}
         </a>
-        {!isMobile && 
+        {!isTablet && 
           <h1 className={scss.title}>
             {title}
           </h1>

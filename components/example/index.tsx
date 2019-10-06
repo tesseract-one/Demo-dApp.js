@@ -31,7 +31,7 @@ interface IProps {
 
 export const Example: SFC<PropsWithChildren<IProps>> = 
   ({ code, copyIcon, codeLabel, goGithub, choosenExampleKey, examplesKeys, chooseExample, children, texts }) => {
-    const { isMobile } = useContext(Web3Context)
+    const { isTablet } = useContext(Web3Context)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     function copyCode(): void {
@@ -65,7 +65,7 @@ export const Example: SFC<PropsWithChildren<IProps>> =
       : chooseExample(examplesKeys[exampleKeyPos - 1])
     }
 
-    if (!isMobile) {
+    if (!isTablet) {
       return (
         <div className={scss.container}>
           <div className={`${scss.block} ${scss.example}`}>

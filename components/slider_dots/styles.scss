@@ -22,7 +22,13 @@ $mbDot: #dee3ed;
   }
 }
 
-@media (max-width: $mScreenMax) {
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
+  .slider-dots {
+    display: none;
+  }
+}
+
+@media (max-width: $tScreenMax) {
   .slider-dots {
     position: static;
     display: flex;
@@ -31,8 +37,10 @@ $mbDot: #dee3ed;
     .dot {
       margin-top: 0;
       margin-right: 8px;
+      width: 12px;
+      height: 12px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       background-color: $mbDot;
       opacity: 1;
       transition: width $trDefault;
@@ -40,8 +48,21 @@ $mbDot: #dee3ed;
         margin-right: 0;
       }
       &.choosen {
-        width: 16px;
+        width: 24px;
         background-color: $cPrimary;
+      }
+    }
+  }
+}
+
+@media (max-width: $mScreenMax) {
+  .slider-dots {
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      &.choosen {
+        width: 16px;
       }
     }
   }
