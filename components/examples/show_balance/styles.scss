@@ -63,6 +63,65 @@ $mbBalance: rgba(#f4f6fc, 0.32);
   }
 }
 
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    .title {
+      font-size: getRubberSizeND(16px);
+    }
+    .balance-usd {
+      margin-top: getRubberSizeND(16px);
+      font-size: getRubberSizeND(56px);
+    }
+    .balance-eth {
+      padding: getRubberSizeND(13px, 32px);
+      border-radius: getRubberSizeND(8px);
+      font-size: getRubberSizeND(20px);
+      .logo {
+        width: getRubberSizeND(44px);
+        height: getRubberSizeND(44px);
+      }
+      .name {
+        margin-left: getRubberSizeND(16px);
+      }
+    }
+    .refresh {
+      width: getRubberSizeND(40px);
+      height: getRubberSizeND(40px);
+      font-size: getRubberSizeND(20px);
+    }
+  }
+}
+
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    .title {
+      font-size: getRubberSizeSD(16px);
+    }
+    .balance-usd {
+      margin-top: getRubberSizeSD(16px);
+      font-size: getRubberSizeSD(56px);
+    }
+    .balance-eth {
+      padding: getRubberSizeSD(13px, 32px);
+      border-radius: getRubberSizeSD(8px);
+      font-size: getRubberSizeSD(20px);
+      .logo {
+        width: getRubberSizeSD(44px);
+        height: getRubberSizeSD(44px);
+      }
+      .name {
+        margin-left: getRubberSizeSD(16px);
+      }
+    }
+    .refresh {
+      width: getRubberSizeSD(40px);
+      height: getRubberSizeSD(40px);
+      font-size: getRubberSizeSD(20px);
+    }
+  }
+}
+
 @media (min-width: $tScreenMin) and (max-width: $tScreenMax) {
   .container {
     align-items: center;

@@ -22,7 +22,7 @@ $mbsExample: #0c102f14;
       height: calc(100% - 32px);
       border-radius: 8px;
       opacity: 0.5;
-      box-shadow: 0 32px 64px 0 $bsPrimary;
+      box-shadow: 0px 32px 64px 0px $bsPrimary;
     }
   }
   .example {
@@ -33,7 +33,7 @@ $mbsExample: #0c102f14;
     }
   }
   .code {
-    padding: 32px 0;
+    padding: 32px 0px;
     margin-top: 32px;
     background-color: $bSecondaryDark;
     &:after {
@@ -41,7 +41,7 @@ $mbsExample: #0c102f14;
     }
     .hl {
       position: relative;
-      padding: 0 32px;
+      padding: 0px 32px;
       height: calc(50vh - 231.5px);
       border-radius: 8px;
       background-color: $bSecondaryDark;
@@ -72,6 +72,45 @@ $mbsExample: #0c102f14;
   }
 }
 
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    .block {
+      height: calc(50vh - #{getRubberSizeND(167.5px)});
+      border-radius: getRubberSizeND(8px);
+      &:after {
+        left: getRubberSizeND(16px);
+        top: getRubberSizeND(16px);
+        width: calc(100% - #{getRubberSizeND(32px)});
+        height: calc(100% - #{getRubberSizeND(32px)});
+        border-radius: getRubberSizeND(8px);
+        box-shadow: getRubberSizeND(0px, 32px, 64px, 0px) $bsPrimary;
+      }
+    }
+    .example {
+      padding: getRubberSizeND(32px);
+    }
+    .code {
+      padding: getRubberSizeND(32px, 0px);
+      margin-top: getRubberSizeND(32px);
+      .hl {
+        padding: getRubberSizeND(0px, 32px);
+        height: calc(50vh - #{getRubberSizeND(231.5px)});
+        border-radius: getRubberSizeND(8px);
+        font-size: getRubberSizeND(20px);
+      }
+    }
+    .copy {
+      right: getRubberSizeND(32px);
+      bottom: getRubberSizeND(32px);
+      width: getRubberSizeND(40px);
+      height: getRubberSizeND(40px);
+      &-icon {
+        font-size: getRubberSizeND(20px);
+      }
+    }
+  }  
+}
+
 @media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
   .container {
     .block {
@@ -81,6 +120,8 @@ $mbsExample: #0c102f14;
       padding: 32px;
     }
     .code {
+      padding: getRubberSizeSD(32px, 0px);
+      margin-top: getRubberSizeSD(32px);
       .hl {
         padding: 0 28px;
         height: calc(50vh - 165px);
@@ -89,6 +130,45 @@ $mbsExample: #0c102f14;
     .copy {
       right: 28px;
       bottom: 32px;
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    .block {
+      height: calc(50vh - #{getRubberSizeSD(101px)});
+      border-radius: getRubberSizeSD(8px);
+      &:after {
+        left: getRubberSizeSD(16px);
+        top: getRubberSizeSD(16px);
+        width: calc(100% - #{getRubberSizeSD(32px)});
+        height: calc(100% - #{getRubberSizeSD(32px)});
+        border-radius: getRubberSizeSD(8px);
+        box-shadow: getRubberSizeSD(0px, 32px, 64px, 0px) $bsPrimary;
+      }
+    }
+    .example {
+      padding: getRubberSizeSD(32px);
+    }
+    .code {
+      padding: getRubberSizeSD(32px, 0px);
+      margin-top: getRubberSizeSD(32px);
+      .hl {
+        padding: getRubberSizeSD(0px, 28px);
+        height: calc(50vh - #{getRubberSizeSD(165px)});
+        border-radius: getRubberSizeSD(8px);
+        font-size: getRubberSizeSD(20px);  
+      }
+    }
+    .copy {
+      right: getRubberSizeSD(28px);
+      bottom: getRubberSizeSD(32px);
+      width: getRubberSizeSD(40px);
+      height: getRubberSizeSD(40px);
+      &-icon {
+        font-size: getRubberSizeSD(20px);
+      }
     }
   }
 }

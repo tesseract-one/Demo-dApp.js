@@ -27,7 +27,7 @@ $bdLogo: #5a74d8;
     display: flex;
     align-items: center;
     margin-top: 12px;
-    padding: 0 40px 0 32px;
+    padding: 0px 40px 0px 32px;
     width: 100%;
     height: 70px;
     border: 0.5px solid $bdSecondary;
@@ -65,7 +65,7 @@ $bdLogo: #5a74d8;
       flex: 1 1 auto;
       display: flex;
       align-items: center;
-      padding: 0 40px 0 32px;
+      padding: 0px 40px 0px 32px;
       width: calc(100% - 248px);
       height: 70px;
       border: 0.5px solid $bdSecondary;
@@ -117,7 +117,131 @@ $bdLogo: #5a74d8;
         top: calc(100% - 16px);
         border-radius: 8px;
         background-color: $cPrimary;
-        box-shadow: 0 8px 16px 0 $bsSecondary;
+        box-shadow: 0px 8px 16px 0px $bsSecondary;
+      }
+    }
+  }
+}
+
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    .input {
+      line-height: getRubberSizeND(24px);
+      font-size: getRubberSizeND(20px);
+    }
+    .recipient-title {
+      font-size: getRubberSizeND(16px);
+    }
+    .recipient-input {
+      margin-top: getRubberSizeND(12px);
+      padding: getRubberSizeND(0px, 40px, 0px, 32px);
+      height: getRubberSizeND(70px);
+      border-radius: getRubberSizeND(8px);
+      .logo {
+        margin-right: getRubberSizeND(16px);
+        width: getRubberSizeND(44px);
+        height: getRubberSizeND(44px);
+        font-size: getRubberSizeND(27px);
+      }
+    }
+    .amount-title {
+      margin-top: getRubberSizeND(19px);
+      font-size: getRubberSizeND(16px);
+    }
+    .send {
+      margin-top: getRubberSizeND(12px);
+      .amount-input {
+        padding: getRubberSizeND(0px, 40px, 0px, 32px);
+        width: calc(100% - #{getRubberSizeND(248px)});
+        height: getRubberSizeND(70px);
+        border-radius: getRubberSizeND(8px);
+        .logo {
+          margin-right: getRubberSizeND(16px);
+          width: getRubberSizeND(44px);
+          height: getRubberSizeND(44px);
+        }
+        .ending {
+          margin-left: getRubberSizeND(16px);
+          font-size: getRubberSizeND(20px);
+        }
+      }
+      .btn {
+        margin-left: getRubberSizeND(32px);
+        width: getRubberSizeND(216px);
+        height: getRubberSizeND(70px);
+        border-radius: getRubberSizeND(8px);
+        line-height: getRubberSizeND(24px);
+        font-size: getRubberSizeND(20px);
+        &:before {
+          left: getRubberSizeND(8px);
+          top: getRubberSizeND(8px);
+          width: calc(100% - #{getRubberSizeND(16px)});
+          top: calc(100% - #{getRubberSizeND(16px)});
+          border-radius: getRubberSizeND(8px);
+          box-shadow: getRubberSizeND(0px, 8px 16px 0px) $bsSecondary;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    .input {
+      line-height: getRubberSizeSD(24px);
+      font-size: getRubberSizeSD(20px);
+    }
+    .recipient-title {
+      font-size: getRubberSizeSD(16px);
+    }
+    .recipient-input {
+      margin-top: getRubberSizeSD(12px);
+      padding: getRubberSizeSD(0px, 40px, 0px, 32px);
+      height: getRubberSizeSD(70px);
+      border-radius: getRubberSizeSD(8px);
+      .logo {
+        margin-right: getRubberSizeSD(16px);
+        width: getRubberSizeSD(44px);
+        height: getRubberSizeSD(44px);
+        font-size: getRubberSizeSD(27px);
+      }
+    }
+    .amount-title {
+      margin-top: getRubberSizeSD(19px);
+      font-size: getRubberSizeSD(16px);
+    }
+    .send {
+      margin-top: getRubberSizeSD(12px);
+      .amount-input {
+        padding: getRubberSizeSD(0px, 40px, 0px, 32px);
+        width: calc(100% - #{getRubberSizeSD(248px)});
+        height: getRubberSizeSD(70px);
+        border-radius: getRubberSizeSD(8px);
+        .logo {
+          margin-right: getRubberSizeSD(16px);
+          width: getRubberSizeSD(44px);
+          height: getRubberSizeSD(44px);
+        }
+        .ending {
+          margin-left: getRubberSizeSD(16px);
+          font-size: getRubberSizeSD(20px);
+        }
+      }
+      .btn {
+        margin-left: getRubberSizeSD(32px);
+        width: getRubberSizeSD(216px);
+        height: getRubberSizeSD(70px);
+        border-radius: getRubberSizeSD(8px);
+        line-height: getRubberSizeSD(24px);
+        font-size: getRubberSizeSD(20px);
+        &:before {
+          left: getRubberSizeSD(8px);
+          top: getRubberSizeSD(8px);
+          width: calc(100% - #{getRubberSizeSD(16px)});
+          top: calc(100% - #{getRubberSizeSD(16px)});
+          border-radius: getRubberSizeSD(8px);
+          box-shadow: getRubberSizeSD(0px, 8px 16px 0px) $bsSecondary;
+        }
       }
     }
   }

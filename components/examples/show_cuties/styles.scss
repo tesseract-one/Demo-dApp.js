@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     margin-top: 50px;
-    padding: 0 32px;
+    padding: 0px 32px;
     height: 70px;
     border: 0.5px solid $bdSecondary;
     border-radius: 8px;
@@ -57,6 +57,70 @@
     background-color: rgba($bDark, 0.08);
     font-size: 20px;
     color: rgba($bDark, 0.75)
+  }
+}
+
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    .label {
+      font-size: getRubberSizeND(16px);
+    }
+    .title {
+      margin-top: getRubberSizeND(16px);
+      font-size: getRubberSizeND(56px);
+    }
+    .token {
+      margin-top: getRubberSizeND(50px);
+      padding: getRubberSizeND(0px, 32px);
+      height: getRubberSizeND(70px);
+      border-radius: getRubberSizeND(8px);
+      font-size: getRubberSizeND(20px);
+      .logo {
+        width: getRubberSizeND(44px);
+        height: getRubberSizeND(44px);
+        border-radius: getRubberSizeND(8px);
+      }
+      .name {
+        margin-left: getRubberSizeND(16px);
+      }
+    }
+    .refresh {
+      width: getRubberSizeND(40px);
+      height: getRubberSizeND(40px);
+      font-size: getRubberSizeND(20px);
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    .label {
+      font-size: getRubberSizeSD(16px);
+    }
+    .title {
+      margin-top: getRubberSizeSD(16px);
+      font-size: getRubberSizeSD(56px);
+    }
+    .token {
+      margin-top: getRubberSizeSD(50px);
+      padding: getRubberSizeSD(0px, 32px);
+      height: getRubberSizeSD(70px);
+      border-radius: getRubberSizeSD(8px);
+      font-size: getRubberSizeSD(20px);
+      .logo {
+        width: getRubberSizeSD(44px);
+        height: getRubberSizeSD(44px);
+        border-radius: getRubberSizeSD(8px);
+      }
+      .name {
+        margin-left: getRubberSizeSD(16px);
+      }
+    }
+    .refresh {
+      width: getRubberSizeSD(40px);
+      height: getRubberSizeSD(40px);
+      font-size: getRubberSizeSD(20px);
+    }
   }
 }
 

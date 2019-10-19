@@ -28,6 +28,27 @@
   }
 }
 
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    padding: getRubberSizeND(32px, 40px, 56px, 55px);
+    .back-link {
+      font-size: getRubberSizeND(16px);
+      &-icon {
+        margin-right: getRubberSizeND(8px);
+        font-size: getRubberSizeND(20px);
+      }
+    }
+    .title {
+      margin-top: getRubberSizeND(68px);
+      line-height: getRubberSizeND(75px);
+      font-size: getRubberSizeND(64px);
+    }
+    .example {
+      margin-top: getRubberSizeND(48px);
+    }
+  }
+}
+
 @media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
   .container {
     padding: 32px 50px;
@@ -42,6 +63,27 @@
     }
     .example {
       margin-top: -37px;
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    padding: getRubberSizeSD(32px, 50px);
+    .back-link {
+      font-size: getRubberSizeSD(16px);
+      &-icon {
+        margin-right: getRubberSizeSD(8px);
+        font-size: getRubberSizeSD(20px);
+      }
+    }
+    .title {
+      margin-top: getRubberSizeND(25px);
+      line-height: getRubberSizeND(94px);
+      font-size: getRubberSizeND(80px);
+    }
+    .example {
+      margin-top: getRubberSizeND(-37px);
     }
   }
 }

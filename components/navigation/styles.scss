@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 32px 32px 0 90px;
+  padding: 32px 32px 0px 90px;
   width: 100%;
   height: 100%;
   background-color: $cPrimary;
@@ -39,6 +39,27 @@
   }
 }
 
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .container {
+    padding: getRubberSizeND(32px, 32px, 0px, 90px);
+    &:before {
+      right: calc(100% - #{getRubberSizeND(275px)});
+      top: calc(50% - #{getRubberSizeND(716px)});
+      width: getRubberSizeND(1432px);
+      height: getRubberSizeND(1432px);
+    }
+    .title {
+      margin-top: getRubberSizeND(84px);
+      line-height: getRubberSizeND(66px);
+      font-size: getRubberSizeND(46px);
+    }
+    .slider {
+      margin-top: getRubberSizeND(48px);
+      width: getRubberSizeND(370px);
+    }
+  }
+}
+
 @media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
   .container {
     padding: 32px 50px 32px 0;
@@ -60,8 +81,30 @@
       font-weight: bold;
     }
     .slider {
-      margin-top: -19px;
+      margin-top: -31px;
       width: 313px;
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .container {
+    padding: getRubberSizeSD(32px, 50px, 32px, 0px);
+    &:before {
+      right: calc(100% - #{getRubberSizeSD(275px)});
+      top: calc(50% - #{getRubberSizeSD(716px)});
+      width: getRubberSizeSD(1432px);
+      height: getRubberSizeSD(1432px);
+      border-radius: 0 100% 100% 0;
+    }
+    .title {
+      margin-top: getRubberSizeSD(39px);
+      line-height: getRubberSizeSD(66px);
+      font-size: getRubberSizeSD(56px);
+    }
+    .slider {
+      margin-top: getRubberSizeSD(-31px);
+      width: getRubberSizeSD(313px);
     }
   }
 }

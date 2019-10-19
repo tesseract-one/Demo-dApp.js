@@ -1,0 +1,28 @@
+// Size coefs
+// ======================================= //
+$ndCoef: $ndScreenHeight / 100; // 100vh
+$sdCoef: $sdScreenHeight / 100;
+
+@function getRubberSizeND($sizes...) {
+  $acc: null;
+  @each $size in $sizes {
+    $acc: #{$acc $size/$ndCoef}vh;
+  }
+  @return $acc;
+}
+
+@function getRubberSizeSD($sizes...) {
+  $acc: null;
+  @each $size in $sizes {
+    $acc: #{$acc $size/$sdCoef}vh;
+  }
+  @return $acc;
+}
+
+// I can't use 2 functions bacause it seems that it will change type of args to string
+// ---------------------------------------
+// @function updateSize($type, $args...) { 
+//   @if $type == 'nd' {
+//     @return getSize($ndCoef, $args)
+//   }
+// }

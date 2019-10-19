@@ -73,7 +73,12 @@ export const SendEther: SFC<IProps> =
         </label>
         <div className={scss.send}>
           <div className={scss['amount-input']}>
-            <EthereumLogo className={scss.logo} />
+            <EthereumLogo
+              className={scss.logo}
+              width={44}
+              height={44}
+              viewBox='0 0 44 44'
+            />
             <input
               id='amount'
               className={scss.input}

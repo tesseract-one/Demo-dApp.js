@@ -11,6 +11,7 @@ module.exports = withSass({
   sassLoaderOptions: {
     data: `
       @import './assets/styles/variables.scss';
+      @import './assets/styles/rubber.scss';
     `
   },
   webpack: config => {
