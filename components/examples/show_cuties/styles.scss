@@ -13,7 +13,7 @@
   .title {
     margin-top: 16px;
     opacity: 0.75;
-    line-height: $lhDefault;
+    line-height: 118%;
     font-size: 56px;
     font-weight: 500;
     color: $tPrimary;
@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     margin-top: 50px;
-    padding: 0px 32px;
+    padding: 13px 32px;
     height: 70px;
     border: 0.5px solid $bdSecondary;
     border-radius: 8px;
@@ -56,7 +56,10 @@
     border-radius: 100%;
     background-color: rgba($bDark, 0.08);
     font-size: 20px;
-    color: rgba($bDark, 0.75)
+    color: rgba($bDark, 0.75);
+    .icon {
+      margin-top: 2
+    }
   }
 }
 
@@ -71,7 +74,7 @@
     }
     .token {
       margin-top: getRubberSizeND(50px);
-      padding: getRubberSizeND(0px, 32px);
+      padding: getRubberSizeND(13px, 32px);
       height: getRubberSizeND(70px);
       border-radius: getRubberSizeND(8px);
       font-size: getRubberSizeND(20px);
@@ -103,7 +106,7 @@
     }
     .token {
       margin-top: getRubberSizeSD(50px);
-      padding: getRubberSizeSD(0px, 32px);
+      padding: getRubberSizeSD(13px, 32px);
       height: getRubberSizeSD(70px);
       border-radius: getRubberSizeSD(8px);
       font-size: getRubberSizeSD(20px);

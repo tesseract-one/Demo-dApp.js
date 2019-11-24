@@ -97,24 +97,28 @@ export const Example: SFC<PropsWithChildren<IProps>> =
           </div>
         </Swipeable>
         <Swipeable
-          className={`${scss['code-container']} ${isOpen ? scss.opened : ''}`}
           onSwipedUp={showCode}
           onSwipedDown={hideCode}
         >
-          <span className={`${scss.icon} mdi mdi-chevron-up`} />
-          <span className={scss.label}>{codeLabel}</span>
-          <div className={scss['bottom-line']} />
-          <div className={scss.code}>
-            <span className={scss.category}>{texts.category}</span>
-            <span className={scss.title}>{`${texts.title} Example`}</span>
-            <span className={scss.signature}>{texts.signature}</span>
-            <Highlight className={scss.hl} languages={['javascript']}>
-              { code }
-            </Highlight>
+          <div
+            className={`${scss['code-container']} ${isOpen ? scss.opened : ''}`}
+            onClick={showCode}
+          >
+            <span className={`${scss.icon} mdi mdi-chevron-up`} />
+            <span className={scss.label}>{codeLabel}</span>
             <div className={scss['bottom-line']} />
-            <a href={goGithub.url} className={scss['go-github']}>
-              {goGithub.text}
-            </a>
+            <div className={scss.code}>
+              <span className={scss.category}>{texts.category}</span>
+              <span className={scss.title}>{`${texts.title} Example`}</span>
+              <span className={scss.signature}>{texts.signature}</span>
+              <Highlight className={scss.hl} languages={['javascript']}>
+                { code }
+              </Highlight>
+              <div className={scss['bottom-line']} />
+              <a href={goGithub.url} className={scss['go-github']}>
+                {goGithub.text}
+              </a>
+            </div>
           </div>
         </Swipeable>
       </div>

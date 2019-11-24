@@ -58,7 +58,6 @@ export type KFreeToken = 'weenus' | 'xeenus' | 'yeenus' | 'zeenus'
 
 export interface IFreeToken {
   title: string
-  mobileTitle: string
   logo: string
   addresses: Record<KNetwork, string>
 }

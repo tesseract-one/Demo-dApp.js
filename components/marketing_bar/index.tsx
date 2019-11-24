@@ -10,7 +10,14 @@ interface IProps {
   }[]
   copyright: {
     icon: string
-    text: string
+    text: {
+      head: string
+      tail: string
+    }
+    link: {
+      title: string
+      url: string
+    }
   }
 }
 
@@ -33,10 +40,14 @@ export const MarketingBar: SFC<IProps> =
       </ul>
       <div className={scss.copyright}>
         <span className={`mdi mdi-${copyright.icon}`} />
-        <div
-          className={scss['copyright-tooltip']}
-          dangerouslySetInnerHTML={{ __html: copyright.text }}
-        />
+        <div className={scss['copyright-tooltip']}>
+          {copyright.text.head}
+          <a className={scss.company} href={copyright.link.url} target="_blank" rel="noopener noreferrer">
+            {copyright.link.title}
+          </a>
+          <br/>
+          {copyright.text.tail}
+        </div>
       </div>
     </div>
   )

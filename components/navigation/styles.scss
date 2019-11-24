@@ -10,11 +10,11 @@
   &:before {
     content: "";
     position: absolute;
-    right: calc(100% - 275px);
-    top: calc(50% - 716px);
+    right: calc(100% - 30vh);
+    top: calc(50% - 79.5vh);
     display: block;
-    width: 1432px;
-    height: 1432px;
+    width: 159vh;
+    height: 159vh;
     border-radius: 0 100% 100% 0;
     background-color: $bPrimary;
   }
@@ -25,6 +25,8 @@
     position: relative;
     z-index: 1;
     margin-top: 84px;
+    width: 370px;
+    text-align: right;
     line-height: 66px;
     font-size: 46px;
     font-weight: 900;
@@ -42,14 +44,15 @@
 @media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
   .container {
     padding: getRubberSizeND(32px, 32px, 0px, 90px);
-    &:before {
-      right: calc(100% - #{getRubberSizeND(275px)});
-      top: calc(50% - #{getRubberSizeND(716px)});
-      width: getRubberSizeND(1432px);
-      height: getRubberSizeND(1432px);
-    }
+    // &:before {
+    //   right: calc(100% - #{getRubberSizeND(275px)});
+    //   top: calc(50% - #{getRubberSizeND(716px)});
+    //   width: getRubberSizeND(1432px);
+    //   height: getRubberSizeND(1432px);
+    // }
     .title {
       margin-top: getRubberSizeND(84px);
+      width: getRubberSizeND(370px);
       line-height: getRubberSizeND(66px);
       font-size: getRubberSizeND(46px);
     }
@@ -66,16 +69,17 @@
     &:before {
       content: "";
       position: absolute;
-      right: calc(100% - 275px);
-      top: calc(50% - 716px);
+      right: calc(100% - 30vh);
+      top: calc(50% - 79.5vh);
       display: block;
-      width: 1432px;
-      height: 1432px;
+      width: 159vh;
+      height: 159vh;
       border-radius: 0 100% 100% 0;
       background-color: $bPrimary;
     }
     .title {
       margin-top: 39px;
+      width: 313px;
       line-height: 66px;
       font-size: 56px;
       font-weight: bold;
@@ -90,15 +94,16 @@
 @media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
   .container {
     padding: getRubberSizeSD(32px, 50px, 32px, 0px);
-    &:before {
-      right: calc(100% - #{getRubberSizeSD(275px)});
-      top: calc(50% - #{getRubberSizeSD(716px)});
-      width: getRubberSizeSD(1432px);
-      height: getRubberSizeSD(1432px);
-      border-radius: 0 100% 100% 0;
-    }
+    // &:before {
+    //   right: calc(100% - #{getRubberSizeSD(275px)});
+    //   top: calc(50% - #{getRubberSizeSD(716px)});
+    //   width: getRubberSizeSD(1432px);
+    //   height: getRubberSizeSD(1432px);
+    //   border-radius: 0 100% 100% 0;
+    // }
     .title {
       margin-top: getRubberSizeSD(39px);
+      width: getRubberSizeSD(313px);
       line-height: getRubberSizeSD(66px);
       font-size: getRubberSizeSD(56px);
     }

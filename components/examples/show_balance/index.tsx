@@ -60,7 +60,7 @@ export const ShowBalance: SFC<IProps> =
     }
 
     async function updateBalance(): Promise<void> {
-      const round = isTablet ? 10 : 1000000
+      const round = isTablet ? 100 : 1000000
       const balanceWei = await web3.eth.getBalance(accounts[0])
       const balanceEthAsNumber = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
       const balanceEth = Math.round(balanceEthAsNumber * round) / round
@@ -94,7 +94,7 @@ export const ShowBalance: SFC<IProps> =
             </span>
           </div>
           <button className={scss.refresh} onClick={updateBalance}>
-            <span className={`mdi mdi-${refreshIcon}`} />
+            <span className={`mdi mdi-${refreshIcon} ${scss.icon}`} />
           </button>
         </div>
       )

@@ -16,7 +16,7 @@ $mbBalance: rgba(#f4f6fc, 0.32);
   }
   .balance-usd {
     margin-top: 16px;
-    line-height: $lhDefault;
+    line-height: 118%;
     font-size: 56px;
     font-weight: 500;
     color: rgba($tPrimary, 0.75);
@@ -59,7 +59,10 @@ $mbBalance: rgba(#f4f6fc, 0.32);
     border-radius: 100%;
     background-color: rgba($bDark, 0.08);
     font-size: 20px;
-    color: rgba($bDark, 0.75)
+    color: rgba($bDark, 0.75);
+    .icon {
+      margin-top: 2px;
+    }
   }
 }
 

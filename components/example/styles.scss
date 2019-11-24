@@ -51,6 +51,20 @@ $mbsExample: #0c102f14;
       white-space: pre-wrap;
       word-break: keep-all;
       overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 4px;
+        // background-color: #eeeff6;
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        width: 4px;
+        border-radius: 10px;
+        background-color: #d0d2de;
+      }
+      &::-webkit-scrollbar-truck {
+        border: none;
+        background-color: transparent;
+      }
     }
   }
   .copy {

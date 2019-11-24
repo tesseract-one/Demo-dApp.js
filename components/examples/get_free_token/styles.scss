@@ -1,20 +1,5 @@
 $tLightTokens: #aeb2d1;
-
-$bWToken: #627ee8;
-$bdWLogo: #3657d5;
-$bWLogo: #6f8dff;
-
-$bXToken: #3cb7a5;
-$bdXLogo: #2f9f8e;
-$bXLogo: #5ddbc8;
-
-$bYToken: #e89662;
-$bdYLogo: #cc8659;
-$bYLogo: #f4aa7b;
-
-$bZToken: #9062e8;
-$bdZLogo: #7b4dd3;
-$bZLogo: #a779ff;
+$bPrimaryTokens: #f4f5f9;
 
 .container {
   width: 100%;
@@ -40,10 +25,11 @@ $bZLogo: #a779ff;
       width: calc(50% - 12px);
       height: 70px;
       border-radius: 8px;
+      background-color: $bPrimaryTokens;
       line-height: 24px;
       font-size: 20px;
       font-weight: 500;
-      color: $cLight;
+      color: $tSecondaryDark;
       cursor: pointer;
       &:before {
         content: "";
@@ -66,6 +52,7 @@ $bZLogo: #a779ff;
         margin-left: 24px;
       }
       .logo {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -74,37 +61,20 @@ $bZLogo: #a779ff;
         width: 44px;
         height: 44px;
         border-radius: 4px;
-        font-size: 16px;
-        font-weight: 500;
-        color: $cLight;
-      }
-      &.weenus {
-        background-color: $bWToken;
-        .logo {
-          border: 0.5px solid $bdWLogo;
-          background-color: $bWLogo;
+        &-symb {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.5;
+          font-size: 16px;
+          font-weight: bold;
+          color: $cLight;
         }
       }
-      &.xeenus {
-        background-color: $bXToken;
-        .logo {
-          border: 0.5px solid $bdXLogo;
-          background-color: $bXLogo;
-        }
-      }
-      &.yeenus {
-        background-color: $bYToken;
-        .logo {
-          border: 0.5px solid $bdYLogo;
-          background-color: $bYLogo;
-        }
-      }
-      &.zeenus {
-        background-color: $bZToken;
-        .logo {
-          border: 0.5px solid $bdZLogo;
-          background-color: $bZLogo;
-        }
+      .balance {
+        margin-left: auto;
+        margin-right: 24px;
       }
     }
   }
@@ -146,6 +116,9 @@ $bZLogo: #a779ff;
           height: getRubberSizeND(44px);
           border-radius: getRubberSizeND(4px);
           font-size: getRubberSizeND(16px);
+        }
+        .balance {
+          margin-right: getRubberSizeND(24px);
         }
       }
     }
@@ -189,6 +162,9 @@ $bZLogo: #a779ff;
           border-radius: getRubberSizeSD(4px);
           font-size: getRubberSizeSD(16px);
         }
+        .balance {
+          margin-right: getRubberSizeSD(24px);
+        }
       }
     }
   }
@@ -230,17 +206,31 @@ $bZLogo: #a779ff;
         display: flex;
         flex-direction: column;
         align-items: center;
-        .image {
-          margin-top: 42px;
-          width: 66px;
-          height: 53px;
-        }
         .title {
           margin-top: 24px;
           line-height: 24px;
           font-size: 20px;
           font-weight: 500;
           color: $mtPrimary;
+        }
+        .logo {
+          position: relative;
+          margin-top: 42px;
+          &-symb {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            font-size: 16px;
+            font-weight: bold;
+            color: $cLight;
+          }
+          .image {
+            display: block;
+            width: 66px;
+            height: 53px;
+          }
         }
       }
     }
@@ -262,15 +252,17 @@ $bZLogo: #a779ff;
         margin-left: 16px;
       }
       .content {
-        .image {
-          margin-top: 28px;
-          width: 44px;
-          height: 36px;
-        }
         .title {
           margin-top: 16px;
           line-height: 19px;
           font-size: 16px;
+        }
+        .logo {
+          margin-top: 28px;
+          .image {
+            width: 44px;
+            height: 36px;
+          }
         }
       }
     }

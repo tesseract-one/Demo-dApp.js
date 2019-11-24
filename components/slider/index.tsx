@@ -93,7 +93,7 @@ export const Slider: SFC<IProps> = ({ choosenExampleKey, examples, chooseExample
     return ((elBottom - containerTop + currentDelta) / elHeight) * coef
   }
 
-  function isChoosen(elIndex): boolean {
+  function isChoosen(elIndex: number): boolean {
     return examples[elIndex][0] === choosenExampleKey
   }
 
@@ -112,8 +112,11 @@ export const Slider: SFC<IProps> = ({ choosenExampleKey, examples, chooseExample
     const currentDelta = state.pos.end - currentPos
 
     const se = getScaledElement(containerChildren, containerTop + currentDelta)
+
     if (!se) {
-      updatedBottomElements(containerChildren)
+      if (containerChildren[0].getBoundingClientRect().top === containerTop) {
+        updatedBottomElements(containerChildren)
+      }
       return
     }
   

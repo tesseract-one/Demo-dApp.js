@@ -17,7 +17,7 @@
       } 
     ],
     "backToSite": {
-      "title": "Back to the website",
+      "title": "Go to Tesseract.com",
       "icon": {
         "desktop": "keyboard-backspace",
         "mobile": "chevron-left"
@@ -93,8 +93,7 @@
           "title": "Wanna some free token?",
           "tokens": {
             "weenus": {
-              "title": "Weenus Token",
-              "mobileTitle": "Wenus",
+              "title": "Weenus",
               "logo": "W",
               "addresses": {
                 "main": "0x2823589Ae095D99bD64dEeA80B4690313e2fB519",
@@ -104,8 +103,7 @@
               }
             },
             "xeenus": {
-              "title": "Xeenus Token",
-              "mobileTitle": "Xeenus",
+              "title": "Xeenus",
               "logo": "X",
               "addresses": {
                 "main": "0xeEf5E2d8255E973d587217f9509B416b41CA5870",
@@ -115,8 +113,7 @@
               }
             },
             "yeenus": {
-              "title": "Yeenus Token",
-              "mobileTitle": "Yeenus",
+              "title": "Yeenus",
               "logo": "Y",
               "addresses": {
                 "main": "0x187E63F9eBA692A0ac98d3edE6fEb870AF0079e1",
@@ -126,8 +123,7 @@
               }
             },
             "zeenus": {
-              "title": "Zeenus Token",
-              "mobileTitle": "Zeenus",
+              "title": "Zeenus",
               "logo": "Z",
               "addresses": {
                 "main": "0x0693c3a780A0a757E803a4BD76bCf43d438f8806",
@@ -192,6 +188,13 @@
   },
   "copyright": {
     "icon": "copyright",
-    "text": "Made by <span class='company'>Tesseract Systems, Inc.</span> <br />2019 All rights reserved."
+    "text": {
+      "head": "Made by ",
+      "tail": "2019 All rights reserved."
+    },
+    "link": {
+      "title": "Tesseract Systems, Inc.",
+      "url": "https://tesseract.one/"
+    }
   }
 }

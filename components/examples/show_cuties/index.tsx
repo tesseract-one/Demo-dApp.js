@@ -59,7 +59,7 @@ export const ShowCuties: SFC<IProps> =
             </span>
           </div>
           <button className={scss.refresh} onClick={updateCuties}>
-            <span className={`mdi mdi-${refreshIcon}`} />
+            <span className={`mdi mdi-${refreshIcon} ${scss.icon}`} />
           </button>
         </div>
       )
