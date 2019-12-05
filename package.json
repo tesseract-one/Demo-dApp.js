@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "next -H 0.0.0.0",
     "build": "next build && next export -o ./dist",
     "start": "next build && next start",
     "lint": "eslint --ext .js,.tsx,.ts --ignore-path .gitignore ."

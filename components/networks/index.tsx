@@ -67,20 +67,40 @@ export const Networks: SFC<IProps> =
 
     return (
       <div className={`${scss.container} ${activeNetwork ? scss.good : scss.error}`}>
-        {activeNetwork
-          ? <NetworkIcon
-              className={scss.icon}
-              width={28}
-              height={28}
-              viewBox="0 0 28 28"
-            />
-          : <NetworkIconError
-              className={scss.icon}
-              width={20}
-              height={20}
-              viewBox="0 0 20 20"
-            />
-        }
+        <span>
+          {activeNetwork
+            ? <NetworkIcon
+                className={scss.icon}
+                width={28}
+                height={28}
+                viewBox="0 0 28 28"
+              />
+            : <NetworkIconError
+                className={scss.icon}
+                width={20}
+                height={20}
+                viewBox="0 0 20 20"
+              />
+          }
+        </span>
+        <select 
+          className={scss.networksmobile}
+          value={activeNetwork || ''}
+          onChange={(e) => chooseNetwork(e.target.value as KNetwork)}>
+        {
+              Object.entries<NetworksType, KNetwork>(networks)
+                .map(network =>
+                  <option
+                    className={scss.network}
+                    disabled={!web3s || !web3s[network[0]]}
+                    value={network[0]}
+                    key={network[0]}
+                  >
+                    {network[0].toUpperCase()}
+                  </option>
+                )
+            }
+        </select>
       </div>
     )
   }
