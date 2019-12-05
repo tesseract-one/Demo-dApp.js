@@ -96,7 +96,10 @@ export const Networks: SFC<IProps> =
                     value={network[0]}
                     key={network[0]}
                   >
-                    {network[0].toUpperCase()}
+                    {networks[activeNetwork]
+                      ? network[0].charAt(0).toUpperCase() + network[0].slice(1)
+                      : 'None'
+                    }
                   </option>
                 )
             }
