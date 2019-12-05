@@ -69,3 +69,5 @@ export interface INotificationPopup {
   title: string
   description: string
 }
+
+export { Web3 }

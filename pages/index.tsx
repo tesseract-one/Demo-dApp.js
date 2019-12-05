@@ -82,24 +82,29 @@ const Index: SFC<never> = () => {
   }
 
   async function loadNetworks(): Promise<void> {
-    const web3sArray = await Promise.all(
-      Object.entries<T.Networks, T.KNetwork>(texts.networks)
-        .map(async (network): Promise<Partial<T.Web3s>> => 
-          {
-            try {
-              const web3 = await Tesseract.Ethereum.Web3(network[1].endpoint)
-              if (!web3.hasClientWallet) return { [network[0]]: null }
-              const accounts = await web3.eth.getAccounts()
-              return { [network[0]]: { web3, accounts } }
-            } catch (error) {
-              console.error(error)
-              return { [network[0]]: null }
-            }
-          }
-        )
-    )
+    const web3Promises = Object.entries<T.Networks, T.KNetwork>(texts.networks)
+      .map(async (network): Promise<[T.KNetwork, T.Web3 | null]> => {
+        try {
+          const web3 = await Tesseract.Ethereum.Web3(network[1].endpoint)
+          if (!web3.hasClientWallet) return [network[0], null]
+          return [network[0], web3]
+        } catch (error) {
+          console.error(error)
+          return [network[0], null]
+        }
+      })
+    const web3sArray = await Promise.all(web3Promises)
+
+    const workingNet = web3sArray.find(net => net[1] !== null)
+    if (!workingNet) return;
+
+    const accounts = await workingNet[1].eth.getAccounts()
+
     const web3s = web3sArray
-      .reduce<Partial<T.Web3s>>((acc, web3) => ({ ...acc, ...web3 }), {}) as T.Web3s
+      .reduce<Partial<T.Web3s>>((web3s, [net, web3]) => {
+        web3s[net] = web3 === null ? null : { web3, accounts }
+        return web3s
+      }, {}) as T.Web3s
 
     setWeb3s(web3s)
   }
