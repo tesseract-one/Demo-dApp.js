@@ -85,7 +85,7 @@ export const Networks: SFC<IProps> =
         </span>
         <select 
           className={scss.networksmobile}
-          value={activeNetwork || ''}
+          value={activeNetwork || Object.keys(networks)[0]}
           onChange={(e) => chooseNetwork(e.target.value as KNetwork)}>
         {
               Object.entries<NetworksType, KNetwork>(networks)
