@@ -114,7 +114,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
         <li
           className={scss.token}
           key={val.title}
-          onClick={getToken.bind(null, val.addresses[activeNetwork])}
+          onClick={getToken.bind(null, key, val.addresses[activeNetwork])}
         >
           <div className={scss.content}>
             <div className={scss.logo}>
