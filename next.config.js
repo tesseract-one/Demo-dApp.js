@@ -2,9 +2,10 @@
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
 const webpack = require('webpack')
+const withFonts = require('next-fonts')
 
 module.exports = withCSS(
-    withSass({
+    withSass(withFonts({
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,
@@ -48,7 +49,7 @@ module.exports = withCSS(
         use: 'raw-loader'
       })
       config.module.rules.push({
-        test: /\.(png|jpe?g|gif|eot|ttf|woff|woff2)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -69,5 +70,5 @@ module.exports = withCSS(
       )
       return config
     }
-  })
+  }))
 )

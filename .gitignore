@@ -74,3 +74,4 @@ dist
 **/.vs
 **/.vscode
 
+.history
