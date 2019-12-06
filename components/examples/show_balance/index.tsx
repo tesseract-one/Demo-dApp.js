@@ -77,7 +77,7 @@ export const ShowBalance: SFC<IProps> =
             {title}
           </span>
           <span className={scss['balance-usd']}>
-            {`$${balance.usd || 'NA'}`}
+            {`$${balance.usd === null ? 'NA' : balance.usd}`}
           </span>
           <div className={scss['balance-eth']}>
             <EthereumLogo
@@ -90,7 +90,7 @@ export const ShowBalance: SFC<IProps> =
               {currency.name}
             </span>
             <span className={scss.value}>
-              {`${balance.eth || 'NA'} ${currency.shortcut}`}
+              {`${balance.eth === null ? 'NA' : balance.eth} ${currency.shortcut}`}
             </span>
           </div>
           <button className={scss.refresh} onClick={updateBalance}>
