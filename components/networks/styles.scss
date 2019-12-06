@@ -99,13 +99,13 @@ $mbOff: rgba(#D98880, 0.5);
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    display: inline-block;
     width: auto;
     border:0;
     background:none;
     font-weight: 500;
     font-size: 16px;
-    margin-right: 6px;
+    color: #8798AD;
+    margin-right: 8px;
   }
   &.closed {
     .active-network .up-icon {
@@ -145,9 +145,8 @@ $mbOff: rgba(#D98880, 0.5);
     .icon {
       width: 24px;
       height: 24px;
-      margin-top: 6px;
-      margin-right: 6px;
-      margin-left: 6px;
+      margin-right: 8px;
+      margin-left: 8px;
     }
   }
 }

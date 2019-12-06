@@ -67,22 +67,21 @@ export const Networks: SFC<IProps> =
 
     return (
       <div className={`${scss.container} ${activeNetwork ? scss.good : scss.error}`}>
-        <span>
-          {activeNetwork
-            ? <NetworkIcon
-                className={scss.icon}
-                width={28}
-                height={28}
-                viewBox="0 0 28 28"
-              />
-            : <NetworkIconError
-                className={scss.icon}
-                width={20}
-                height={20}
-                viewBox="0 0 20 20"
-              />
-          }
-        </span>
+        
+        {activeNetwork
+          ? <NetworkIcon
+              className={scss.icon}
+              width={28}
+              height={28}
+              viewBox="0 0 28 28"
+            />
+          : <NetworkIconError
+              className={scss.icon}
+              width={20}
+              height={20}
+              viewBox="0 0 20 20"
+            />
+        }
         <select 
           className={scss.networksmobile}
           value={activeNetwork || Object.keys(networks)[0]}
