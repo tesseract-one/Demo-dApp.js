@@ -1,8 +1,8 @@
 import React, { SFC, PropsWithChildren, useContext } from 'react'
 import scss from './styles.scss'
-import { Web3Context } from '../../pages'
+import { AppContext } from '../../types'
 
-interface IProps {
+type Props = {
   title: string
   backToSite: {
     title: string
@@ -14,9 +14,9 @@ interface IProps {
   }
 }
 
-export const Content: SFC<PropsWithChildren<IProps>> = 
+export const Content: SFC<PropsWithChildren<Props>> = 
   ({ title, backToSite, children}) => {
-    const { isTablet } = useContext(Web3Context)
+    const { isTablet } = useContext(AppContext)
 
     return (
       <div className={scss.container}>

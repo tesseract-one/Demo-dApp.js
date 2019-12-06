@@ -1,6 +1,6 @@
 import React, { SFC, useContext } from 'react'
 import scss from './styles.scss'
-import { Web3Context } from '../../pages'
+import { AppContext } from '../../types'
 
 interface IProps {
   title: string
@@ -11,7 +11,7 @@ interface IProps {
 
 export const Navigation: SFC<IProps> =
   ({ title, slider, sliderDots, networks }) => {
-    const { isTablet } = useContext(Web3Context)
+    const { isTablet } = useContext(AppContext)
 
     if (!isTablet) {
       return (

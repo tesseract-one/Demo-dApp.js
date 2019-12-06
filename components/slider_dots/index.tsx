@@ -1,16 +1,16 @@
 import React, { SFC } from 'react'
 import scss from './styles.scss'
-import { KExample } from '../../types'
+import { ExampleName } from '../../types'
 
 interface IProps {
   choosenExampleKey: string
-  examplesKeys: KExample[]
-  chooseExample: (exampleKey: KExample) => void
+  examplesKeys: ExampleName[]
+  chooseExample: (exampleKey: ExampleName) => void
 }
 
 export const SliderDots: SFC<IProps> =
   ({ choosenExampleKey, chooseExample, examplesKeys }) => {
-    function changeExample(exampleKey: KExample): void {
+    function changeExample(exampleKey: ExampleName): void {
       chooseExample(exampleKey)
     }
 

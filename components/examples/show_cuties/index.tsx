@@ -1,6 +1,6 @@
 import React, { SFC, useState, useContext, useEffect } from 'react'
 import { AbiItem } from 'web3-utils'
-import { Web3Context } from '../../../pages/index'
+import { AppContext } from '../../../types'
 import abi from '../../../assets/blockchain_cuties_abi.json'
 import BlockchainCutiesBanner from '../../../assets/images/blockchain-cuties-banner.jpg'
 import BlockchainCutiesLogo from '../../../assets/images/blockchain-cuties-logo.png'
@@ -24,21 +24,21 @@ export const ShowCuties: SFC<IProps> =
   ({ address, mobileLabel, balance, token, refreshIcon }) => {
     const [cuties, setCuties] = useState<string | null>(null)
 
-    const { web3, accounts, activeNetwork, isTablet } = useContext(Web3Context)
+    const { connections, accounts, activeNetwork, accountIndex, isTablet } = useContext(AppContext)
+
+    const web3 = activeNetwork ? connections[activeNetwork] : undefined
+    const account = accountIndex !== undefined ? accounts[accountIndex] : undefined
 
     useEffect(() => {
-      async function updateData(): Promise<void> {
-        activeNetwork === 'main'
-        ? await updateCuties()
-        : setCuties('NA')
-      }
-      updateData()
-    }, [web3, activeNetwork, accounts])
+      activeNetwork === 'main' ? updateCuties() : setCuties('NA')
+    }, [web3, account])
 
     async function updateCuties(): Promise<void> {
+      if (!web3 || !account) return
+
       const blockchainCutiesABI = abi as AbiItem[]
       const contract = new web3.eth.Contract(blockchainCutiesABI, address)
-      const cuties = await contract.methods.balanceOf(accounts[0]).call()
+      const cuties = await contract.methods.balanceOf(account.pubKey).call()
       setCuties(cuties)
     }
 

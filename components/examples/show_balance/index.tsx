@@ -1,12 +1,11 @@
 import React, { SFC, useState, useContext, useEffect } from 'react'
-import { Web3Context } from '../../../pages/index'
-import { Nullable } from '../../../types'
+import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import EthereumLogoMobile from '../../../assets/images/ethereum-logo-mobile.svg'
 import ShowBalanceImg from '../../../assets/images/show-balance-mobile.jpg'
 import scss from './styles.scss'
 
-interface IProps {
+type Props = {
   title: string
   label: string
   currency: {
@@ -17,67 +16,74 @@ interface IProps {
   refreshIcon: string
 }
 
-interface IBalance {
-  eth: number
-  usd: number
+function roundBalance(isTablet: boolean, balance: number): number {
+  const round = isTablet ? 100 : 1000000
+  return Math.round(balance * round) / round
 }
 
-export const ShowBalance: SFC<IProps> =
+export const ShowBalance: SFC<Props> =
   ({ title, label, currency, cryptoRateUrl, refreshIcon }) => {
-    const [ethRate, setEthRate] = useState<number | null>(null)
-    const [balance, setBalance] = useState<Nullable<IBalance>>({
-      eth: null,
-      usd: null
-    })
-    const { web3, accounts, isTablet } = useContext(Web3Context)
+    const context = useContext(AppContext)
+
+    const currentBalance = context.accountIndex !== undefined
+      ? context.accounts[context.accountIndex].balance
+      : undefined 
+
+    const currentUsdBalance = currentBalance !== undefined && context.ethUsdRate !== undefined
+      ? Math.round(currentBalance * context.ethUsdRate * 100) / 100
+      : undefined
+
+    const [ethRate, setEthRate] = useState<number | undefined>(context.ethUsdRate)
+    const [ethBalance, setEthBalance] = useState<number | undefined>(currentBalance)
+    const [usdBalance, setUsdBalance] = useState<number | undefined>(currentUsdBalance)
+    
+    useEffect(() => { updateEthRate() }, [])
 
     useEffect(() => {
-      async function updateData(): Promise<void> {
-        await updateEthRate()
-      }
-      updateData()
-    }, [])
+      if (context.activeNetwork && context.accountIndex !== undefined) updateBalance()
+    }, [context.activeNetwork, context.connections, context.accounts, context.accountIndex])
 
     useEffect(() => {
-      async function updateData(): Promise<void> {
-        await updateBalance()
-      }
-      web3 && updateData()
-    }, [web3, accounts, ethRate])
+      const balanceUsd = ethRate !== undefined && ethBalance !== undefined
+        ? Math.round(ethBalance * ethRate * 100) / 100
+        : undefined
+      setUsdBalance(balanceUsd)
+    }, [ethRate, ethBalance])
 
     async function updateEthRate(): Promise<void> {
       const res = await fetch(cryptoRateUrl)
       const resJson = res.status === 200 ? await res.json() : null
 
       if (res.status !== 200 || !resJson.success) {
-        setTimeout(async () => {
-          await updateEthRate()
-        }, 1000)
+        setTimeout(updateEthRate, 1000)
         return
       }
 
-      setEthRate(parseFloat(resJson.ticker.price))
+      const rate = parseFloat(resJson.ticker.price)
+      context.setEthUsdRate(rate)
+      setEthRate(rate)
     }
 
     async function updateBalance(): Promise<void> {
-      const round = isTablet ? 100 : 1000000
-      const balanceWei = await web3.eth.getBalance(accounts[0])
-      const balanceEthAsNumber = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
-      const balanceEth = Math.round(balanceEthAsNumber * round) / round
-      const balanceUsd = ethRate
-        ? Math.round(balanceEthAsNumber * ethRate * 100) / 100
-        : null
-      setBalance({ eth: balanceEth, usd: balanceUsd })
+      const web3 = context.activeNetwork ? context.connections[context.activeNetwork] : undefined
+      const account = context.accountIndex !== undefined ? context.accounts[context.accountIndex] : undefined
+      if (!account || !web3) return
+
+      const balanceWei = await web3.eth.getBalance(account.pubKey)
+      const balance = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
+
+      context.setBalance(context.accountIndex, balance)
+      setEthBalance(balance)
     }
 
-    if (!isTablet) {
+    if (!context.isTablet) {
       return (
         <div className={scss.container}>
           <span className={scss.title}>
             {title}
           </span>
           <span className={scss['balance-usd']}>
-            {`$${balance.usd === null ? 'NA' : balance.usd}`}
+            {`$${usdBalance === undefined ? 'NA' : usdBalance}`}
           </span>
           <div className={scss['balance-eth']}>
             <EthereumLogo
@@ -90,7 +96,7 @@ export const ShowBalance: SFC<IProps> =
               {currency.name}
             </span>
             <span className={scss.value}>
-              {`${balance.eth === null ? 'NA' : balance.eth} ${currency.shortcut}`}
+              {`${ethBalance === undefined ? 'NA' : roundBalance(context.isTablet, ethBalance)} ${currency.shortcut}`}
             </span>
           </div>
           <button className={scss.refresh} onClick={updateBalance}>
@@ -118,7 +124,7 @@ export const ShowBalance: SFC<IProps> =
               {currency.name}
             </span>
             <span className={scss.value}>
-              {`${balance.eth !== null ? balance.eth : 'NA'} ${currency.shortcut}`}
+              {`${ethBalance === undefined ? 'NA' : roundBalance(context.isTablet, ethBalance)} ${currency.shortcut}`}
             </span>
           </div>
         </div>

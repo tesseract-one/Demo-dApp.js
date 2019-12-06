@@ -1,8 +1,8 @@
 import React, { SFC, ChangeEvent, useState, useContext } from 'react'
-import { Web3Context } from '../../../pages/index'
+import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
-import { INotificationPopup } from '../../../types'
+import { NotificationPopupData, NotificationContext } from '../../notification_popup'
 
 interface IProps {
   recipient: {
@@ -17,13 +17,17 @@ interface IProps {
   }
   btn: string
   resultPopup: {
-    sucessful: INotificationPopup
+    sucessful: NotificationPopupData
   }
 }
 
 export const SendEther: SFC<IProps> =
     ({ recipient, amount, btn, resultPopup }) => {
-    const { web3, accounts, setPopup, isTablet } = useContext(Web3Context)
+    const { connections, activeNetwork, accountIndex, accounts, isTablet } = useContext(AppContext)
+    const { showPopup } = useContext(NotificationContext)
+
+    const web3 = activeNetwork ? connections[activeNetwork] : undefined
+    const account = accountIndex !== undefined ? accounts[accountIndex] : undefined
 
     const [address, setAddress] = useState<string | null>(null)
     const [value, setValue] = useState<string | null>(null)
@@ -31,13 +35,13 @@ export const SendEther: SFC<IProps> =
     async function sendEth(): Promise<void> {
       try {
         await web3.eth.sendTransaction({
-          from: accounts[0],
+          from: account.pubKey,
           to: address,
           value: web3.utils.toWei(value, 'ether')
         })
 
-        if (isTablet) {
-          setPopup(resultPopup.sucessful)
+        if (isTablet && showPopup) {
+          showPopup(resultPopup.sucessful)
         }
       } catch (err) {
         console.log(`Transaction Error: ${err}`)

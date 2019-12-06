@@ -1,10 +1,10 @@
 import React, { SFC, PropsWithChildren, useState, useContext } from 'react'
 import { Swipeable } from 'react-swipeable'
 import HL from 'react-highlight/lib/optimized'
-import { HighlightComponent, KExample } from '../../types'
+import { HighlightComponent, ExampleName } from '../../types'
 import 'highlight.js/scss/vs.scss?raw'
 import scss from './styles.scss'
-import { Web3Context } from '../../pages'
+import { AppContext } from '../../types'
 
 const Highlight = HL as HighlightComponent
 
@@ -23,15 +23,15 @@ interface IProps {
     url: string
     text: string
   }
-  choosenExampleKey: KExample
-  examplesKeys: KExample[]
-  chooseExample: (exampleKey: KExample) => void
+  choosenExampleKey: ExampleName
+  examplesKeys: ExampleName[]
+  chooseExample: (exampleKey: ExampleName) => void
   texts?: ITexts
 }
 
 export const Example: SFC<PropsWithChildren<IProps>> = 
   ({ code, copyIcon, codeLabel, goGithub, choosenExampleKey, examplesKeys, chooseExample, children, texts }) => {
-    const { isTablet } = useContext(Web3Context)
+    const { isTablet } = useContext(AppContext)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     function copyCode(): void {

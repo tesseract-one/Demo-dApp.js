@@ -1,7 +1,7 @@
-import React, { SFC, ReactElement, SVGAttributes, useContext } from 'react'
-import { Web3Context } from '../../../pages'
+import React, { SFC, ReactElement, SVGAttributes, useContext, useState, useEffect } from 'react'
+import { AppContext, Web3 } from '../../../types'
 import { AbiItem } from 'web3-utils'
-import { KFreeToken, KNetwork, FreeTokens, Nullable } from '../../../types'
+import { FreeTokenType, NetworkType, FreeTokens } from '../../../types'
 import WeenusIcon from '../../../assets/images/weenus-icon.svg'
 import XeenusIcon from '../../../assets/images/xeenus-icon.svg'
 import YeenusIcon from '../../../assets/images/yeenus-icon.svg'
@@ -21,47 +21,56 @@ const iconsProps = {
   viewBox: '0 0 44 36'
 }
 
-const icons: Record<KFreeToken, ReactElement<SVGAttributes<SVGAElement>>> = {
+const icons: Record<FreeTokenType, ReactElement<SVGAttributes<SVGAElement>>> = {
   weenus: <WeenusIcon {...iconsProps} />,
   xeenus: <XeenusIcon {...iconsProps} />,
   yeenus: <YeenusIcon {...iconsProps} />,
   zeenus: <ZeenusIcon {...iconsProps} />
 }
 
-type TokensBalance = Record<KFreeToken, string>
+type TokensBalance = Record<FreeTokenType, number>
 
-type TokensAbi = Record<KNetwork, Record<KFreeToken, AbiItem[]>>
+type TokensAbi = Record<NetworkType, Record<FreeTokenType, AbiItem[]>>
+
+async function getTokenBalance(
+  web3: Web3, network: NetworkType, account: string, tokens: FreeTokens, abi: AbiItem[], tokenName: FreeTokenType
+): Promise<number> {
+  const contract = new web3.eth.Contract(abi as AbiItem[], tokens[tokenName as string].addresses[network])
+  const tokenBalanceWei = await contract.methods.balanceOf(account).call()
+  const tokenBalance = parseFloat(web3.utils.fromWei(tokenBalanceWei, 'ether'))
+  return Math.round(tokenBalance * 1000) / 1000 
+}
 
 export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
-  const { web3, accounts, activeNetwork, isTablet } = useContext(Web3Context)
+  const { connections, accounts, accountIndex, activeNetwork, isTablet } = useContext(AppContext)
 
-  const [balance, setBalance] = React.useState<Nullable<TokensBalance>>(null)
+  const web3 = activeNetwork ? connections[activeNetwork] : undefined
+  const account = accountIndex !== undefined ? accounts[accountIndex] : undefined
 
-  React.useEffect(() => {
-    async function updateData(): Promise<void> {
-      await updateBalance()
-    }
-    updateData()
-  }, [web3, activeNetwork, accounts])
+  const [balance, setBalance] = useState<Partial<TokensBalance>>(null)
 
-  async function updateBalance(): Promise<void> {
-    const promises = Object.entries((tokensAbi as TokensAbi)[activeNetwork]).map(([tokenName, abi]) =>
-      updateTokenBalance((abi as AbiItem[]), tokenName)
-    )
-    await Promise.all(promises)
+  useEffect(updateBalance, [web3, account])
+
+  function updateBalance() {
+    if (!activeNetwork) return
+
+    Object.entries((tokensAbi as TokensAbi)[activeNetwork])
+      .forEach(([tokenName, abi]) => 
+        updateTokenBalance(abi as AbiItem[], tokenName)
+      )
   }
 
-  async function updateTokenBalance(abi: AbiItem[], tokenName: KFreeToken): Promise<void> {
-    const contract = new web3.eth.Contract(abi as AbiItem[], tokens[tokenName as string].addresses[activeNetwork])
-    const tokenBalanceWei = await contract.methods.balanceOf(accounts[0]).call()
-    const tokenBalance = parseFloat(web3.utils.fromWei(tokenBalanceWei, 'ether'))
-    const roundedTokenBalance = Math.round(tokenBalance * 1000) / 1000
-    setBalance(b => ({...b, [tokenName]: roundedTokenBalance }))
+  async function updateTokenBalance(abi: AbiItem[], tokenName: FreeTokenType): Promise<void> {
+    if (!web3 || !account) return
+
+    const balance = await getTokenBalance(web3, activeNetwork, account.pubKey, tokens, abi, tokenName)
+    
+    setBalance(b => ({...b, [tokenName]: balance }))
   }
 
-  async function getToken(tokenName: KFreeToken, address: string): Promise<void> {
+  async function getToken(tokenName: FreeTokenType, address: string): Promise<void> {
     const tx = {
-      from: accounts[0],
+      from: account.pubKey,
       to: address,
       value: web3.utils.toWei('0', 'ether')
     }
@@ -83,7 +92,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
       <div className={scss.container}>
         <span className={scss.title}>{title}</span>
         <ul className={scss.tokens}>
-          {Object.entries<FreeTokens, KFreeToken>(tokens).map(
+          {Object.entries<FreeTokens, FreeTokenType>(tokens).map(
             ([key, value]) => (
               <li
                 className={scss.token}
@@ -110,7 +119,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
 
   return (
     <ul className={scss.tokens}>
-      {Object.entries<FreeTokens, KFreeToken>(tokens).map(([key, val]) => (
+      {Object.entries<FreeTokens, FreeTokenType>(tokens).map(([key, val]) => (
         <li
           className={scss.token}
           key={val.title}

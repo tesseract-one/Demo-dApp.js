@@ -1,28 +1,28 @@
 import React, { SFC, useState, useContext } from 'react'
-import { Networks as NetworksType, KNetwork, Web3s } from '../../types'
+import { NetworksInfo, NetworkType, Connections } from '../../types'
 import scss from './styles.scss'
-import { Web3Context } from '../../pages'
+import { AppContext } from '../../types'
 import NetworkIcon from '../../assets/images/network-icon.svg'
 import NetworkIconError from '../../assets/images/network-icon-error.svg'
 
-interface IProps {
-  web3s: Web3s
-  networks: NetworksType
-  activeNetwork: KNetwork
-  changeNetwork: (network: KNetwork) => void
+type Props = {
+  connections: Connections
+  networks: NetworksInfo
+  activeNetwork: NetworkType
+  changeNetwork: (network: NetworkType) => void
 }
 
-export const Networks: SFC<IProps> =
-  ({ web3s, networks, activeNetwork, changeNetwork }) => {
-    const { isTablet } = useContext(Web3Context)
+export const Networks: SFC<Props> =
+  ({ connections, networks, activeNetwork, changeNetwork }) => {
+    const { isTablet } = useContext(AppContext)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     function toggleNetworks(): void {
       setIsOpen(isOpen => !isOpen)
     }
 
-    function chooseNetwork(network: KNetwork): void {
-      if (web3s[network] === null) return
+    function chooseNetwork(network: NetworkType): void {
+      if (!connections[network]) return
       changeNetwork(network)
       toggleNetworks()
     }
@@ -31,10 +31,10 @@ export const Networks: SFC<IProps> =
       return (
         <div className={`${scss.container} ${isOpen ? '' : scss.closed}`}>
           <button
-            className={`${scss['active-network']} ${networks[activeNetwork] ? scss.on : scss.off}`}
+            className={`${scss['active-network']} ${connections[activeNetwork] ? scss.on : scss.off}`}
             onClick={toggleNetworks}
           >
-            {networks[activeNetwork] 
+            {connections[activeNetwork] 
               ? networks[activeNetwork].name
               : 'Web3 is not initialized'
             }
@@ -42,21 +42,18 @@ export const Networks: SFC<IProps> =
           </button>
           <ul className={scss.networks}>
             {
-              Object.entries<NetworksType, KNetwork>(networks)
-                .map(network =>
+              Object.entries<NetworksInfo, NetworkType>(networks)
+                .map(([network, info]) =>
                   <li
-                    className={`${scss.network}
-                      ${activeNetwork === network[0] ? scss.active : ''}
-                      ${web3s
-                        ? web3s[network[0]] === null
-                          ? scss.off
-                          : scss.on
-                        : ''}`
-                    }
-                    onClick={chooseNetwork.bind(null, network[0])}
-                    key={network[0]}
+                    className={`
+                      ${scss.network}
+                      ${activeNetwork === network ? scss.active : ''}
+                      ${connections[network] ? scss.on : scss.off}
+                    `}
+                    onClick={chooseNetwork.bind(null, network)}
+                    key={network}
                   >
-                    {network[1].name}
+                    {info.name}
                   </li>
                 )
             }
@@ -84,19 +81,19 @@ export const Networks: SFC<IProps> =
         }
         <select 
           className={scss.networksmobile}
-          value={activeNetwork || Object.keys(networks)[0]}
-          onChange={(e) => chooseNetwork(e.target.value as KNetwork)}>
+          value={activeNetwork || ''}
+          onChange={(e) => chooseNetwork(e.target.value as NetworkType)}>
         {
-              Object.entries<NetworksType, KNetwork>(networks)
-                .map(network =>
+              Object.entries<NetworksInfo, NetworkType>(networks)
+                .map(([network,]) =>
                   <option
                     className={scss.network}
-                    disabled={!web3s || !web3s[network[0]]}
-                    value={network[0]}
-                    key={network[0]}
+                    disabled={!connections[network]}
+                    value={network}
+                    key={network}
                   >
-                    {networks[activeNetwork]
-                      ? network[0].charAt(0).toUpperCase() + network[0].slice(1)
+                    {connections[activeNetwork]
+                      ? network.charAt(0).toUpperCase() + network.slice(1)
                       : 'None'
                     }
                   </option>

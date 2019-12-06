@@ -1,9 +1,9 @@
 import React, { SFC, forwardRef } from 'react'
-import { KExample, IExampleText } from '../../../types'
+import { ExampleName, ExampleText } from '../../../types'
 import scss from './styles.scss'
 
 interface IProps {
-  example: [KExample, IExampleText]
+  example: [ExampleName, ExampleText]
   choosenExampleKey: string
   chooseExample: (exampleKry: string) => void
 }

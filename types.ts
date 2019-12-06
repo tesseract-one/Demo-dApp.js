@@ -1,73 +1,72 @@
-import { ReactNode, ElementType } from 'react'
+import React, { ReactNode, ElementType } from 'react'
 import { Web3 } from '@tesseractjs/ethereum-web3'
 
-export type Nullable<T> = { [P in keyof T]: T[P] | null }
+export type ExampleName = 'showBalance' | 'sendEther' | 'showCuties' | 'getToken'
 
-export type KExample = 'showBalance' | 'sendEther' | 'showCuties' | 'getToken'
-
-export interface IExample extends Object {
+export type ExampleInfo = {
   component: JSX.Element
   code: string 
 }
 
-export type Examples = Record<KExample, IExample>
+export type Examples = Record<ExampleName, ExampleInfo>
 
-export interface IExampleText {
+export type ExampleText = {
   title: string
   description: string
   tag: string
 }
 
-export type ExamplesText = Record<KExample, IExampleText>
+export type ExamplesText = Record<ExampleName, ExampleText>
 
-export type KNetwork = 'main' | 'ropsten' | 'kovan' | 'rinkeby'
+export type NetworkType = 'main' | 'ropsten' | 'kovan' | 'rinkeby'
 
-export interface INetwork {
+export type NetworkInfo = {
   name: string
   endpoint: string
 }
 
-export type Networks = Record<KNetwork, INetwork>
+export type Account = { pubKey: string, balance?: number }
 
-export interface IWeb3WithAccounts {
-  web3: Web3
-  accounts: string[]
-}
+export type NetworksInfo = Record<NetworkType, NetworkInfo>
 
-export type Web3s = Record<KNetwork, IWeb3WithAccounts | null>
+export type Connections = Partial<Record<NetworkType, Web3>>
 
-export interface IWeb3Context {
-  web3: Web3 | null
-  web3s: Web3s
-  accounts: string[]
-  activeNetwork: KNetwork | null
+export type AppContextType = {
+  connections: Connections
+  accounts: Account[]
+  accountIndex?: number
+  activeNetwork?: NetworkType
+  ethUsdRate?: number
   isTablet: boolean
-  setPopup: (data: INotificationPopup) => void
+  setBalance: (accountIndex: number, balance: number) => void
+  setEthUsdRate: (rate: number) => void
 }
 
-export interface IHighlightProps {
+export type HighlightProps = {
   languages?: string[]
   children?: ReactNode  
   className?: string
   innerHTML?: boolean
 }
 
-export type HighlightComponent = ElementType<IHighlightProps>
+export type HighlightComponent = ElementType<HighlightProps>
 
-export type KFreeToken = 'weenus' | 'xeenus' | 'yeenus' | 'zeenus'
+export type FreeTokenType = 'weenus' | 'xeenus' | 'yeenus' | 'zeenus'
 
-export interface IFreeToken {
+export type FreeTokenInfo = {
   title: string
   logo: string
-  addresses: Record<KNetwork, string>
+  addresses: Record<NetworkType, string>
 }
 
-export type FreeTokens = Record<KFreeToken, IFreeToken>
-
-export interface INotificationPopup {
-  emoji: string
-  title: string
-  description: string
-}
+export type FreeTokens = Record<FreeTokenType, FreeTokenInfo>
 
 export { Web3 }
+
+export const AppContext = React.createContext<AppContextType>({
+  connections: {},
+  accounts: [],
+  isTablet: false,
+  setBalance: () => {},
+  setEthUsdRate: () => {}
+})

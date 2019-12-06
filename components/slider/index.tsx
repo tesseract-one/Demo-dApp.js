@@ -1,35 +1,35 @@
 import React, { SFC, useState, useRef } from 'react'
 import { Example } from './example'
-import { KExample, IExampleText, Nullable } from '../../types'
+import { ExampleName, ExampleText } from '../../types'
 import scss from './styles.scss'
 
-interface IProps {
+type Props = {
   choosenExampleKey: string
-  examples: [KExample, IExampleText][]
-  chooseExample: (exampleKey: KExample) => void
+  examples: [ExampleName, ExampleText][]
+  chooseExample: (exampleKey: ExampleName) => void
 }
 
-interface ITime {
+type Time = {
   start: number
   end: number
 }
 
-interface IPos {
+type Pos = {
   start: number
   end: number
 }
 
-interface IState {
-  time: Nullable<ITime>
-  pos: Nullable<IPos>
+type State = {
+  time: Time
+  pos: Pos
 }
 
-export const Slider: SFC<IProps> = ({ choosenExampleKey, examples, chooseExample }) => {
+export const Slider: SFC<Props> = ({ choosenExampleKey, examples, chooseExample }) => {
   const TIME_DIFF = 200
   const PASSIVE_SCALE = 0.9
   
   const [requestId, setRequestId] = useState<number | null>(null)
-  const [state, setState] = useState<IState | null>({
+  const [state, setState] = useState<State | null>({
     time: { start: null, end: null },
     pos: { start: null, end: null }
   })
