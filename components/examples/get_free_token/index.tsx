@@ -83,7 +83,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
       await updateTokenBalance(tokensAbi[activeNetwork][tokenName] as AbiItem[], tokenName)
       console.log(`Transaction was sent successfully.`)
     } catch (err) {
-      console.log(`Transaction Error: ${err}`)
+      console.log('Transaction Error', err)
     }
   }
 
