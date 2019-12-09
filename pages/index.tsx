@@ -83,8 +83,8 @@ const Index: SFC<never> = () => {
 
   function changeNetwork(network: T.NetworkType): void {
     setWeb3Data(data => ({
+      ...data,
       activeNetwork: network,
-      ...data
     }))
   }
 
