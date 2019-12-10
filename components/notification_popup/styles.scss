@@ -24,12 +24,27 @@ $bPopup: rgba(#0b0f2c,.64);
     background-color: $bPrimaryLight;
     transform: translate(-50%,-50%);
     overflow: hidden;
+    max-width: 400px;
     .content {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      .emoji {
+        font-size: 62px;
+      }
+      .title {
+        margin-top: 7px;
+        line-height: 28px;
+        font-size: 24px;
+      }
+      .description {
+        margin-top: 16px;
+        padding: 0;
+        line-height: 19px;
+        font-size: 16px;
+      }
     }
   }
 }

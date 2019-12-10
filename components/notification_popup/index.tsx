@@ -33,7 +33,7 @@ export const NotificationPopupService: SFC = ({children}) => {
     setPopup(<NotificationPopup { ...data } />)
     setTimeout(() => {
       setPopup(undefined)
-    }, 3000)
+    }, 5000)
   }
 
   return (

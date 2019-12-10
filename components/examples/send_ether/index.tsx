@@ -3,6 +3,7 @@ import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
 import { NotificationPopupData, NotificationContext } from '../../notification_popup'
+import { notification } from '../../../assets/texts.json'
 
 interface IProps {
   recipient: {
@@ -16,13 +17,10 @@ interface IProps {
     ending: string
   }
   btn: string
-  resultPopup: {
-    sucessful: NotificationPopupData
-  }
 }
 
 export const SendEther: SFC<IProps> =
-    ({ recipient, amount, btn, resultPopup }) => {
+    ({ recipient, amount, btn }) => {
     const { connections, activeNetwork, accountIndex, accounts, isTablet } = useContext(AppContext)
     const { showPopup } = useContext(NotificationContext)
 
@@ -40,10 +38,12 @@ export const SendEther: SFC<IProps> =
           value: web3.utils.toWei(value, 'ether')
         })
 
-        if (isTablet && showPopup) {
-          showPopup(resultPopup.sucessful)
-        }
+        showPopup && showPopup({
+          ...notification.sucess,
+          description: 'All went smooth! Check out your balance and enjoy.'
+        })
       } catch (err) {
+        showPopup && showPopup({ ...notification.failure, description: err.message })
         console.log('Transaction Error', err)
       }
     }

@@ -1,5 +1,15 @@
 {
   "title": "Tesseract",
+  "notification": {
+    "sucess": {
+      "emoji": "🥳",
+      "title": "Success"
+    },
+    "failure": {
+      "emoji": "😢",
+      "title": "Failure"
+    }
+  },
   "links": {
     "tesseract": "https://tesseract.one/",
     "socials": [
@@ -69,14 +79,7 @@
             "placeholder": "0.00",
             "ending": "ETH"
           },
-          "btn": "Send ETH",
-          "resultPopup": {
-            "sucessful": {
-              "emoji": "🥳",
-              "title": "Success",
-              "description": "All went smooth! Check out your balance and enjoy."
-            }
-          }
+          "btn": "Send ETH"
         },
         "mobile": {
           "title": "Send Ethereum",

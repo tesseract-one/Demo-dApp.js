@@ -2,12 +2,14 @@ import React, { SFC, ReactElement, SVGAttributes, useContext, useState, useEffec
 import { AppContext, Web3 } from '../../../types'
 import { AbiItem } from 'web3-utils'
 import { FreeTokenType, NetworkType, FreeTokens } from '../../../types'
+import { NotificationContext } from '../../notification_popup'
 import WeenusIcon from '../../../assets/images/weenus-icon.svg'
 import XeenusIcon from '../../../assets/images/xeenus-icon.svg'
 import YeenusIcon from '../../../assets/images/yeenus-icon.svg'
 import ZeenusIcon from '../../../assets/images/zeenus-icon.svg'
 import tokensAbi from '../../../assets/free_tokens_abi.json'
 import scss from './styles.scss'
+import { notification } from '../../../assets/texts.json'
 
 interface IProps {
   title: string
@@ -43,6 +45,7 @@ async function getTokenBalance(
 
 export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
   const { connections, accounts, accountIndex, activeNetwork, isTablet } = useContext(AppContext)
+  const { showPopup } = useContext(NotificationContext)
 
   const web3 = activeNetwork ? connections[activeNetwork] : undefined
   const account = accountIndex !== undefined ? accounts[accountIndex] : undefined
@@ -81,8 +84,14 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
         gas: (estimatedGas * 1.3).toFixed(0).toString()
       })
       await updateTokenBalance(tokensAbi[activeNetwork][tokenName] as AbiItem[], tokenName)
+
+      showPopup && showPopup({
+        ...notification.sucess,
+        description: 'Transaction was sent successfully.'
+      })
       console.log(`Transaction was sent successfully.`)
     } catch (err) {
+      showPopup && showPopup({ ...notification.failure, description: err.message })
       console.log('Transaction Error', err)
     }
   }
