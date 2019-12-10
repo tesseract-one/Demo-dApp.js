@@ -391,16 +391,22 @@ $mbsExample: #0c102f14;
           width: 49px;
         }
       }
-      .icon {
-        margin-top: 10px;
-        font-size: 20px;
-      }
-      .label {
-        line-height: 16px;
-        font-size: 14px;
-      }
-      .bottom-line {
-        margin-top: 36px;
+      .swipeable {
+        width: 100%;
+        text-align: center;
+        .icon {
+          display: inline-block;
+          margin-top: 10px;
+          font-size: 20px;
+        }
+        .label {
+          line-height: 16px;
+          font-size: 14px;
+        }
+        .bottom-line {
+          display: inline-block;
+          margin-top: 36px;
+        }
       }
       .code {
         top: calc(100% - 24px);
