@@ -44,7 +44,7 @@ export const SendEther: SFC<IProps> =
           showPopup(resultPopup.sucessful)
         }
       } catch (err) {
-        console.log(`Transaction Error: ${err}`)
+        console.log('Transaction Error', err)
       }
     }
     
