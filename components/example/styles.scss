@@ -85,6 +85,9 @@ $mbsExample: #0c102f14;
       color: $bDark;
     }
   }
+  .copy:hover {
+    filter: $btnHover;
+  }
 }
 
 @media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
