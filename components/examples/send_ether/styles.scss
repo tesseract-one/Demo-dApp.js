@@ -125,7 +125,17 @@ $bdLogo: #5a74d8;
         box-shadow: 0px 8px 16px 0px $bsSecondary;
       }
       &:hover {
-        filter: brightness(85%)
+        background-color: darken($cPrimary, 5%);
+      }
+      &:active {
+        background-color: darken($cPrimary, 10%);
+      }
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $tLight;
+        &:hover {
+          background-color: $tLight;
+        }
       }
     }
   }

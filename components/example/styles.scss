@@ -87,6 +87,9 @@ $mbsExample: #0c102f14;
     &:hover {
       filter: $btnHover;
     }
+    &:active {
+      filter: $btnActive;
+    }
   }
 }
 

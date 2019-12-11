@@ -67,6 +67,9 @@ $mbBalance: rgba(#f4f6fc, 0.32);
     &:hover {
       filter: $btnHover;
     }
+    &:active {
+      filter: $btnActive;
+    }
   }
 }
 

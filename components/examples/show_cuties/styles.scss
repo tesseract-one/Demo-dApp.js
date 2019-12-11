@@ -64,6 +64,9 @@
     &:hover {
       filter: $btnHover;
     }
+    &:active {
+      filter: $btnActive;
+    }
   }
 }
 
