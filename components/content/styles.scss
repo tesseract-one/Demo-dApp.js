@@ -15,6 +15,11 @@
       margin-right: 8px;
       font-size: 20px;
     }
+    .logo-image {
+      width: 36px;
+      height: 36px;
+      fill: $cLight;
+    }
   }
   .title {
     margin-top: 68px;
@@ -103,6 +108,10 @@
         margin-right: 0;
         font-size: 30px;
       }
+      .logo-image {
+        width: 30px;
+        height: 30px;
+      }
     }
     .example {
       margin-top: 40px;
@@ -119,6 +128,10 @@
       height: 40px;
       &-icon {
         font-size: 24px;
+      }
+      .logo-image {
+        width: 24px;
+        height: 24px;
       }
     }
     .example {

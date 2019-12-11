@@ -1,6 +1,7 @@
 import React, { SFC, PropsWithChildren, useContext } from 'react'
 import scss from './styles.scss'
 import { AppContext } from '../../types'
+import Logo from '../../assets/images/logo.svg'
 
 type Props = {
   title: string
@@ -21,12 +22,21 @@ export const Content: SFC<PropsWithChildren<Props>> =
     return (
       <div className={scss.container}>
         <a className={scss['back-link']} href={backToSite.url}>
-          <span 
-            className={`${scss['back-link-icon']} mdi mdi-${
-              !isTablet ? backToSite.icon.desktop : backToSite.icon.mobile}`
-            }
-          />
-          {!isTablet && backToSite.title}
+          {isTablet ? (
+            <Logo
+              className={scss['logo-image']}
+              viewBox="0 0 40 40"
+            />
+          ) : (
+            <>
+              <span 
+                className={`${scss['back-link-icon']} mdi mdi-${
+                  !isTablet && backToSite.icon.desktop}`
+                }
+              />
+              {backToSite.title}
+            </>
+          )}
         </a>
         {!isTablet && 
           <h1 className={scss.title}>

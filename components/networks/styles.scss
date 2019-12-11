@@ -122,7 +122,7 @@ $mbOff: rgba(#D98880, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
+    width: auto;
     height: 56px;
     border-radius: 8px;
     &.good {
@@ -134,6 +134,8 @@ $mbOff: rgba(#D98880, 0.5);
     .icon {
       width: 27.5px;
       height: 27.5px;
+      margin-right: 8px;
+      margin-left: 8px;
     }
   }
 }
