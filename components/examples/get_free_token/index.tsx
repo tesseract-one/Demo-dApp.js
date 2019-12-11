@@ -38,9 +38,9 @@ async function getTokenBalance(
   web3: Web3, network: NetworkType, account: string, tokens: FreeTokens, abi: AbiItem[], tokenName: FreeTokenType
 ): Promise<number> {
   const contract = new web3.eth.Contract(abi as AbiItem[], tokens[tokenName as string].addresses[network])
-  const tokenBalanceWei = await contract.methods.balanceOf(account).call()
-  const tokenBalance = parseFloat(web3.utils.fromWei(tokenBalanceWei, 'ether'))
-  return Math.round(tokenBalance * 1000) / 1000 
+  const decimals = Web3.utils.toBN(await contract.methods.decimals().call())
+  const tokenBalanceTokens = Web3.utils.toBN(await contract.methods.balanceOf(account).call())
+  return tokenBalanceTokens.div(Web3.utils.toBN(10).pow(decimals)).toNumber()
 }
 
 export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
