@@ -84,9 +84,9 @@ $mbsExample: #0c102f14;
       font-size: 20px;
       color: $bDark;
     }
-  }
-  .copy:hover {
-    filter: $btnHover;
+    &:hover {
+      filter: $btnHover;
+    }
   }
 }
 

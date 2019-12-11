@@ -64,9 +64,9 @@ $mbBalance: rgba(#f4f6fc, 0.32);
     .icon {
       margin-top: 1px;
     }
-  }
-  .refresh:hover {
-    filter: $btnHover;
+    &:hover {
+      filter: $btnHover;
+    }
   }
 }
 

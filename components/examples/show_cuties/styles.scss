@@ -61,9 +61,9 @@
     .icon {
       margin-top: 1px;
     }
-  }
-  .refresh:hover {
-    filter: $btnHover;
+    &:hover {
+      filter: $btnHover;
+    }
   }
 }
 
