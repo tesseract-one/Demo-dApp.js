@@ -224,6 +224,12 @@ $bPrimaryTokens: #f4f5f9;
       &:nth-child(2n) {
         margin-left: 24px;
       }
+      &:hover {
+        background-color: darken($bPrimaryTokens, 5%);
+      }
+      &:active {
+        background-color: darken($bPrimaryTokens, 10%);
+      }
       .content {
         position: absolute;
         top: 0;
@@ -261,8 +267,8 @@ $bPrimaryTokens: #f4f5f9;
         }
       }
       .progress {
-        font-size: 60px;
-        height: 59px;
+        font-size: 40px;
+        height: 40px;
       }
     }
   }

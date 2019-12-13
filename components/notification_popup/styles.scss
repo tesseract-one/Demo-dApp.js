@@ -38,12 +38,14 @@ $bPopup: rgba(#0b0f2c,.64);
         margin-top: 7px;
         line-height: 28px;
         font-size: 24px;
+        text-align: center;
       }
       .description {
         margin-top: 16px;
         padding-left: 15px;
         padding-right: 15px;
         line-height: 19px;
+        text-align: center;
         font-size: 16px;
       }
     }
@@ -78,7 +80,6 @@ $bPopup: rgba(#0b0f2c,.64);
         margin-top: 24px;
         padding: 0 75px;
         line-height: 30px;
-        text-align: center;
         font-size: 20px;
         color: $mtSecondary;
       }
