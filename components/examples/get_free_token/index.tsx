@@ -51,6 +51,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
   const account = accountIndex !== undefined ? accounts[accountIndex] : undefined
 
   const [balance, setBalance] = useState<Partial<TokensBalance>>(null)
+  const [updating, setUpdating] = useState<Record<string, boolean>>({})
 
   useEffect(updateBalance, [web3, account])
 
@@ -66,9 +67,12 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
   async function updateTokenBalance(abi: AbiItem[], tokenName: FreeTokenType): Promise<void> {
     if (!web3 || !account) return
 
+    setUpdating(updating => ({ ...updating, [tokenName]: true }))
+
     const balance = await getTokenBalance(web3, activeNetwork, account.pubKey, tokens, abi, tokenName)
     
     setBalance(b => ({...b, [tokenName]: balance }))
+    setUpdating(updating => ({ ...updating, [tokenName]: false }))
   }
 
   async function getToken(tokenName: FreeTokenType, address: string): Promise<void> {
@@ -78,6 +82,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
       value: web3.utils.toWei('0', 'ether')
     }
     try {
+      setUpdating(updating => ({ ...updating, [tokenName]: true }))
       const estimatedGas = await web3.eth.estimateGas(tx)
       await web3.eth.sendTransaction({
         ...tx,
@@ -93,6 +98,8 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
     } catch (err) {
       showPopup && showPopup({ ...notification.failure, description: err.message })
       console.log('Transaction Error', err)
+    } finally {
+      setUpdating(updating => ({ ...updating, [tokenName]: false }))
     }
   }
 
@@ -113,11 +120,13 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
                   <span className={scss['logo-symb']}>{value.logo}</span>
                 </div>
                 {value.title}
-                {balance &&
-                  <span className={scss.balance}>
-                    {balance[key]}
-                  </span>
-                }
+                <span className={scss.balance}>
+                  {updating[key] ? (
+                    <i className={`mdi mdi-refresh spinning ${scss.progress}`}></i>
+                  ) : (
+                    balance ? balance[key] : ''
+                  )}
+                </span>
               </li>
             )
           )}
@@ -141,6 +150,9 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
             </div>
             <span className={scss.title}>{`${balance ? balance[key] : ''} ${val.title}`}</span>
           </div>
+          {updating[key] ? (<div className={scss['progress-container']}>
+            <span className={`mdi mdi-refresh spinning ${scss.progress}`}></span>
+          </div>) : ''}
         </li>
       ))}
     </ul>

@@ -29,9 +29,12 @@ export const SendEther: SFC<IProps> =
 
     const [address, setAddress] = useState<string | null>(null)
     const [value, setValue] = useState<string | null>(null)
+    const [updating, setUpdating] = useState<boolean>(false)
 
     async function sendEth(): Promise<void> {
       try {
+        setUpdating(true)
+
         await web3.eth.sendTransaction({
           from: account.pubKey,
           to: address,
@@ -45,6 +48,8 @@ export const SendEther: SFC<IProps> =
       } catch (err) {
         showPopup && showPopup({ ...notification.failure, description: err.message })
         console.log('Transaction Error', err)
+      } finally {
+        setUpdating(false)
       }
     }
     
@@ -70,6 +75,7 @@ export const SendEther: SFC<IProps> =
             placeholder={recipient.placeholder}
             value={address || ''}
             onChange={updateAddress}
+            disabled={updating}
           />
         </div>
         <label htmlFor='amount' className={scss['amount-title']}>
@@ -90,6 +96,7 @@ export const SendEther: SFC<IProps> =
               placeholder={amount.placeholder}
               value={value || ''}
               onChange={updateAmount}
+              disabled={updating}
             />
             <span className={scss.ending}>
               {amount.ending}
@@ -98,9 +105,13 @@ export const SendEther: SFC<IProps> =
           <button
             className={scss.btn}
             onClick={sendEth}
-            disabled={!address || !value}
+            disabled={!address || !value || updating}
           >
-            {btn}
+            {updating ? (
+              <span className={`mdi mdi-refresh spinning ${scss.progress}`} />
+            ) : (
+              btn
+            )}
           </button>
         </div>
       </div>

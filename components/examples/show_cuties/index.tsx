@@ -23,6 +23,7 @@ interface IProps {
 export const ShowCuties: SFC<IProps> =
   ({ address, mobileLabel, balance, token, refreshIcon }) => {
     const [cuties, setCuties] = useState<string | null>(null)
+    const [updating, setUpdating] = useState<boolean>(false)
 
     const { connections, accounts, activeNetwork, accountIndex, isTablet } = useContext(AppContext)
 
@@ -34,12 +35,20 @@ export const ShowCuties: SFC<IProps> =
     }, [web3, account])
 
     async function updateCuties(): Promise<void> {
-      if (!web3 || !account) return
+      try {
+        setUpdating(true)
 
-      const blockchainCutiesABI = abi as AbiItem[]
-      const contract = new web3.eth.Contract(blockchainCutiesABI, address)
-      const cuties = await contract.methods.balanceOf(account.pubKey).call()
-      setCuties(cuties)
+        if (!web3 || !account) return
+
+        const blockchainCutiesABI = abi as AbiItem[]
+        const contract = new web3.eth.Contract(blockchainCutiesABI, address)
+        const cuties = await contract.methods.balanceOf(account.pubKey).call()
+        setCuties(cuties)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setUpdating(false)
+      }
     }
 
     if (!isTablet) {
@@ -58,7 +67,7 @@ export const ShowCuties: SFC<IProps> =
               {`${cuties || 0} ${token.shortcut}`}
             </span>
           </div>
-          <button className={scss.refresh} onClick={updateCuties}>
+          <button className={`${scss.refresh} ${updating ? 'spinning' : ''}`} onClick={updateCuties}>
             <span className={`mdi mdi-${refreshIcon} ${scss.icon}`} />
           </button>
         </div>

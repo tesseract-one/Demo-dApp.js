@@ -49,3 +49,16 @@ input, textarea {
   -moz-appearance: none;
   appearance: none;
 }
+
+.spinning {
+  animation: spinning-animation 2s infinite linear;
+}
+
+@keyframes spinning-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

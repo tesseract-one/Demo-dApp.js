@@ -36,6 +36,7 @@ export const ShowBalance: SFC<Props> =
     const [ethRate, setEthRate] = useState<number | undefined>(context.ethUsdRate)
     const [ethBalance, setEthBalance] = useState<number | undefined>(currentBalance)
     const [usdBalance, setUsdBalance] = useState<number | undefined>(currentUsdBalance)
+    const [updating, setUpdating] = useState<boolean>(false)
     
     useEffect(() => { updateEthRate() }, [])
 
@@ -65,6 +66,8 @@ export const ShowBalance: SFC<Props> =
     }
 
     async function updateBalance(): Promise<void> {
+      setUpdating(true)
+
       const web3 = context.activeNetwork ? context.connections[context.activeNetwork] : undefined
       const account = context.accountIndex !== undefined ? context.accounts[context.accountIndex] : undefined
       if (!account || !web3) return
@@ -74,6 +77,8 @@ export const ShowBalance: SFC<Props> =
 
       context.setBalance(context.accountIndex, balance)
       setEthBalance(balance)
+
+      setUpdating(false)
     }
 
     if (!context.isTablet) {
@@ -99,7 +104,7 @@ export const ShowBalance: SFC<Props> =
               {`${ethBalance === undefined ? 'NA' : roundBalance(context.isTablet, ethBalance)} ${currency.shortcut}`}
             </span>
           </div>
-          <button className={scss.refresh} onClick={updateBalance}>
+          <button className={`${scss.refresh} ${updating ? 'spinning' : ''}`} onClick={updateBalance}>
             <span className={`mdi mdi-${refreshIcon} ${scss.icon}`} />
           </button>
         </div>
