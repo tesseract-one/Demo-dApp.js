@@ -45,8 +45,8 @@
     },
     "examples": {
       "showBalance": {
-        "title": "Show Balance",
-        "description": "Just scan the code and welcome aboard, bro! Sounds simple, yeah?",
+        "title": "Your Balance",
+        "description": "Check out your Ethereum balance. It works in the iOS browser as well.",
         "content": {
           "title": "Your Balance",
           "label": "Your tokens",
@@ -59,7 +59,7 @@
         },
         "mobile": {
           "title": "Your Balance",
-          "description": "Check out the code and go next!",
+          "description": "Check out your Ethereum balance.",
           "category": "read data",
           "signature": "By Tesseract"
         },
@@ -67,7 +67,7 @@
       },
       "sendEther": {
         "title": "Send ETH",
-        "description": "Wanna the kitty and no time to explain? We get it, buddy, no extra clicks!",
+        "description": "Share assets with your friends easily. Ethereum only, but it's for now.",
         "content": {
           "recipient": {
             "title": "Recipient Address",
@@ -83,7 +83,7 @@
         },
         "mobile": {
           "title": "Send Ethereum",
-          "description": "Don’t be shy to send something to us :)",
+          "description": "Share assets with your friends easily.",
           "category": "transaction",
           "signature": "By Tesseract"
         },
@@ -91,7 +91,7 @@
       },
       "getToken": {
         "title": "Get free Token",
-        "description": "Just scan the code and welcome aboard, bro! Sounds simple, yeah?",
+        "description": "Get free test tokens in a moment. It's free, it's useless, but it works!",
         "content": {
           "title": "Wanna some free token?",
           "tokens": {
@@ -139,7 +139,7 @@
         },
         "mobile": {
           "title": "Free Tokens",
-          "description": "Tap to receive this shiny tokens!",
+          "description": "Get free test tokens in a moment.",
           "category": "transaction",
           "signature": "By Tesseract"
         },
@@ -147,13 +147,13 @@
       },
       "showCuties": {
         "title": "Show Cuties",
-        "description": "Wanna the cutie and no time to explain? We get it, buddy, no extra clicks!",
+        "description": "It's a great day to review your collection. Make sure you have few cuties in the bag.",
         "content": {
           "address": "0xD73bE539d6B2076BaB83CA6Ba62DfE189aBC6Bbe",
           "mobileLabel": "Your Tokens",
           "balance": {
             "label": "You Have",
-            "title": "Fabulous Cuties"
+            "title": "Blockchain Cuties"
           },
           "token": {
             "name": "BlockchainCuties",
@@ -163,7 +163,7 @@
         },
         "mobile": {
           "title": "Blockchain Cuties",
-          "description": "Don’t have friends? Get at least a cutie!",
+          "description": "It's a great day to review your collection.",
           "category": "contract call",
           "signature": "By Tesseract"
         },
