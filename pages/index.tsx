@@ -110,6 +110,16 @@ const Index: SFC<never> = () => {
   return (<>
     <Head>
       <link rel="shortcut icon" href="/favicon.png" />
+      <title>Tesseract Demo</title>
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="Tesseract Demo" />
+      <meta name="description" content="For Mobile &amp; Desktop. No extensions. No custom browsers. No compromises on decentralization." />
+      <meta property="og:title" content="Tesseract Demo" />
+      <meta property="og:description" content="For Mobile &amp; Desktop. No extensions. No custom browsers. No compromises on decentralization." />
+      <meta property="og:url" content="https://demo.tesseract.one/" />
+      <meta property="og:image" content="http://demo.tesseract.one/og_image.png" />
+      <meta property="og:image:secure_url" content="https://demo.tesseract.one/og_image.png" />
     </Head>
     <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
       <div className={scss.container}>
