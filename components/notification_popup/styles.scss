@@ -52,6 +52,42 @@ $bPopup: rgba(#0b0f2c,.64);
   }
 }
 
+@media (min-width: $ndScreenMin) and (max-height: $ndScreenHeight) {
+  .wrapper {
+    .container {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      .content {
+        .title {
+          font-weight: 500;
+        }
+        .description {
+          line-height: 1.5;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) and (max-height: $sdScreenHeight) {
+  .wrapper {
+    .container {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      .content {
+        .title {
+          font-weight: 500;
+        }
+        .description {
+          line-height: 1.5;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $tScreenMax) {
   .wrapper .container {
     width: 460px;
