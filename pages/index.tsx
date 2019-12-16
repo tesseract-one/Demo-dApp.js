@@ -109,7 +109,7 @@ const Index: SFC<never> = () => {
   // if (!web3Data.web3) return (
   //   <h1>Waiting for web3 initialization ...</h1>
   // )
-  if(isTablet === null) return null
+  // if(isTablet === null) return null
 
   return (<>
     <Head>
