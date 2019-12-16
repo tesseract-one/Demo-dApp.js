@@ -60,7 +60,7 @@
         "mobile": {
           "title": "Your Balance",
           "description": "Check out the code and go next!",
-          "category": "Any Platform",
+          "category": "read data",
           "signature": "By Tesseract"
         },
         "tag": "read data"
@@ -84,7 +84,7 @@
         "mobile": {
           "title": "Send Ethereum",
           "description": "Don’t be shy to send something to us :)",
-          "category": "Any Platform",
+          "category": "transaction",
           "signature": "By Tesseract"
         },
         "tag": "transaction"
@@ -140,7 +140,7 @@
         "mobile": {
           "title": "Free Tokens",
           "description": "Tap to receive this shiny tokens!",
-          "category": "Any Platform",
+          "category": "transaction",
           "signature": "By Tesseract"
         },
         "tag": "transaction"
@@ -164,7 +164,7 @@
         "mobile": {
           "title": "Blockchain Cuties",
           "description": "Don’t have friends? Get at least a cutie!",
-          "category": "Any Platform",
+          "category": "contract call",
           "signature": "By Tesseract"
         },
         "tag": "contract call"
