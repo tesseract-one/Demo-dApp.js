@@ -1,5 +1,6 @@
 import React, { SFC, useState, useEffect, useCallback } from 'react'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
+import Head from 'next/head'
 import * as T from '../types'
 import * as C from '../components'
 import texts from '../assets/texts.json'
@@ -106,7 +107,10 @@ const Index: SFC<never> = () => {
   // )
   if(isTablet === null) return null
 
-  return (
+  return (<>
+    <Head>
+      <link rel="shortcut icon" href="/favicon.png" />
+    </Head>
     <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
       <div className={scss.container}>
         <C.NotificationPopupService>
@@ -166,7 +170,7 @@ const Index: SFC<never> = () => {
         </C.NotificationPopupService>
       </div>
     </T.AppContext.Provider>
-  )
+  </>)
 }
 
 export default Index
