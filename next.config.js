@@ -17,6 +17,9 @@ module.exports = withCSS(
         @import './assets/styles/rubber.scss';
       `
     },
+    env: {
+      BASE_URL: process.env.BASE_URL,
+    },
     webpack: config => {
       config.module.rules.forEach(rule => {
         if (rule.test.toString().includes('.scss')) {

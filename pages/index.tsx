@@ -1,4 +1,5 @@
 import React, { SFC, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
 import Head from 'next/head'
 import * as T from '../types'
@@ -67,6 +68,7 @@ const Index: SFC<never> = () => {
   const [isTablet, setIsTablet] = useState<boolean | null>(null)
   const [ethUsdRate, setEthUsdRate] = useState<number | undefined>()
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.ExampleName>('showBalance')
+  const router = useRouter()
 
   const setBalance = useCallback((index: number, balance: number) => {
     setWeb3Data(data => {
@@ -102,6 +104,8 @@ const Index: SFC<never> = () => {
     })
   }
 
+  const HOST = /^(http[s]?):\/\/(.+)$/.exec(process.env.BASE_URL)[2]
+
   // if (!web3Data.web3) return (
   //   <h1>Waiting for web3 initialization ...</h1>
   // )
@@ -114,12 +118,12 @@ const Index: SFC<never> = () => {
       <meta property="og:locale" content="en_US" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Tesseract Demo" />
-      <meta name="description" content="For Mobile &amp; Desktop. No extensions. No custom browsers. No compromises on decentralization." />
+      <meta name="description" content="Example dApp made with Tesseract SDK" />
       <meta property="og:title" content="Tesseract Demo" />
-      <meta property="og:description" content="For Mobile &amp; Desktop. No extensions. No custom browsers. No compromises on decentralization." />
-      <meta property="og:url" content="https://demo.tesseract.one/" />
-      <meta property="og:image" content="http://demo.tesseract.one/og_image.png" />
-      <meta property="og:image:secure_url" content="https://demo.tesseract.one/og_image.png" />
+      <meta property="og:description" content="Example dApp made with Tesseract SDK" />
+      <meta property="og:url" content={`${process.env.BASE_URL}${router.asPath}`} />
+      <meta property="og:image" content={`http://${HOST}/og_image.png`} />
+      <meta property="og:image:secure_url" content={`https://${HOST}/og_image.png`} />
     </Head>
     <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
       <div className={scss.container}>
