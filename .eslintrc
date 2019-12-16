@@ -1,8 +1,8 @@
 {
-	root: true,
-	env: {
-		browser: true,
-		node: true
+	"root": true,
+	"env": {
+		"browser": true,
+		"node": true
 	},
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint", "react"],
@@ -17,6 +17,7 @@
 	},
 	"rules": {
 		"react/prop-types": 0,
+		"no-empty-function": "off",
 		"@typescript-eslint/interface-name-prefix": [2, "always"],
 		"@typescript-eslint/member-delimiter-style": [2, {
 			"multiline": {

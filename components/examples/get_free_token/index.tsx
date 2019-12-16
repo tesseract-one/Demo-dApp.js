@@ -55,7 +55,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
 
   useEffect(updateBalance, [web3, account])
 
-  function updateBalance() {
+  function updateBalance(): void {
     if (!activeNetwork) return
 
     Object.entries((tokensAbi as TokensAbi)[activeNetwork])

@@ -2,7 +2,7 @@ import React, { SFC, ChangeEvent, useState, useContext } from 'react'
 import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import scss from './styles.scss'
-import { NotificationPopupData, NotificationContext } from '../../notification_popup'
+import { NotificationContext } from '../../notification_popup'
 import { notification } from '../../../assets/texts.json'
 
 interface IProps {
@@ -21,7 +21,7 @@ interface IProps {
 
 export const SendEther: SFC<IProps> =
     ({ recipient, amount, btn }) => {
-    const { connections, activeNetwork, accountIndex, accounts, isTablet } = useContext(AppContext)
+    const { connections, activeNetwork, accountIndex, accounts } = useContext(AppContext)
     const { showPopup } = useContext(NotificationContext)
 
     const web3 = activeNetwork ? connections[activeNetwork] : undefined

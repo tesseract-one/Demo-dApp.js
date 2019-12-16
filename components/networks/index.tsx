@@ -82,7 +82,7 @@ export const Networks: SFC<Props> =
         <select 
           className={scss.networksmobile}
           value={activeNetwork || ''}
-          onChange={(e) => chooseNetwork(e.target.value as NetworkType)}>
+          onChange={(e): void => chooseNetwork(e.target.value as NetworkType)}>
         {
               Object.entries<NetworksInfo, NetworkType>(networks)
                 .map(([network,]) =>

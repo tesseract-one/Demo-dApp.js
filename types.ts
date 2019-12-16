@@ -25,7 +25,7 @@ export type NetworkInfo = {
   endpoint: string
 }
 
-export type Account = { pubKey: string, balance?: number }
+export type Account = { pubKey: string; balance?: number }
 
 export type NetworksInfo = Record<NetworkType, NetworkInfo>
 
@@ -67,6 +67,6 @@ export const AppContext = React.createContext<AppContextType>({
   connections: {},
   accounts: [],
   isTablet: false,
-  setBalance: () => {},
-  setEthUsdRate: () => {}
+  setBalance: () => {return},
+  setEthUsdRate: () => {return}
 })

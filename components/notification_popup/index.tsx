@@ -29,7 +29,7 @@ export const NotificationContext = React.createContext<NotificationContextType>(
 export const NotificationPopupService: SFC = ({children}) => {
   const [popup, setPopup] = useState<ReactElement<NotificationPopupData> | undefined>()
 
-  function showPopup(data: NotificationPopupData) {
+  function showPopup(data: NotificationPopupData): void {
     setPopup(<NotificationPopup { ...data } />)
     setTimeout(() => {
       setPopup(undefined)
