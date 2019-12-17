@@ -15,6 +15,9 @@
     margin-bottom: 32px;
     transform: none;
   }
+  .example-content {
+    border: 1px solid transparent;
+  }
   &.choosen {
     .example-content {
       border: 1px solid $bdPrimary;
