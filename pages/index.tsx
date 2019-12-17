@@ -122,7 +122,7 @@ const Index: SFC<never> = () => {
     </Head>
   )
 
-  if (process.browser && Object.keys(web3Data.connections).length > 0 || !process.browser) {
+  if (process.browser && Object.keys(web3Data.connections).length == 0 || !process.browser) {
     return (<>
       {head}
       <div className={scss.loader}>
