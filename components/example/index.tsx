@@ -86,7 +86,7 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     return (
       <div className={scss.container}>
         <Swipeable
-          className={scss.example}
+          className={`${scss.example} ${isOpen ? scss.opened : ''}`}
           onSwipedLeft={nextExample}
           onSwipedRight={prevExample}
         >
@@ -105,7 +105,6 @@ export const Example: SFC<PropsWithChildren<IProps>> =
             onSwipedUp={showCode}
             onSwipedDown={hideCode}
           >
-            <span className={`${scss.icon} mdi mdi-chevron-up`} />
             <span className={scss.label}>{codeLabel}</span>
             <div className={scss['bottom-line']} />
           </Swipeable>

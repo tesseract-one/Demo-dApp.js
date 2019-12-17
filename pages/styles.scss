@@ -68,6 +68,7 @@
 
 @media (max-width: $tScreenMax) {
   .container {
+    overflow-y: unset;
     position: relative;
     height: 100%;
     .left-side {

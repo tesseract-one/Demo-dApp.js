@@ -38,7 +38,7 @@
   "example": {
     "title": "Explore",
     "copyIcon": "content-copy",
-    "codeLabel": "Code review",
+    "codeLabel": "Show code",
     "goGithub": {
       "url": "https://github.com/tesseract-one/Demo-dApp.js",
       "text": "Check on Github"
