@@ -140,10 +140,10 @@
         "mobile": {
           "title": "Free Tokens",
           "description": "Get free test tokens in a moment.",
-          "category": "transaction",
+          "category": "contract call",
           "signature": "By Tesseract"
         },
-        "tag": "transaction"
+        "tag": "contract call"
       },
       "showCuties": {
         "title": "Show Cuties",
