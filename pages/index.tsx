@@ -106,12 +106,7 @@ const Index: SFC<never> = () => {
 
   const HOST = /^(http[s]?):\/\/(.+)$/.exec(process.env.BASE_URL)[2]
 
-  // if (!web3Data.web3) return (
-  //   <h1>Waiting for web3 initialization ...</h1>
-  // )
-  // if(isTablet === null) return null
-
-  return (<>
+  const head = (
     <Head>
       <link rel="shortcut icon" href="/favicon.png" />
       <title>Tesseract Demo</title>
@@ -125,6 +120,22 @@ const Index: SFC<never> = () => {
       <meta property="og:image" content={`http://${HOST}/og_image.png`} />
       <meta property="og:image:secure_url" content={`https://${HOST}/og_image.png`} />
     </Head>
+  )
+
+  if (!web3Data.activeNetwork) {
+    return (<>
+      {head}
+      <div className={scss.loader}>
+        <img className={scss.logo} src="/favicon.png"></img>
+        <div className={scss["loader-text-container"]}>
+          <div className={scss["loader-text"]}>Initializing...</div>
+        </div>
+      </div>
+    </>)
+  }
+
+  return (<>
+    {head}
     <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
       <div className={scss.container}>
         <C.NotificationPopupService>

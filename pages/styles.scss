@@ -16,6 +16,41 @@
     height: 100%;
   }
 }
+
+.loader {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $cPrimary;
+  .logo {
+    width: 256px;
+    height: 256px;
+  }
+  .loader-text-container {
+    width: 180px;
+    padding-top: 24px;
+    overflow: hidden;
+    .loader-text {
+      font-size: 32px;
+      font-weight: bold;
+      color: $tLightPrimary;
+      overflow: hidden;
+      left: 0;
+      animation: typingAnimation 2s steps(4) infinite;
+    }
+  }
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@keyframes typingAnimation {
+  from { width: 150px }
+  to { width: 185px }
+}
  
 @media (min-width: $sdScreenMin) and (max-width: $sdScreenMax) {
   .container {
