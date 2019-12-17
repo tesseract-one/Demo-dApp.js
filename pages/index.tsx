@@ -80,7 +80,12 @@ const Index: SFC<never> = () => {
     setEthUsdRate(rate)
   }, [])
 
-  useEffect(() => { setIsTablet(window.innerWidth < 1024) }, [])
+  const updateIsTablet = () => setIsTablet(window.innerWidth < 1024)
+  
+  useEffect(() => { 
+    updateIsTablet()
+    window.addEventListener('resize', updateIsTablet)
+  }, [])
 
   useEffect(() => { loadNetworks() }, [texts.networks])
 
