@@ -40,6 +40,8 @@ export type AppContextType = {
   isTablet: boolean
   setBalance: (accountIndex: number, balance: number) => void
   setEthUsdRate: (rate: number) => void
+  isCodeOpened: boolean
+  setIsCodeOpened: (isCodeOpened: boolean) => void
 }
 
 export type HighlightProps = {
@@ -68,5 +70,7 @@ export const AppContext = React.createContext<AppContextType>({
   accounts: [],
   isTablet: false,
   setBalance: () => {return},
-  setEthUsdRate: () => {return}
+  setEthUsdRate: () => {return},
+  isCodeOpened: false,
+  setIsCodeOpened: () => {return}
 })

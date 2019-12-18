@@ -1,4 +1,4 @@
-import React, { SFC, PropsWithChildren, useState, useContext } from 'react'
+import React, { SFC, PropsWithChildren, useContext } from 'react'
 import { Swipeable } from 'react-swipeable'
 import HL from 'react-highlight/lib/optimized'
 import { HighlightComponent, ExampleName } from '../../types'
@@ -31,8 +31,7 @@ interface IProps {
 
 export const Example: SFC<PropsWithChildren<IProps>> = 
   ({ code, copyIcon, codeLabel, goGithub, choosenExampleKey, examplesKeys, chooseExample, children, texts }) => {
-    const { isTablet } = useContext(AppContext)
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const { isTablet, isCodeOpened, setIsCodeOpened } = useContext(AppContext)
 
     function copyCode(): void {
       navigator.clipboard.writeText(code)
@@ -44,11 +43,11 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     }
 
     function showCode(): void {
-      setIsOpen(true)
+      setIsCodeOpened(true)
     }
 
     function hideCode(): void {
-      setIsOpen(false)
+      setIsCodeOpened(false)
     }
 
     function nextExample(): void {
@@ -86,7 +85,7 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     return (
       <div className={scss.container}>
         <Swipeable
-          className={`${scss.example} ${isOpen ? scss.opened : ''}`}
+          className={`${scss.example} ${isCodeOpened ? scss['code-opened'] : ''}`}
           onSwipedLeft={nextExample}
           onSwipedRight={prevExample}
         >
@@ -97,7 +96,7 @@ export const Example: SFC<PropsWithChildren<IProps>> =
           </div>
         </Swipeable>
         <div
-          className={`${scss['code-container']} ${isOpen ? scss.opened : ''}`}
+          className={`${scss['code-container']} ${isCodeOpened ? scss.opened : ''}`}
           onClick={showCode}
         >
           <Swipeable

@@ -68,6 +68,8 @@ const Index: SFC<never> = () => {
   const [isTablet, setIsTablet] = useState<boolean | null>(null)
   const [ethUsdRate, setEthUsdRate] = useState<number | undefined>()
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.ExampleName>('showBalance')
+  const [isCodeOpened, setIsCodeOpened] = useState<boolean>(false)
+  
   const router = useRouter()
 
   const setBalance = useCallback((index: number, balance: number) => {
@@ -141,8 +143,8 @@ const Index: SFC<never> = () => {
 
   return (<>
     {head}
-    <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
-      <div className={scss.container}>
+    <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate, isCodeOpened, setIsCodeOpened }}>
+      <div className={`${scss.container} ${isCodeOpened ? scss['code-opened'] : ''}`}>
         <C.NotificationPopupService>
           <div className={scss['left-side']}>
             <C.MarketingBar
@@ -170,7 +172,7 @@ const Index: SFC<never> = () => {
               </C.Example>
             </C.Content>
           </div>
-          <div className={scss['right-side']}>
+          <div className={`${scss['right-side']}  ${isCodeOpened ? scss['code-opened'] : ''}`}>
             <C.Navigation
               title={texts.example.title}
               slider={

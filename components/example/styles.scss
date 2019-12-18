@@ -296,7 +296,7 @@ $mbsExample: #0c102f14;
         flex-direction: column;
         margin: 0;
         padding: 64px 56px 72px;
-        height: calc(100vh - 50px);
+        height: calc(100vh - 64px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
         background-color: $bPrimaryLight;
@@ -381,9 +381,6 @@ $mbsExample: #0c102f14;
     height: calc(100vh - 96px);
     .example {
       padding-bottom: 100px;
-      &.opened {
-        padding-bottom: 0;
-      }
       margin: auto 28px;
       .title {
         line-height: 38px;
