@@ -204,17 +204,40 @@ $mbsExample: #0c102f14;
       margin: auto 56px;
       padding: 0;
       background-color: inherit;
-      .title {
-        line-height: 57px;
-        font-size: 48px;
-        font-weight: bold;
-        color: $cPrimary;
-      }
-      .description {
-        margin-top: 16px;
-        line-height: 28px;
-        font-size: 24px;
-        color: $mtSecondary;
+      .header-container {
+        display: flex;
+        .arrow {
+          position: absolute;
+          align-self: center;
+          font-size: 36px;
+          line-height: 1;
+          color: $cPrimary;
+          &:first-child {
+            left: -12px;
+          }
+          &:last-child {
+            right: -12px;
+          }
+          &.disabled {
+            color: #DEE3ED;
+          }
+        }
+        text-align: center;
+        .title-container {
+          flex: auto;
+          .title {
+            line-height: 57px;
+            font-size: 48px;
+            font-weight: bold;
+            color: $cPrimary;
+          }
+          .description {
+            margin-top: 16px;
+            line-height: 28px;
+            font-size: 24px;
+            color: $mtSecondary;
+          }
+        }
       }
       .children-container {
         position: relative;
@@ -382,14 +405,27 @@ $mbsExample: #0c102f14;
     .example {
       padding-bottom: 100px;
       margin: auto 28px;
-      .title {
-        line-height: 38px;
-        font-size: 32px;
-      }
-      .description {
-        margin-top: 12px;
-        line-height: 19px;
-        font-size: 16px;
+      .header-container {
+        .arrow {
+          font-size: 24px;
+          &:first-child {
+            left: -8px;
+          }
+          &:last-child {
+            right: -8px;
+          }
+        }
+        .title-container {
+          .title {
+            line-height: 38px;
+            font-size: 32px;
+          }
+          .description {
+            margin-top: 12px;
+            line-height: 19px;
+            font-size: 16px;
+          }
+        }
       }
       .children-container {
         margin-top: 28px;

@@ -50,18 +50,19 @@ export const Example: SFC<PropsWithChildren<IProps>> =
       setIsCodeOpened(false)
     }
 
+    const isFirstExample = examplesKeys.indexOf(choosenExampleKey) === 0
+    const isLastExample = examplesKeys.indexOf(choosenExampleKey) === examplesKeys.length - 1
+
     function nextExample(): void {
-      const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
-      exampleKeyPos + 1 === examplesKeys.length
-      ? chooseExample(examplesKeys[0])
-      : chooseExample(examplesKeys[exampleKeyPos + 1])
+      isLastExample
+        ? chooseExample(examplesKeys[0])
+        : chooseExample(examplesKeys[examplesKeys.indexOf(choosenExampleKey) + 1])
     }
 
     function prevExample(): void {
-      const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
-      exampleKeyPos === 0
-      ? chooseExample(examplesKeys[examplesKeys.length - 1])
-      : chooseExample(examplesKeys[exampleKeyPos - 1])
+      isFirstExample
+        ? chooseExample(examplesKeys[examplesKeys.length - 1])
+        : chooseExample(examplesKeys[examplesKeys.indexOf(choosenExampleKey) - 1])
     }
 
     if (!isTablet) {
@@ -89,8 +90,20 @@ export const Example: SFC<PropsWithChildren<IProps>> =
           onSwipedLeft={nextExample}
           onSwipedRight={prevExample}
         >
-          <span className={scss.title}>{texts.title}</span>
-          <p className={scss.description}>{texts.description}</p>
+          <div className={scss['header-container']}>
+            <span
+              className={`${scss.arrow} ${isFirstExample ? scss.disabled : ''} mdi mdi-chevron-left`}
+              onClick={isFirstExample ? null : prevExample}
+            />
+            <div className={scss['title-container']}>
+              <span className={scss.title}>{texts.title}</span>
+              <p className={scss.description}>{texts.description}</p>
+            </div>
+            <span
+              className={`${scss.arrow} ${isLastExample ? scss.disabled : ''} mdi mdi-chevron-right`}
+              onClick={isLastExample ? null : nextExample}
+            />
+          </div>
           <div className={scss['children-container']}>
             {children}
           </div>
