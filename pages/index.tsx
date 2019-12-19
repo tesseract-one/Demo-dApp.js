@@ -83,7 +83,7 @@ const Index: SFC<never> = () => {
     setEthUsdRate(rate)
   }, [])
 
-  const updateIsTablet = () => setIsTablet(window.innerWidth < 1024)
+  const updateIsTablet = (): void => setIsTablet(window.innerWidth < 1024)
   
   useEffect(() => { 
     updateIsTablet()
