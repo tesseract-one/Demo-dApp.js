@@ -43,7 +43,7 @@ $bPrimaryTokens: #f4f5f9;
       position: relative;
       display: flex;
       align-items: center;
-      width: calc(50% - 12px);
+      width: calc(50% - 13px);
       height: 70px;
       border-radius: 8px;
       background-color: $bPrimaryTokens;
@@ -117,7 +117,7 @@ $bPrimaryTokens: #f4f5f9;
     .tokens {
       margin-top: getRubberSizeND(24px);
       .token {
-        width: calc(50% - #{getRubberSizeND(12px)});
+        width: calc(50% - #{getRubberSizeND(13px)});
         height: getRubberSizeND(70px);
         border-radius: getRubberSizeND(8px);
         line-height: getRubberSizeND(24px);
@@ -162,7 +162,7 @@ $bPrimaryTokens: #f4f5f9;
     .tokens {
       margin-top: getRubberSizeSD(24px);
       .token {
-        width: calc(50% - #{getRubberSizeSD(12px)});
+        width: calc(50% - #{getRubberSizeSD(13px)});
         height: getRubberSizeSD(70px);
         border-radius: getRubberSizeSD(8px);
         line-height: getRubberSizeSD(24px);
