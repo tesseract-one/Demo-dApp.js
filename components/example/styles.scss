@@ -207,6 +207,9 @@ $mbsExample: #0c102f14;
       .header-container {
         display: flex;
         .arrow {
+          padding: 0;
+          border: none;
+          background: none;
           position: absolute;
           align-self: center;
           font-size: 36px;
@@ -218,7 +221,7 @@ $mbsExample: #0c102f14;
           &:last-child {
             right: -12px;
           }
-          &.disabled {
+          &:disabled {
             color: #DEE3ED;
           }
         }

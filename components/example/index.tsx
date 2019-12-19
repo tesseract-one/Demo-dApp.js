@@ -93,17 +93,19 @@ export const Example: SFC<PropsWithChildren<IProps>> =
           onSwipedRight={prevExample}
         >
           <div className={scss['header-container']}>
-            <span
-              className={`${scss.arrow} ${isFirstExample ? scss.disabled : ''} mdi mdi-chevron-left`}
-              onClick={isFirstExample ? null : prevExample}
+            <button
+              className={`${scss.arrow} mdi mdi-chevron-left`}
+              onClick={prevExample}
+              disabled={isFirstExample}
             />
             <div className={scss['title-container']}>
               <span className={scss.title}>{texts.title}</span>
               <p className={scss.description}>{texts.description}</p>
             </div>
-            <span
-              className={`${scss.arrow} ${isLastExample ? scss.disabled : ''} mdi mdi-chevron-right`}
-              onClick={isLastExample ? null : nextExample}
+            <button
+              className={`${scss.arrow} mdi mdi-chevron-right`}
+              onClick={nextExample}
+              disabled={isLastExample}
             />
           </div>
           <div className={scss['children-container']}>
