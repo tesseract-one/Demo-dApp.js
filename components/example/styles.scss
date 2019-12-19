@@ -515,3 +515,23 @@ $mbsExample: #0c102f14;
     bottom: -24px;
   }
 }
+
+@media (max-width: $mScreenSmall) {
+  .container {
+    .example {
+      .header-container {
+        .title-container {
+          .title {
+            line-height: 32px;
+            font-size: 27px;
+          }
+          .description {
+            margin-top: 10px;
+            line-height: 16px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

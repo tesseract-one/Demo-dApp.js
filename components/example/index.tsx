@@ -50,19 +50,21 @@ export const Example: SFC<PropsWithChildren<IProps>> =
       setIsCodeOpened(false)
     }
 
-    const isFirstExample = examplesKeys.indexOf(choosenExampleKey) === 0
-    const isLastExample = examplesKeys.indexOf(choosenExampleKey) === examplesKeys.length - 1
+    const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
+    
+    const isFirstExample = exampleKeyPos === 0
+    const isLastExample = exampleKeyPos === examplesKeys.length - 1
 
     function nextExample(): void {
       isLastExample
         ? chooseExample(examplesKeys[0])
-        : chooseExample(examplesKeys[examplesKeys.indexOf(choosenExampleKey) + 1])
+        : chooseExample(examplesKeys[exampleKeyPos + 1])
     }
 
     function prevExample(): void {
       isFirstExample
         ? chooseExample(examplesKeys[examplesKeys.length - 1])
-        : chooseExample(examplesKeys[examplesKeys.indexOf(choosenExampleKey) - 1])
+        : chooseExample(examplesKeys[exampleKeyPos - 1])
     }
 
     if (!isTablet) {

@@ -198,3 +198,13 @@
     }
   }
 }
+
+@media (max-width: $mScreenSmall) {
+  .container {
+    .token {
+      .logo {
+        display: none;
+      }
+    }
+  }
+}
