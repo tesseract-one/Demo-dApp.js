@@ -1,0 +1,38 @@
+{
+  "name": "TesseractDemo",
+  "template": {
+    "resources": {
+      "appIcon": "./icon.png",
+      "splashImage": "./splash-image.png"
+    },
+    "appId": {
+      "ios": "one.tesseract.demo"
+    }
+  },
+  "appConfig": {
+    "dappUrls": {
+      "default": [
+        {
+          "url": "https://demo.tesseract.one/",
+          "name": "main"
+        }
+      ],
+      "testing": []
+    },
+    "rpcUrls": {
+      "1": "https://mainnet.infura.io/v3/f20390fe230e46608572ac4378b70668"
+    },
+    "extra": {},
+    "progressView": {
+      "topPaddingPercents": 0.80,
+      "leftPadding": 80,
+      "rightPadding": 80,
+      "height": 8,
+      "cornerRadius": 4,
+      "foregroundColor": "#afafaf",
+      "backgroundColor": "#343434"
+    },
+    "statusBarColor": "#222222",
+    "isLightStatusBar": true
+  }
+}

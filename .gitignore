@@ -74,4 +74,7 @@ dist
 **/.vs
 **/.vscode
 
+# wrapper
+tesseract-demo
+
 .history
