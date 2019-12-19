@@ -32,6 +32,7 @@ export type NetworksInfo = Record<NetworkType, NetworkInfo>
 export type Connections = Partial<Record<NetworkType, Web3>>
 
 export type AppContextType = {
+  initialized: boolean
   connections: Connections
   accounts: Account[]
   accountIndex?: number
@@ -66,6 +67,7 @@ export type FreeTokens = Record<FreeTokenType, FreeTokenInfo>
 export { Web3 }
 
 export const AppContext = React.createContext<AppContextType>({
+  initialized: false,
   connections: {},
   accounts: [],
   isTablet: false,

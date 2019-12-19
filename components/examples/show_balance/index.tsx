@@ -25,7 +25,7 @@ export const ShowBalance: SFC<Props> =
   ({ title, label, currency, cryptoRateUrl, refreshIcon }) => {
     const context = useContext(AppContext)
 
-    const currentBalance = context.accountIndex !== undefined
+    const currentBalance = context.accountIndex !== undefined && context.accounts[context.accountIndex]
       ? context.accounts[context.accountIndex].balance
       : undefined 
 
@@ -66,19 +66,23 @@ export const ShowBalance: SFC<Props> =
     }
 
     async function updateBalance(): Promise<void> {
-      setUpdating(true)
+      try {
+        setUpdating(true)
 
-      const web3 = context.activeNetwork ? context.connections[context.activeNetwork] : undefined
-      const account = context.accountIndex !== undefined ? context.accounts[context.accountIndex] : undefined
-      if (!account || !web3) return
+        const web3 = context.activeNetwork ? context.connections[context.activeNetwork] : undefined
+        const account = context.accountIndex !== undefined ? context.accounts[context.accountIndex] : undefined
+        if (!account || !web3) return
 
-      const balanceWei = await web3.eth.getBalance(account.pubKey)
-      const balance = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
+        const balanceWei = await web3.eth.getBalance(account.pubKey)
+        const balance = parseFloat(web3.utils.fromWei(balanceWei, 'ether'))
 
-      context.setBalance(context.accountIndex, balance)
-      setEthBalance(balance)
-
-      setUpdating(false)
+        context.setBalance(context.accountIndex, balance)
+        setEthBalance(balance)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setUpdating(false)
+      }
     }
 
     if (!context.isTablet) {

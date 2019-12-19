@@ -77,7 +77,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
   }
 
   async function getToken(tokenName: FreeTokenType, address: string): Promise<void> {
-    if (updating[tokenName]) return;
+    if (updating[tokenName] || !account) return;
     const tx = {
       from: account.pubKey,
       to: address,

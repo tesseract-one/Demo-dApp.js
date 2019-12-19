@@ -48,7 +48,7 @@ async function connectToNetworks(networks: T.NetworksInfo): Promise<[T.Connectio
     const web3Array = await Promise.all(web3Promises)
 
     const workingNet = web3Array.find(net => net[1] !== undefined)
-    if (!workingNet) return;
+    if (!workingNet) return [{}, []]
 
     const accounts = (await workingNet[1].eth.getAccounts()).map(pubKey => ({pubKey}))
 
@@ -61,7 +61,8 @@ async function connectToNetworks(networks: T.NetworksInfo): Promise<[T.Connectio
 }
 
 const Index: SFC<never> = () => {
-  const [web3Data, setWeb3Data] = useState<Pick<T.AppContextType, 'connections' | 'accounts' | 'accountIndex' | 'activeNetwork'>>({
+  const [web3Data, setWeb3Data] = useState<Pick<T.AppContextType, 'initialized' | 'connections' | 'accounts' | 'accountIndex' | 'activeNetwork'>>({
+    initialized: false,
     connections: {},
     accounts: []
   })
@@ -105,6 +106,7 @@ const Index: SFC<never> = () => {
       .find(([, web3]) => web3 !== undefined)
 
     setWeb3Data({
+      initialized: true,
       connections, accounts,
       accountIndex: accounts.length >= 0 ? 0 : undefined,
       activeNetwork: connection ? connection[0] : undefined
@@ -129,7 +131,7 @@ const Index: SFC<never> = () => {
     </Head>
   )
 
-  if (process.browser && Object.keys(web3Data.connections).length == 0 || !process.browser) {
+  if (process.browser && !web3Data.initialized || !process.browser) {
     return (<>
       {head}
       <div className={scss.loader}>
