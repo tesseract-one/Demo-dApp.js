@@ -198,24 +198,49 @@ $mbsExample: #0c102f14;
   .container {
     position: static;
     height: calc(100vh - 127px);
-    overflow: hidden;
     .example {
       position: relative;
       z-index: 10;
       margin: auto 56px;
       padding: 0;
       background-color: inherit;
-      .title {
-        line-height: 57px;
-        font-size: 48px;
-        font-weight: bold;
-        color: $cPrimary;
-      }
-      .description {
-        margin-top: 16px;
-        line-height: 28px;
-        font-size: 24px;
-        color: $mtSecondary;
+      .header-container {
+        display: flex;
+        .arrow {
+          padding: 0;
+          border: none;
+          background: none;
+          position: absolute;
+          align-self: center;
+          font-size: 36px;
+          line-height: 1;
+          color: $cPrimary;
+          &:first-child {
+            left: -12px;
+          }
+          &:last-child {
+            right: -12px;
+          }
+          &:disabled {
+            color: #DEE3ED;
+          }
+        }
+        text-align: center;
+        .title-container {
+          flex: auto;
+          .title {
+            line-height: 57px;
+            font-size: 48px;
+            font-weight: bold;
+            color: $cPrimary;
+          }
+          .description {
+            margin-top: 16px;
+            line-height: 28px;
+            font-size: 24px;
+            color: $mtSecondary;
+          }
+        }
       }
       .children-container {
         position: relative;
@@ -237,7 +262,7 @@ $mbsExample: #0c102f14;
       }
     }
     .code-container {
-      position: absolute;
+      position: fixed;
       left: 0;
       bottom: -56px;
       z-index: 100;
@@ -278,16 +303,18 @@ $mbsExample: #0c102f14;
           font-size: 20px;
           font-weight: 500;
           color: $cLight;
+          margin-top: 41px;
         }
         .bottom-line {
           display: inline-block;
-          margin-top: 38px;
+          margin-top: 48px;
           height: 5px;
           border-radius: 100px;
           background-color: $bPrimaryLight;
         }
       }
       .code {
+        width: 100%;
         position: absolute;
         top: calc(100% - 24px);
         left: 0;
@@ -295,7 +322,7 @@ $mbsExample: #0c102f14;
         flex-direction: column;
         margin: 0;
         padding: 64px 56px 72px;
-        height: calc(100vh - 50px);
+        height: calc(100vh - 64px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
         background-color: $bPrimaryLight;
@@ -379,15 +406,29 @@ $mbsExample: #0c102f14;
   .container {
     height: calc(100vh - 96px);
     .example {
+      padding-bottom: 100px;
       margin: auto 28px;
-      .title {
-        line-height: 38px;
-        font-size: 32px;
-      }
-      .description {
-        margin-top: 12px;
-        line-height: 19px;
-        font-size: 16px;
+      .header-container {
+        .arrow {
+          font-size: 24px;
+          &:first-child {
+            left: -8px;
+          }
+          &:last-child {
+            right: -8px;
+          }
+        }
+        .title-container {
+          .title {
+            line-height: 38px;
+            font-size: 32px;
+          }
+          .description {
+            margin-top: 12px;
+            line-height: 19px;
+            font-size: 16px;
+          }
+        }
       }
       .children-container {
         margin-top: 28px;
@@ -395,7 +436,7 @@ $mbsExample: #0c102f14;
     }
     .code-container {
       bottom: -56px;
-      height: 126px;
+      height: 107px;
       &.opened {
         bottom: calc(100% - 68px);
         .bottom-line {
@@ -411,12 +452,13 @@ $mbsExample: #0c102f14;
           font-size: 20px;
         }
         .label {
+          margin-top: 17px;
           line-height: 16px;
           font-size: 14px;
         }
         .bottom-line {
           display: inline-block;
-          margin-top: 36px;
+          margin-top: 34px;
         }
       }
       .code {
@@ -474,5 +516,25 @@ $mbsExample: #0c102f14;
 @media (max-width: $mScreenMax) and (min-height: 668px) {
   .container .code-container {
     bottom: -24px;
+  }
+}
+
+@media (max-width: $mScreenSmall) {
+  .container {
+    .example {
+      .header-container {
+        .title-container {
+          .title {
+            line-height: 32px;
+            font-size: 27px;
+          }
+          .description {
+            margin-top: 10px;
+            line-height: 16px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
   }
 }

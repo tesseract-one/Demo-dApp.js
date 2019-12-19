@@ -1,4 +1,4 @@
-import React, { SFC, PropsWithChildren, useState, useContext } from 'react'
+import React, { SFC, PropsWithChildren, useContext } from 'react'
 import { Swipeable } from 'react-swipeable'
 import HL from 'react-highlight/lib/optimized'
 import { HighlightComponent, ExampleName } from '../../types'
@@ -31,8 +31,7 @@ interface IProps {
 
 export const Example: SFC<PropsWithChildren<IProps>> = 
   ({ code, copyIcon, codeLabel, goGithub, choosenExampleKey, examplesKeys, chooseExample, children, texts }) => {
-    const { isTablet } = useContext(AppContext)
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const { isTablet, isCodeOpened, setIsCodeOpened } = useContext(AppContext)
 
     function copyCode(): void {
       navigator.clipboard.writeText(code)
@@ -44,25 +43,28 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     }
 
     function showCode(): void {
-      setIsOpen(true)
+      setIsCodeOpened(true)
     }
 
     function hideCode(): void {
-      setIsOpen(false)
+      setIsCodeOpened(false)
     }
 
+    const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
+    
+    const isFirstExample = exampleKeyPos === 0
+    const isLastExample = exampleKeyPos === examplesKeys.length - 1
+
     function nextExample(): void {
-      const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
-      exampleKeyPos + 1 === examplesKeys.length
-      ? chooseExample(examplesKeys[0])
-      : chooseExample(examplesKeys[exampleKeyPos + 1])
+      isLastExample
+        ? chooseExample(examplesKeys[0])
+        : chooseExample(examplesKeys[exampleKeyPos + 1])
     }
 
     function prevExample(): void {
-      const exampleKeyPos = examplesKeys.indexOf(choosenExampleKey)
-      exampleKeyPos === 0
-      ? chooseExample(examplesKeys[examplesKeys.length - 1])
-      : chooseExample(examplesKeys[exampleKeyPos - 1])
+      isFirstExample
+        ? chooseExample(examplesKeys[examplesKeys.length - 1])
+        : chooseExample(examplesKeys[exampleKeyPos - 1])
     }
 
     if (!isTablet) {
@@ -86,18 +88,32 @@ export const Example: SFC<PropsWithChildren<IProps>> =
     return (
       <div className={scss.container}>
         <Swipeable
-          className={scss.example}
+          className={`${scss.example} ${isCodeOpened ? scss['code-opened'] : ''}`}
           onSwipedLeft={nextExample}
           onSwipedRight={prevExample}
         >
-          <span className={scss.title}>{texts.title}</span>
-          <p className={scss.description}>{texts.description}</p>
+          <div className={scss['header-container']}>
+            <button
+              className={`${scss.arrow} mdi mdi-chevron-left`}
+              onClick={prevExample}
+              disabled={isFirstExample}
+            />
+            <div className={scss['title-container']}>
+              <span className={scss.title}>{texts.title}</span>
+              <p className={scss.description}>{texts.description}</p>
+            </div>
+            <button
+              className={`${scss.arrow} mdi mdi-chevron-right`}
+              onClick={nextExample}
+              disabled={isLastExample}
+            />
+          </div>
           <div className={scss['children-container']}>
             {children}
           </div>
         </Swipeable>
         <div
-          className={`${scss['code-container']} ${isOpen ? scss.opened : ''}`}
+          className={`${scss['code-container']} ${isCodeOpened ? scss.opened : ''}`}
           onClick={showCode}
         >
           <Swipeable
@@ -105,7 +121,6 @@ export const Example: SFC<PropsWithChildren<IProps>> =
             onSwipedUp={showCode}
             onSwipedDown={hideCode}
           >
-            <span className={`${scss.icon} mdi mdi-chevron-up`} />
             <span className={scss.label}>{codeLabel}</span>
             <div className={scss['bottom-line']} />
           </Swipeable>

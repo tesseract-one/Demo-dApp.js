@@ -48,7 +48,7 @@ async function connectToNetworks(networks: T.NetworksInfo): Promise<[T.Connectio
     const web3Array = await Promise.all(web3Promises)
 
     const workingNet = web3Array.find(net => net[1] !== undefined)
-    if (!workingNet) return;
+    if (!workingNet) return [{}, []]
 
     const accounts = (await workingNet[1].eth.getAccounts()).map(pubKey => ({pubKey}))
 
@@ -61,13 +61,16 @@ async function connectToNetworks(networks: T.NetworksInfo): Promise<[T.Connectio
 }
 
 const Index: SFC<never> = () => {
-  const [web3Data, setWeb3Data] = useState<Pick<T.AppContextType, 'connections' | 'accounts' | 'accountIndex' | 'activeNetwork'>>({
+  const [web3Data, setWeb3Data] = useState<Pick<T.AppContextType, 'initialized' | 'connections' | 'accounts' | 'accountIndex' | 'activeNetwork'>>({
+    initialized: false,
     connections: {},
     accounts: []
   })
   const [isTablet, setIsTablet] = useState<boolean | null>(null)
   const [ethUsdRate, setEthUsdRate] = useState<number | undefined>()
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.ExampleName>('showBalance')
+  const [isCodeOpened, setIsCodeOpened] = useState<boolean>(false)
+  
   const router = useRouter()
 
   const setBalance = useCallback((index: number, balance: number) => {
@@ -80,7 +83,12 @@ const Index: SFC<never> = () => {
     setEthUsdRate(rate)
   }, [])
 
-  useEffect(() => { setIsTablet(window.innerWidth < 1024) }, [])
+  const updateIsTablet = () => setIsTablet(window.innerWidth < 1024)
+  
+  useEffect(() => { 
+    updateIsTablet()
+    window.addEventListener('resize', updateIsTablet)
+  }, [])
 
   useEffect(() => { loadNetworks() }, [texts.networks])
 
@@ -98,6 +106,7 @@ const Index: SFC<never> = () => {
       .find(([, web3]) => web3 !== undefined)
 
     setWeb3Data({
+      initialized: true,
       connections, accounts,
       accountIndex: accounts.length >= 0 ? 0 : undefined,
       activeNetwork: connection ? connection[0] : undefined
@@ -122,7 +131,7 @@ const Index: SFC<never> = () => {
     </Head>
   )
 
-  if (process.browser && Object.keys(web3Data.connections).length == 0 || !process.browser) {
+  if (process.browser && !web3Data.initialized || !process.browser) {
     return (<>
       {head}
       <div className={scss.loader}>
@@ -136,8 +145,8 @@ const Index: SFC<never> = () => {
 
   return (<>
     {head}
-    <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate}}>
-      <div className={scss.container}>
+    <T.AppContext.Provider value={{...web3Data, isTablet, ethUsdRate, setBalance, setEthUsdRate: setRate, isCodeOpened, setIsCodeOpened }}>
+      <div className={`${scss.container} ${isCodeOpened ? scss['code-opened'] : ''}`}>
         <C.NotificationPopupService>
           <div className={scss['left-side']}>
             <C.MarketingBar
@@ -165,7 +174,7 @@ const Index: SFC<never> = () => {
               </C.Example>
             </C.Content>
           </div>
-          <div className={scss['right-side']}>
+          <div className={`${scss['right-side']}  ${isCodeOpened ? scss['code-opened'] : ''}`}>
             <C.Navigation
               title={texts.example.title}
               slider={

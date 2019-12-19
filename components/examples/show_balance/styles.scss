@@ -301,3 +301,15 @@ $mbBalance: rgba(#f4f6fc, 0.32);
     }
   }
 }
+
+@media (max-width: $mScreenSmall) {
+  .container {
+    .balance-container {
+      .balance-eth {
+        .logo-container {
+          display: none;
+        }
+      }
+    }
+  }
+}

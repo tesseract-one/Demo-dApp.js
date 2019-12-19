@@ -10,6 +10,7 @@ import ZeenusIcon from '../../../assets/images/zeenus-icon.svg'
 import tokensAbi from '../../../assets/free_tokens_abi.json'
 import scss from './styles.scss'
 import { notification } from '../../../assets/texts.json'
+import numeral from 'numeral'
 
 interface IProps {
   title: string
@@ -76,7 +77,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
   }
 
   async function getToken(tokenName: FreeTokenType, address: string): Promise<void> {
-    if (updating[tokenName]) return;
+    if (updating[tokenName] || !account) return;
     const tx = {
       from: account.pubKey,
       to: address,
@@ -102,6 +103,10 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
     } finally {
       setUpdating(updating => ({ ...updating, [tokenName]: false }))
     }
+  }
+
+  function formatBalance(balance: number): string {
+    return numeral(balance).format('0a')
   }
 
   if (!isTablet) {
@@ -149,7 +154,7 @@ export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
               {icons[key]}
               <span className={scss['logo-symb']}>{val.logo}</span>
             </div>
-            <span className={scss.title}>{`${balance ? balance[key] : ''} ${val.title}`}</span>
+            <span className={scss.title}>{`${balance ? formatBalance(balance[key]) : ''} ${val.title}`}</span>
           </div>
           {updating[key] ? (<div className={scss['progress-container']}>
             <span className={`mdi mdi-refresh spinning ${scss.progress}`}></span>
