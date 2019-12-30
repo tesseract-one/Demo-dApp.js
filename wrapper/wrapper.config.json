@@ -1,5 +1,6 @@
 {
   "name": "TesseractDemo",
+  "outputDir": "./ios",
   "template": {
     "resources": {
       "appIcon": "./icon.png",
