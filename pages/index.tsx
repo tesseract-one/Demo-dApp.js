@@ -70,6 +70,7 @@ const Index: SFC<never> = () => {
   const [ethUsdRate, setEthUsdRate] = useState<number | undefined>()
   const [choosenExampleKey, setChoosenExampleKey] = useState<T.ExampleName>('showBalance')
   const [isCodeOpened, setIsCodeOpened] = useState<boolean>(false)
+  const [isLogined, setIsLogined] = useState<boolean>(false)
   
   const router = useRouter()
 
@@ -90,7 +91,15 @@ const Index: SFC<never> = () => {
     window.addEventListener('resize', updateIsTablet)
   }, [])
 
-  useEffect(() => { loadNetworks() }, [texts.networks])
+  useEffect(() => {
+    if (isLogined) {
+      loadNetworks()
+    }
+  }, [isLogined, texts.networks])
+
+  function login() {
+    setIsLogined(true)
+  }
 
   function changeNetwork(network: T.NetworkType): void {
     setWeb3Data(data => ({
@@ -130,6 +139,22 @@ const Index: SFC<never> = () => {
       <meta property="og:image:secure_url" content={`https://${HOST}/og_image.png`} />
     </Head>
   )
+
+  if (!isLogined) {
+    return (<>
+      {head}
+      <div className={scss.loader}>
+        <img className={scss.logo} src="/favicon.png"></img>
+        <div className={scss["loader-text-container"]}>
+          <button
+            className={scss.btn}
+            onClick={login}>
+            Login
+          </button>
+        </div>
+      </div>
+    </>)
+  }
 
   if (process.browser && !web3Data.initialized || !process.browser) {
     return (<>
