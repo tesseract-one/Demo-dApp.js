@@ -1,5 +1,5 @@
 {
-  "name": "Tesseract Demo",
+  "name": "Demo App",
   "outputDir": "./ios",
   "template": {
     "resources": {
