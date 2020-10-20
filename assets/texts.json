@@ -22,7 +22,7 @@
         "url": "https://www.linkedin.com/company/tesseract-one/"
       },
       {
-        "icon": "github-circle",
+        "icon": "github",
         "url": "https://github.com/tesseract-one"
       } 
     ],
@@ -193,7 +193,7 @@
     "icon": "copyright",
     "text": {
       "head": "Made by ",
-      "tail": "2019 All rights reserved."
+      "tail": "2020 All rights reserved."
     },
     "link": {
       "title": "Tesseract Systems, Inc.",
