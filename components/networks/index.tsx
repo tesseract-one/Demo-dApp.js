@@ -1,6 +1,6 @@
-import React, { SFC, useState, useContext } from 'react'
+import React, { FC, useState, useContext } from 'react'
 import { NetworksInfo, NetworkType, Connections } from '../../types'
-import scss from './styles.scss'
+import scss from './networks.module.scss'
 import { AppContext } from '../../types'
 import NetworkIcon from '../../assets/images/network-icon.svg'
 import NetworkIconError from '../../assets/images/network-icon-error.svg'
@@ -12,7 +12,7 @@ type Props = {
   changeNetwork: (network: NetworkType) => void
 }
 
-export const Networks: SFC<Props> =
+export const Networks: FC<Props> =
   ({ connections, networks, activeNetwork, changeNetwork }) => {
     const { isTablet } = useContext(AppContext)
     const [isOpen, setIsOpen] = useState<boolean>(false)

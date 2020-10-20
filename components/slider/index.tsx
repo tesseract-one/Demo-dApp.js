@@ -1,7 +1,7 @@
-import React, { SFC, useState, useRef } from 'react'
+import React, { FC, useState, useRef } from 'react'
 import { Example } from './example'
 import { ExampleName, ExampleText } from '../../types'
-import scss from './styles.scss'
+import scss from './slider.module.scss'
 
 type Props = {
   choosenExampleKey: string
@@ -24,7 +24,7 @@ type State = {
   pos: Pos
 }
 
-export const Slider: SFC<Props> = ({ choosenExampleKey, examples, chooseExample }) => {
+export const Slider: FC<Props> = ({ choosenExampleKey, examples, chooseExample }) => {
   const TIME_DIFF = 200
   const PASSIVE_SCALE = 0.9
   

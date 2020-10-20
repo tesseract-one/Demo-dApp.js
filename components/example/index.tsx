@@ -1,9 +1,8 @@
-import React, { SFC, PropsWithChildren, useContext } from 'react'
+import React, { FC, PropsWithChildren, useContext } from 'react'
 import { Swipeable } from 'react-swipeable'
 import HL from 'react-highlight/lib/optimized'
 import { HighlightComponent, ExampleName } from '../../types'
-import 'highlight.js/scss/vs.scss?raw'
-import scss from './styles.scss'
+import scss from './example.module.scss'
 import { AppContext } from '../../types'
 
 const Highlight = HL as HighlightComponent
@@ -29,7 +28,7 @@ interface IProps {
   texts?: ITexts
 }
 
-export const Example: SFC<PropsWithChildren<IProps>> = 
+export const Example: FC<PropsWithChildren<IProps>> = 
   ({ code, copyIcon, codeLabel, goGithub, choosenExampleKey, examplesKeys, chooseExample, children, texts }) => {
     const { isTablet, isCodeOpened, setIsCodeOpened } = useContext(AppContext)
 

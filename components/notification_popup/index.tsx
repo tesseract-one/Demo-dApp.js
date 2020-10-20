@@ -1,7 +1,7 @@
-import React, { SFC, useState, ReactElement } from 'react'
-import scss from './styles.scss'
+import React, { FC, useState, ReactElement } from 'react'
+import scss from './notification_popup.module.scss'
 
-const NotificationPopup: SFC<NotificationPopupData> =
+const NotificationPopup: FC<NotificationPopupData> =
   ({ emoji, title, description }) => (
     <div className={scss.wrapper}>
       <div className={scss.container}>
@@ -26,7 +26,7 @@ export type NotificationContextType = {
 
 export const NotificationContext = React.createContext<NotificationContextType>({})
 
-export const NotificationPopupService: SFC = ({children}) => {
+export const NotificationPopupService: FC = ({children}) => {
   const [popup, setPopup] = useState<ReactElement<NotificationPopupData> | undefined>()
 
   function showPopup(data: NotificationPopupData): void {

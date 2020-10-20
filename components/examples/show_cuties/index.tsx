@@ -1,10 +1,10 @@
-import React, { SFC, useState, useContext, useEffect } from 'react'
+import React, { FC, useState, useContext, useEffect } from 'react'
 import { AbiItem } from 'web3-utils'
 import { AppContext } from '../../../types'
 import abi from '../../../assets/blockchain_cuties_abi.json'
 import BlockchainCutiesBanner from '../../../assets/images/blockchain-cuties-banner.jpg'
 import BlockchainCutiesLogo from '../../../assets/images/blockchain-cuties-logo.png'
-import scss from './styles.scss'
+import scss from './show_cuties.module.scss'
 
 interface IProps {
   address: string
@@ -20,7 +20,7 @@ interface IProps {
   refreshIcon: string
 }
 
-export const ShowCuties: SFC<IProps> =
+export const ShowCuties: FC<IProps> =
   ({ address, mobileLabel, balance, token, refreshIcon }) => {
     const [cuties, setCuties] = useState<string | null>(null)
     const [updating, setUpdating] = useState<boolean>(false)

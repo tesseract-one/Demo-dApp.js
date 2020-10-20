@@ -1,5 +1,5 @@
-import React, { SFC } from 'react'
-import scss from './styles.scss'
+import React, { FC } from 'react'
+import scss from './slider_dots.module.scss'
 import { ExampleName } from '../../types'
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
   chooseExample: (exampleKey: ExampleName) => void
 }
 
-export const SliderDots: SFC<IProps> =
+export const SliderDots: FC<IProps> =
   ({ choosenExampleKey, chooseExample, examplesKeys }) => {
     function changeExample(exampleKey: ExampleName): void {
       chooseExample(exampleKey)
