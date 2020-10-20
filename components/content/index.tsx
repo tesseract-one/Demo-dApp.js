@@ -1,5 +1,5 @@
-import React, { SFC, PropsWithChildren, useContext } from 'react'
-import scss from './styles.scss'
+import React, { FC, PropsWithChildren, useContext } from 'react'
+import scss from './content.module.scss'
 import { AppContext } from '../../types'
 import Logo from '../../assets/images/logo.svg'
 
@@ -15,7 +15,7 @@ type Props = {
   }
 }
 
-export const Content: SFC<PropsWithChildren<Props>> = 
+export const Content: FC<PropsWithChildren<Props>> = 
   ({ title, backToSite, children}) => {
     const { isTablet } = useContext(AppContext)
 

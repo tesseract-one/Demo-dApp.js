@@ -1,5 +1,5 @@
-import React, { SFC, useContext } from 'react'
-import scss from './styles.scss'
+import React, { FC, useContext } from 'react'
+import scss from './navigation.module.scss'
 import { AppContext } from '../../types'
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   networks: React.ReactNode
 }
 
-export const Navigation: SFC<IProps> =
+export const Navigation: FC<IProps> =
   ({ title, slider, sliderDots, networks }) => {
     const { isTablet } = useContext(AppContext)
 

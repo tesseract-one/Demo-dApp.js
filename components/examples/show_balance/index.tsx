@@ -1,9 +1,9 @@
-import React, { SFC, useState, useContext, useEffect } from 'react'
+import React, { FC, useState, useContext, useEffect } from 'react'
 import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
 import EthereumLogoMobile from '../../../assets/images/ethereum-logo-mobile.svg'
 import ShowBalanceImg from '../../../assets/images/show-balance-mobile.jpg'
-import scss from './styles.scss'
+import scss from './show_balance.module.scss'
 
 type Props = {
   title: string
@@ -21,7 +21,7 @@ function roundBalance(isTablet: boolean, balance: number): number {
   return Math.round(balance * round) / round
 }
 
-export const ShowBalance: SFC<Props> =
+export const ShowBalance: FC<Props> =
   ({ title, label, currency, cryptoRateUrl, refreshIcon }) => {
     const context = useContext(AppContext)
 

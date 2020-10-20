@@ -1,4 +1,4 @@
-import React, { SFC, ReactElement, SVGAttributes, useContext, useState, useEffect } from 'react'
+import React, { FC, ReactElement, SVGAttributes, useContext, useState, useEffect } from 'react'
 import { AppContext, Web3 } from '../../../types'
 import { AbiItem } from 'web3-utils'
 import { FreeTokenType, NetworkType, FreeTokens } from '../../../types'
@@ -8,7 +8,7 @@ import XeenusIcon from '../../../assets/images/xeenus-icon.svg'
 import YeenusIcon from '../../../assets/images/yeenus-icon.svg'
 import ZeenusIcon from '../../../assets/images/zeenus-icon.svg'
 import tokensAbi from '../../../assets/free_tokens_abi.json'
-import scss from './styles.scss'
+import scss from './get_free_token.module.scss'
 import { notification } from '../../../assets/texts.json'
 import numeral from 'numeral'
 
@@ -44,7 +44,7 @@ async function getTokenBalance(
   return tokenBalanceTokens.div(Web3.utils.toBN(10).pow(decimals)).toNumber()
 }
 
-export const GetFreeToken: SFC<IProps> = ({ title, tokens }) => {
+export const GetFreeToken: FC<IProps> = ({ title, tokens }) => {
   const { connections, accounts, accountIndex, activeNetwork, isTablet } = useContext(AppContext)
   const { showPopup } = useContext(NotificationContext)
 

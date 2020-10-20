@@ -1,7 +1,7 @@
-import React, { SFC, ChangeEvent, useState, useContext } from 'react'
+import React, { FC, ChangeEvent, useState, useContext } from 'react'
 import { AppContext } from '../../../types'
 import EthereumLogo from '../../../assets/images/ethereum-logo.svg'
-import scss from './styles.scss'
+import scss from './send_ether.module.scss'
 import { NotificationContext } from '../../notification_popup'
 import { notification } from '../../../assets/texts.json'
 
@@ -19,7 +19,7 @@ interface IProps {
   btn: string
 }
 
-export const SendEther: SFC<IProps> =
+export const SendEther: FC<IProps> =
     ({ recipient, amount, btn }) => {
     const { connections, activeNetwork, accountIndex, accounts } = useContext(AppContext)
     const { showPopup } = useContext(NotificationContext)

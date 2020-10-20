@@ -1,6 +1,6 @@
-import React, { SFC } from 'react'
+import React, { FC } from 'react'
 import Logo from "../../assets/images/logo.svg"
-import scss from './styles.scss'
+import scss from './marketing_bar.module.scss'
 
 interface IProps {
   tesseractLink: string
@@ -21,7 +21,7 @@ interface IProps {
   }
 }
 
-export const MarketingBar: SFC<IProps> = 
+export const MarketingBar: FC<IProps> = 
   ({ tesseractLink, socials, copyright }) => (
     <div className={scss.container}>
       <a className={scss.logo} href={tesseractLink}>

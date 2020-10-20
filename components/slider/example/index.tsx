@@ -1,6 +1,6 @@
-import React, { SFC, forwardRef } from 'react'
+import React, { ForwardRefRenderFunction, forwardRef } from 'react'
 import { ExampleName, ExampleText } from '../../../types'
-import scss from './styles.scss'
+import scss from './example.module.scss'
 
 interface IProps {
   example: [ExampleName, ExampleText]
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 
-const Component: SFC<IProps> = 
+const Component: ForwardRefRenderFunction<HTMLLIElement, IProps> = 
   ({ example, choosenExampleKey, chooseExample }, ref) => {
     function changeExample(): void {
       chooseExample(example[0])

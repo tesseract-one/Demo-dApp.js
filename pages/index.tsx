@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect, useCallback } from 'react'
+import React, { FC, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { Tesseract } from '@tesseractjs/ethereum-web3'
 import Head from 'next/head'
@@ -9,10 +9,7 @@ import showBalanceTxt from '../assets/code/show_balance.txt'
 import sendEtherTxt from '../assets/code/send_ethereum.txt'
 import showCutiesTxt from '../assets/code/show_cuties.txt'
 import getTokenTxt from '../assets/code/get_free_token.txt'
-import 'roboto-fontface/css/roboto/sass/roboto-fontface.scss?raw'
-import '@mdi/font/scss/materialdesignicons.scss?raw'
-import '../assets/styles/global.scss?raw'
-import scss from './styles.scss'
+import scss from './index.module.scss'
 
 const examples: T.Examples = {
   showBalance: {
@@ -60,7 +57,7 @@ async function connectToNetworks(networks: T.NetworksInfo): Promise<[T.Connectio
     return [connections, accounts]
 }
 
-const Index: SFC<never> = () => {
+const Index: FC<never> = () => {
   const [web3Data, setWeb3Data] = useState<Pick<T.AppContextType, 'initialized' | 'connections' | 'accounts' | 'accountIndex' | 'activeNetwork'>>({
     initialized: false,
     connections: {},
@@ -122,7 +119,8 @@ const Index: SFC<never> = () => {
     })
   }
 
-  const HOST = /^(http[s]?):\/\/(.+)$/.exec(process.env.BASE_URL)[2]
+  const baseUrl = process.env.BASE_URL || "http://localhost"
+  const HOST = /^(http[s]?):\/\/(.+)$/.exec(baseUrl)[2]
 
   const head = (
     <Head>
