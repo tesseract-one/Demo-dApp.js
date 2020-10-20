@@ -18,7 +18,17 @@
 	"rules": {
 		"react/prop-types": 0,
 		"no-empty-function": "off",
-		"@typescript-eslint/interface-name-prefix": [2, "always"],
+		"@typescript-eslint/naming-convention": [
+			"warn",
+			{
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"custom": {
+					"regex": "^I[A-Z]",
+					"match": true
+				}
+			}
+		],
 		"@typescript-eslint/member-delimiter-style": [2, {
 			"multiline": {
 				"delimiter": "none",
