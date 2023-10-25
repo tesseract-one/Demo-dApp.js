@@ -15,7 +15,7 @@
     "@tesseractjs/ethereum-web3": "^0.1.2",
     "@types/numeral": "^0.0.28",
     "file-loader": "^6.1.1",
-    "next": "9.5.5",
+    "next": "13.5.0",
     "next-fonts": "^1.4.0",
     "numeral": "^2.0.6",
     "raw-loader": "^4.0.2",
